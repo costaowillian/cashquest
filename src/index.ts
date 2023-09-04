@@ -6,7 +6,7 @@ import { MongoClient } from "./database/mongo";
 
 const main = async () => {
   config();
-  
+
   const app = express();
 
   await MongoClient.connect();
