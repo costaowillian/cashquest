@@ -5,11 +5,11 @@ export class GetUserController implements IGetUsersController {
 
   async handle() {
     try {
-      const users = await this.getUserRepository.getUsers();
+      const user = await this.getUserRepository.getUsers();
 
       return {
         statusCode: 200,
-        body: users
+        body: user
       };
     } catch (error) {
       return {

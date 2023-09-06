@@ -5,16 +5,16 @@ import {
 import { MongoClient } from "../../../database/mongo";
 import { User } from "../../../models/user";
 
-export class MongoCreateUser implements ICreateUserRepository {
+export class MongoCreateUserReporitory implements ICreateUserRepository {
   async createUser(params: CreateUserParams): Promise<User> {
     //create user
     const { insertedId } = await MongoClient.db
-      .collection("user")
+      .collection("users")
       .insertOne(params);
 
     //get the created user
     const user = await MongoClient.db
-      .collection<Omit<User, "id">>("user")
+      .collection<Omit<User, "id">>("users")
       .findOne({ _id: insertedId });
 
     //if user is not created show an error

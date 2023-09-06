@@ -5,10 +5,7 @@ export const MongoClient = {
   db: undefined as unknown as Db,
 
   async connect(): Promise<void> {
-    const username = process.env.MONGODB_USERNAME;
-    const password = process.env.MONGODB_PASSWORD;
-
-    const url = `mongodb+srv://${username}:${password}@willian.woo9o7w.mongodb.net/?retryWrites=true&w=majority`;
+    const url = process.env.MONGODB_URL || "";
 
     const client = new Mongo(url);
     const db = client.db("users-db");
