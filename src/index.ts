@@ -20,7 +20,7 @@ const main = async () => {
     const getUserController = new GetUserController(mongoGetUserRepository);
 
     const { body, statusCode } = await getUserController.handle();
-    res.send(body).status(statusCode);
+    res.status(statusCode).send(body);
   });
 
   app.post("/create-user", async (req, res) => {
@@ -35,7 +35,7 @@ const main = async () => {
       body: req.body
     });
 
-    res.send(body).status(statusCode);
+    res.status(statusCode).send(body);
   });
 
   const port = process.env.PORT || 8000;
