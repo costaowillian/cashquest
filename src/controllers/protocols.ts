@@ -1,7 +1,7 @@
 import { HttpRequest } from "./protocols";
 export interface HttpResponse<T> {
   statusCode: number;
-  body: T | string;
+  body: T;
 }
 
 export interface HttpRequest<B> {
