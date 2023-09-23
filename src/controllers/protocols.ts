@@ -1,4 +1,3 @@
-import { HttpRequest } from "./protocols";
 export interface HttpResponse<T> {
   statusCode: httpStatusCode;
   body: T;

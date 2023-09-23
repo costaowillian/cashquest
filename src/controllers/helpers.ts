@@ -21,7 +21,7 @@ export const badRequest = (message: string): HttpResponse<string> => {
   };
 };
 
-export const serverError = (code: string):HttpResponse<string> {
+export const serverError = (code: string):HttpResponse<string> => {
     return {
         statusCode: httpStatusCode.SERVER_ERROR,
         body: "something went wrong. internal code: " + code
