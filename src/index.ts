@@ -9,6 +9,7 @@ import { MongoUpdateUserRepository } from "./respositories/update-user/mongo-upd
 import { UpdateUserController } from "./controllers/update-user/update-user";
 import { MongoDeleteUserRepository } from "./respositories/delete-user/mongo-delete-user";
 import { DeleteUserController } from "./controllers/delete-user/delete-user";
+import { chectToken } from "./middleware/checkToken";
 
 const main = async () => {
   config();
@@ -19,7 +20,7 @@ const main = async () => {
 
   await MongoClient.connect();
 
-  app.get("/users", async (req, res) => {
+  app.get("/users", chectToken, async (req, res) => {
     const mongoGetUserRepository = new MongoGetUserRepository();
     const getUserController = new GetUserController(mongoGetUserRepository);
 
@@ -41,7 +42,7 @@ const main = async () => {
     res.status(statusCode).send(body);
   });
 
-  app.patch("/users/update/:id", async (req, res) => {
+  app.patch("/users/update/:id", chectToken, async (req, res) => {
     const mongoUpdateUserRepository = new MongoUpdateUserRepository();
 
     const updateUserController = new UpdateUserController(
@@ -56,7 +57,7 @@ const main = async () => {
     res.status(statusCode).send(body);
   });
 
-  app.delete("/users/delete/:id", async (req, res) => {
+  app.delete("/users/delete/:id", chectToken, async (req, res) => {
     const mongoDeleteUserRepository = new MongoDeleteUserRepository();
 
     const deleteUserController = new DeleteUserController(

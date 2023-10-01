@@ -5,7 +5,7 @@ export const MongoClient = {
   db: undefined as unknown as Db,
 
   async connect(): Promise<void> {
-    const url = process.env.MONGODB_URL || "";
+    const url = process.env.MONGODB_URL ?? "";
 
     const client = new Mongo(url);
     const db = client.db("users-db");
