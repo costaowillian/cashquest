@@ -32,7 +32,7 @@ export class CreateUserController implements Icontroller {
         return badRequest("E-mail is invalid");
       }
 
-      const userExists = this.getUserAuthRepository.getUsers(
+      const userExists = this.getUserAuthRepository.findByEmail(
         httpRequest.body!.email
       );
 

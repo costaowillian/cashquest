@@ -12,5 +12,5 @@ export interface ICreateUserRepository {
 }
 
 export interface IGetUsersAuthRepository {
-  getUsers(email: string): Promise<User[]>;
+  findByEmail(email: string): Promise<User | null>;
 }

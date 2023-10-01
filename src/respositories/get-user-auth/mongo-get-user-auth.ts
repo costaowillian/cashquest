@@ -4,11 +4,11 @@ import { User } from "../../models/user";
 import { MongoUser } from "../mongo-protocols";
 
 export class MongoGetUserAuthRepository implements IGetUsersAuthRepository {
-  async getUsers(email: string): Promise<User[]> {
+  async findByEmail(email: string): Promise<User | null> {
     const users = await MongoClient.db
       .collection<MongoUser>("users")
       .findOne({ email: email });
 
-    return users ? [{ ...users, id: users._id.toHexString() }] : [];
+    return users ? { ...users, id: users._id.toHexString() } : null;
   }
 }
