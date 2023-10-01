@@ -5,10 +5,12 @@ import { MongoUser } from "../mongo-protocols";
 
 export class MongoGetUserAuthRepository implements IGetUsersAuthRepository {
   async findByEmail(email: string): Promise<User | null> {
-    const users = await MongoClient.db
+    const user = await MongoClient.db
       .collection<MongoUser>("users")
       .findOne({ email: email });
 
-    return users ? { ...users, id: users._id.toHexString() } : null;
+    const { _id, ...rest } = user!;
+    
+    return user ? { id: _id.toHexString(), ...rest } : null;
   }
 }

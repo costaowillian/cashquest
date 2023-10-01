@@ -52,7 +52,13 @@ export class LoginUserController implements Icontroller {
         secret
       );
 
-      return ok<IToken>(token);
+      const response = {token: token, user: {
+        ...user,
+        password: undefined,
+        _id: undefined,
+      },};
+
+      return ok<IToken>(response);
     } catch (error) {
       console.log(error);
       return serverError("05");
