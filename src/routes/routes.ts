@@ -11,7 +11,7 @@ import { chectToken } from '../middleware/checkToken';
 
 const router = express.Router();
 
-router.get('/users', chectToken, async (req, res) => {
+router.get('/users', async (req, res) => {
     const mongoGetUserRepository = new MongoGetUserRepository();
     const getUserController = new GetUserController(mongoGetUserRepository);
 

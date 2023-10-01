@@ -10,3 +10,7 @@ export interface CreateUserParams {
 export interface ICreateUserRepository {
   createUser(params: CreateUserParams): Promise<User>;
 }
+
+export interface IGetUsersAuthRepository {
+  getUsers(email: string): Promise<User[]>;
+}
