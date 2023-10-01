@@ -1,6 +1,6 @@
 import * as jwt from "jsonwebtoken";
-import { serverError } from "../controllers/helpers";
 import { Request, Response, NextFunction } from "express";
+import { httpStatusCode } from "../controllers/protocols";
 
 export const chectToken = (
   req: Request,
@@ -10,7 +10,7 @@ export const chectToken = (
   const authHeader = req.headers["authorization"];
   const token = authHeader?.split(" ")[1];
 
-  if (!token) return res.status(401).json({ msg: "Acesso negado!" });
+  if (!token) return res.status(httpStatusCode.UNAUTHORIZED).json({ Error: "Access denied!" });
 
   try {
     const secret = process.env.SECRET ?? "";
@@ -19,6 +19,6 @@ export const chectToken = (
 
     next();
   } catch (err) {
-    return serverError("03");
+    res.status(httpStatusCode.BAD_REQUEST).json({ Error: "The Token is invalid!" });
   }
 };
