@@ -1,13 +1,18 @@
 import { HttpRequest, Icontroller } from "./../protocols";
 import validator from "validator";
+import bcrypt from "bcrypt";
 
 import { User } from "../../models/user";
 import { HttpResponse } from "../protocols";
 import { CreateUserParams, ICreateUserRepository } from "./protocols";
 import { badRequest, created, serverError } from "../helpers";
+import { MongoGetUserAuthRepository } from "../../respositories/get-user-auth/mongo-get-user-auth";
 
 export class CreateUserController implements Icontroller {
-  constructor(private readonly createUserRepository: ICreateUserRepository) {}
+  constructor(
+    private readonly createUserRepository: ICreateUserRepository,
+    private readonly getUserAuthRepository: MongoGetUserAuthRepository
+  ) {}
 
   async handle(
     httpRequest: HttpRequest<CreateUserParams>
@@ -26,6 +31,19 @@ export class CreateUserController implements Icontroller {
       if (!emailIsValid) {
         return badRequest("E-mail is invalid");
       }
+
+      const userExists = this.getUserAuthRepository.getUsers(
+        httpRequest.body!.email
+      );
+
+      if (await userExists) {
+        return badRequest("Please use another email!");
+      }
+
+      const salt = await bcrypt.genSalt(12);
+      const passwordHash = await bcrypt.hash(httpRequest.body!.password, salt);
+
+      httpRequest.body!.password = passwordHash;
 
       const user = await this.createUserRepository.createUser(
         httpRequest.body!
