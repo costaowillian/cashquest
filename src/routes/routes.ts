@@ -10,6 +10,8 @@ import { MongoUpdateUserRepository } from "../respositories/update-user/mongo-up
 import { MongoDeleteUserRepository } from "../respositories/delete-user/mongo-delete-user";
 import { chectToken } from "../middleware/checkToken";
 import { LoginUserController } from "../controllers/user-login/user-login";
+import { MongoGetSpendingRepository } from "../respositories/get-spending/mongo-get-spending";
+import { GetSpendingsController } from "../controllers/get-spending/get-spending";
 
 const router = express.Router();
 
@@ -22,7 +24,6 @@ router.get("/users", chectToken, async (req, res) => {
 });
 
 router.post("/auth/login", async (req, res) => {
-    console.log(req.body);
   const mongoGetUserAuthRepository = new MongoGetUserAuthRepository();
   const logiUserController = new LoginUserController(
     mongoGetUserAuthRepository
@@ -68,5 +69,12 @@ router.delete("/users/delete/:id", chectToken, async (req, res) => {
   });
   res.status(statusCode).send(body);
 });
+
+router.get("/spending/:id", chectToken,async (req, res) => {
+  const mongoGetSpendingRepository = new MongoGetSpendingRepository();
+  const getSpendingController = new GetSpendingsController(mongoGetSpendingRepository);
+  const{ body, statusCode } = await getSpendingController.handle({params: req.params});
+  res.status(statusCode).send(body);
+})
 
 export default router;
