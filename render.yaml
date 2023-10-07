@@ -1,0 +1,3 @@
+build:
+  - name: Install TypeScript
+    command: npm install -g typescriptgit 
