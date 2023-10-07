@@ -1,3 +1,4 @@
+import { created } from './../controllers/helpers';
 import { MongoGetUserAuthRepository } from "./../respositories/get-user-auth/mongo-get-user-auth";
 import express from "express";
 import { GetUserController } from "../controllers/get-user/get-users";
@@ -12,6 +13,8 @@ import { chectToken } from "../middleware/checkToken";
 import { LoginUserController } from "../controllers/user-login/user-login";
 import { MongoGetSpendingRepository } from "../respositories/get-spending/mongo-get-spending";
 import { GetSpendingsController } from "../controllers/get-spending/get-spending";
+import { MongoCreateSpendingRepository } from "../respositories/create-spending/mongo-create-spending";
+import { CreateSpendingController } from '../controllers/create-spending/create-spending';
 
 const router = express.Router();
 
@@ -74,6 +77,15 @@ router.get("/spending/:id", chectToken,async (req, res) => {
   const mongoGetSpendingRepository = new MongoGetSpendingRepository();
   const getSpendingController = new GetSpendingsController(mongoGetSpendingRepository);
   const{ body, statusCode } = await getSpendingController.handle({params: req.params});
+  res.status(statusCode).send(body);
+})
+
+router.post("/spending/create", chectToken, async (req, res) => {
+
+  console.log({router: req.body});
+  const mongoCreateSpendingRepository = new MongoCreateSpendingRepository();
+  const createSpendingController = new CreateSpendingController(mongoCreateSpendingRepository);
+  const{ body, statusCode } = await createSpendingController.handle({body: req.body});
   res.status(statusCode).send(body);
 })
 

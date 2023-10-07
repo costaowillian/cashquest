@@ -1,8 +1,9 @@
 export interface ISpending {
     id: string;
     userId: string;
-    description: string;
-    createdAt: Date;
-    value: number;
-    type: string;
+    category: string;
+    description?: string;
+    value: string;
+    attachment?: string;
+    createAt: Date;
 }
