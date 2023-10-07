@@ -45,12 +45,15 @@ export class CreateUserController implements Icontroller {
 
       httpRequest.body!.password = passwordHash;
 
+      console.log(httpRequest.body!);
+
       const user = await this.createUserRepository.createUser(
         httpRequest.body!,
       );
 
       return created<User>(user);
     } catch (error) {
+      console.log(error);
       return serverError("02");
     }
   }

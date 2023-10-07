@@ -9,8 +9,11 @@ export class MongoGetUserAuthRepository implements IGetUsersAuthRepository {
       .collection<MongoUser>("users")
       .findOne({ email: email });
 
-    const { _id, ...rest } = user!;
+    if(user) {
+      const { _id, ...rest } = user;
+      return { id: _id.toHexString(), ...rest };
+    }
     
-    return user ? { id: _id.toHexString(), ...rest } : null;
+    return null;
   }
 }

@@ -38,6 +38,7 @@ router.post("/auth/login", async (req, res) => {
 });
 
 router.post("/create-user", async (req, res) => {
+  console.log(req.body)
   const mongoGetUserAuthRepository = new MongoGetUserAuthRepository();
   const mongoCreateUserRepository = new MongoCreateUserReporitory();
   const createUserController = new CreateUserController(
