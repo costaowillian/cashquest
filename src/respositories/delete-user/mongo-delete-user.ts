@@ -11,7 +11,6 @@ export class MongoDeleteUserRepository implements IDeleteUserRepository {
       .collection<MongoUser>("users")
       .findOne({ _id: new ObjectId(id) });
     console.log(user);
-    console.log({ "id no mongo": id });
     if (!user) {
       throw new Error("User not found");
     }

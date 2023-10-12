@@ -9,7 +9,7 @@ export class GetUserController implements Icontroller {
   async handle(): Promise<HttpResponse<User[] | string>> {
     try {
       const user = await this.getUserRepository.getUsers();
-
+      
       return ok<User[]>(user);
     } catch (error) {
       return serverError("01");
