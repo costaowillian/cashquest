@@ -1,19 +1,21 @@
 import { ObjectId } from "mongodb";
-import { IGetSpendingRepository } from "../../controllers/get-spending/protocols";
+import { IGetSpedingRepository } from "../../controllers/get-spending/protocols";
 import { MongoClient } from "../../database/mongo";
 import { ISpending } from "../../models/spending";
 import { MongoSpending } from "../mongo-protocols";
 
-export class MongoGetSpendingRepository implements IGetSpendingRepository {
-  async getSpendingByUserId(userIdString: string): Promise<ISpending[]> {
+export class MongoGetSpendingRepository implements IGetSpedingRepository {
+  async getSpending(id: string): Promise<ISpending> {
     const spending = await MongoClient.db
-      .collection<MongoSpending>("spending")
-      .find({ _userId: new ObjectId(userIdString) })
-      .toArray();
+      .collection<MongoSpending>("spendings")
+      .findOne({ _id: new ObjectId(id) });
 
-    return spending.map(({ _id, ...rest }) => ({
-      ...rest,
-      id: _id.toHexString(),
-    }));
+    if(!spending) {
+        throw new Error("not found");
+    }
+
+    const { _id, ...rest } = spending;
+
+    return { id: _id.toHexString(), ...rest }
   }
 }

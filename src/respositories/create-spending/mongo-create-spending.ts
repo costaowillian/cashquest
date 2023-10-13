@@ -4,7 +4,7 @@ import { MongoSpending } from "../mongo-protocols";
 import {
   CreateSpendingParams,
   ICreateSpendingRepository
-} from "./../../controllers/create-spending/protocols";
+} from "../../controllers/create-spending/protocols";
 
 export class MongoCreateSpendingRepository
   implements ICreateSpendingRepository
