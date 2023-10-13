@@ -1,5 +1,5 @@
 import { ISpending } from './../../models/spending';
-import { ok, serverError } from "../helpers";
+import { badRequest, notFound, ok, serverError } from "../helpers";
 import { HttpRequest, HttpResponse, Icontroller } from "../protocols";
 import { IGetSpendingRepository } from './protocols';
 
@@ -9,11 +9,12 @@ export class GetSpendingController implements Icontroller {
         try{
             const spending = await this.getSpendingRepository.getSpending(httpRequest.params.id);
 
+            if(!spending){
+                return notFound("Spending not found");
+            }
             return ok<ISpending>(spending);
         } catch(error) {
-            console.log(error);
             return serverError("08");
         }
     }
-
 }

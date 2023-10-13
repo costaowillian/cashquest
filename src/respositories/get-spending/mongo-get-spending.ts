@@ -5,13 +5,13 @@ import { MongoSpending } from "../mongo-protocols";
 import { IGetSpendingRepository } from "../../controllers/get-spending/protocols";
 
 export class MongoGetSpendingRepository implements IGetSpendingRepository {
-  async getSpending(id: string): Promise<ISpending> {
+  async getSpending(id: string): Promise<ISpending|null> {
     const spending = await MongoClient.db
       .collection<MongoSpending>("spending")
       .findOne({ _id: new ObjectId(id) });
 
     if(!spending) {
-        throw new Error("not found");
+        return null
     }
 
     const { _id, ...rest } = spending;
