@@ -7,10 +7,11 @@ export class GetSpendingController implements Icontroller {
     constructor(private readonly getSpendingRepository: IGetSpendingRepository) {}
     async handle(httpRequest: HttpRequest<ISpending>): Promise<HttpResponse<ISpending | string>> {
         try{
-            const spending = await this.getSpendingRepository.getSpending(httpRequest.headers.id);
+            const spending = await this.getSpendingRepository.getSpending(httpRequest.params.id);
 
             return ok<ISpending>(spending);
         } catch(error) {
+            console.log(error);
             return serverError("08");
         }
     }

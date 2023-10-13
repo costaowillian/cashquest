@@ -98,7 +98,7 @@ router.post("/spending/create", chectToken, async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-router.get("/get-spending:id", chectToken, async (req, res) => {
+router.get("/get-spending/:id", chectToken, async (req, res) => {
   const mongoGetSpendingRepository = new MongoGetSpendingRepository();
   const getSpendingController = new GetSpendingController(mongoGetSpendingRepository);
   const { body, statusCode } = await getSpendingController.handle({
