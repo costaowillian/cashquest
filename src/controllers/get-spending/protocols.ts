@@ -1,5 +1,5 @@
 import { ISpending } from "../../models/spending";
 
-export interface IGetSpedingRepository {
+export interface IGetSpendingRepository {
     getSpending(id: string): Promise<ISpending>;
 }

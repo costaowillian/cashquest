@@ -1,6 +1,6 @@
 import { ISpending } from "../../models/spending";
 
-export interface IGetSpendingRepository {
+export interface IGetSpendingsRepository {
     getSpendingByUserId(userId: string): Promise<ISpending[]>;
 }
 

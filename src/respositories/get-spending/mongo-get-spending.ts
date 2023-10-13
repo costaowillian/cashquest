@@ -1,10 +1,10 @@
 import { ObjectId } from "mongodb";
-import { IGetSpedingRepository } from "../../controllers/get-spending/protocols";
 import { MongoClient } from "../../database/mongo";
 import { ISpending } from "../../models/spending";
 import { MongoSpending } from "../mongo-protocols";
+import { IGetSpendingRepository } from "../../controllers/get-spending/protocols";
 
-export class MongoGetSpendingRepository implements IGetSpedingRepository {
+export class MongoGetSpendingRepository implements IGetSpendingRepository {
   async getSpending(id: string): Promise<ISpending> {
     const spending = await MongoClient.db
       .collection<MongoSpending>("spendings")

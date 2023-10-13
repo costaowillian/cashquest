@@ -1,4 +1,3 @@
-import { created } from "./../controllers/helpers";
 import { MongoGetUserAuthRepository } from "./../respositories/get-user-auth/mongo-get-user-auth";
 import express from "express";
 import { GetUserController } from "../controllers/get-user/get-users";
@@ -15,6 +14,8 @@ import { MongoGetSpendingsRepository } from "../respositories/get-spendings/mong
 import { GetSpendingsController } from "../controllers/get-spendings/get-spendings";
 import { MongoCreateSpendingRepository } from "../respositories/create-spending/mongo-create-spending";
 import { CreateSpendingController } from "../controllers/create-spending/create-spending";
+import { MongoGetSpendingRepository } from "../respositories/get-spending/mongo-get-spending";
+import { GetSpendingController } from "../controllers/get-spending/get-spending";
 
 const router = express.Router();
 
@@ -74,12 +75,12 @@ router.delete("/users/delete/:id", chectToken, async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-router.get("/spending/:id", chectToken, async (req, res) => {
-  const MongoGetSpendingsRepository = new MongoGetSpendingsRepository();
-  const getSpendingController = new GetSpendingsController(
-    MongoGetSpendingsRepository
+router.get("/get-spendings/:id", chectToken, async (req, res) => {
+  const mongoGetSpendingsRepository = new MongoGetSpendingsRepository();
+  const getSpendingsController = new GetSpendingsController(
+    mongoGetSpendingsRepository
   );
-  const { body, statusCode } = await getSpendingController.handle({
+  const { body, statusCode } = await getSpendingsController.handle({
     params: req.params
   });
   res.status(statusCode).send(body);
@@ -96,5 +97,15 @@ router.post("/spending/create", chectToken, async (req, res) => {
   });
   res.status(statusCode).send(body);
 });
+
+router.get("/get-spending:id", chectToken, async (req, res) => {
+  const mongoGetSpendingRepository = new MongoGetSpendingRepository();
+  const getSpendingController = new GetSpendingController(mongoGetSpendingRepository);
+  const { body, statusCode } = await getSpendingController.handle({
+    params: req.params
+  });
+
+  res.status(statusCode).send(body);
+})
 
 export default router;

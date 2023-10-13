@@ -1,11 +1,11 @@
 import { ISpending } from "../../models/spending";
 import { ok, serverError } from "../helpers";
 import { HttpRequest, HttpResponse, Icontroller } from "../protocols";
-import { GetSpendingParams, IGetSpendingRepository } from "./protocols";
+import { GetSpendingParams, IGetSpendingsRepository } from "./protocols";
 
 export class GetSpendingsController implements Icontroller{
 
-    constructor(private readonly getSpendingsRepository: IGetSpendingRepository) {}
+    constructor(private readonly getSpendingsRepository: IGetSpendingsRepository) {}
 
     async handle(httpRequest: HttpRequest<GetSpendingParams>): Promise<HttpResponse<ISpending[] | string>> {
         try {
