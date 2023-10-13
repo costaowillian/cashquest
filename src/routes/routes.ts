@@ -16,6 +16,8 @@ import { MongoCreateSpendingRepository } from "../respositories/create-spending/
 import { CreateSpendingController } from "../controllers/create-spending/create-spending";
 import { MongoGetSpendingRepository } from "../respositories/get-spending/mongo-get-spending";
 import { GetSpendingController } from "../controllers/get-spending/get-spending";
+import { DeleteSpendingController } from "../controllers/delete-spending/delete-spending";
+import { MongoDeleteSpendingRepository } from "../respositories/delete-spending/mongo-delete-spending";
 
 const router = express.Router();
 
@@ -38,7 +40,7 @@ router.post("/auth/login", async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-router.post("/create-user", async (req, res) => {
+router.post("users/create-user", async (req, res) => {
   console.log(req.body);
   const mongoGetUserAuthRepository = new MongoGetUserAuthRepository();
   const mongoCreateUserRepository = new MongoCreateUserReporitory();
@@ -75,7 +77,7 @@ router.delete("/users/delete/:id", chectToken, async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-router.get("/get-spendings/:id", chectToken, async (req, res) => {
+router.get("/spendings/get-spendings/:id", chectToken, async (req, res) => {
   const mongoGetSpendingsRepository = new MongoGetSpendingsRepository();
   const getSpendingsController = new GetSpendingsController(
     mongoGetSpendingsRepository
@@ -86,7 +88,7 @@ router.get("/get-spendings/:id", chectToken, async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-router.post("/spending/create", chectToken, async (req, res) => {
+router.post("/spendings/create", chectToken, async (req, res) => {
   console.log({ router: req.body });
   const mongoCreateSpendingRepository = new MongoCreateSpendingRepository();
   const createSpendingController = new CreateSpendingController(
@@ -98,12 +100,22 @@ router.post("/spending/create", chectToken, async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-router.get("/get-spending/:id", chectToken, async (req, res) => {
+router.get("spendings/get-spending/:id", chectToken, async (req, res) => {
   const mongoGetSpendingRepository = new MongoGetSpendingRepository();
   const getSpendingController = new GetSpendingController(mongoGetSpendingRepository);
   const { body, statusCode } = await getSpendingController.handle({
     params: req.params
   });
+
+  res.status(statusCode).send(body);
+})
+
+router.delete("spendings/delete/:id", chectToken, async (req, res) =>{
+  const mongoDeleteSpendingRepository = new MongoDeleteSpendingRepository();
+  const deleteSpendingController = new DeleteSpendingController(mongoDeleteSpendingRepository);
+  const { body, statusCode } = await deleteSpendingController.handle({
+    params: req.params
+  })
 
   res.status(statusCode).send(body);
 })

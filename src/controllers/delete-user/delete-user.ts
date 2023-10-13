@@ -11,7 +11,6 @@ export class DeleteUserController implements Icontroller {
     try {
       const id = httpRequest?.params?.id;
 
-      console.log(id);
       if (!id) {
         return badRequest("Missing user id");
       }
