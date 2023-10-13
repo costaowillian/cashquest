@@ -7,7 +7,7 @@ import { IGetSpendingRepository } from "../../controllers/get-spending/protocols
 export class MongoGetSpendingRepository implements IGetSpendingRepository {
   async getSpending(id: string): Promise<ISpending> {
     const spending = await MongoClient.db
-      .collection<MongoSpending>("spendings")
+      .collection<MongoSpending>("spending")
       .findOne({ _id: new ObjectId(id) });
 
     if(!spending) {
