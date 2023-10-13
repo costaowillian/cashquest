@@ -18,6 +18,8 @@ import { MongoGetSpendingRepository } from "../respositories/get-spending/mongo-
 import { GetSpendingController } from "../controllers/get-spending/get-spending";
 import { DeleteSpendingController } from "../controllers/delete-spending/delete-spending";
 import { MongoDeleteSpendingRepository } from "../respositories/delete-spending/mongo-delete-spending";
+import { MongoUpdateSpendingRepository } from "../respositories/update-spending/mongo-update-spending";
+import { UpdateSpendingController } from "../controllers/update-spending/update-spending";
 
 const router = express.Router();
 
@@ -117,6 +119,17 @@ router.delete("spendings/delete/:id", chectToken, async (req, res) =>{
     params: req.params
   })
 
+  res.status(statusCode).send(body);
+})
+
+
+router.patch("/spendings/update/:id", chectToken, async (req, res) => {
+  const mongoUpdateSpendingRepository = new MongoUpdateSpendingRepository();
+  const updateSpendingController = new UpdateSpendingController(mongoUpdateSpendingRepository);
+  const { body, statusCode } = await updateSpendingController.handle({
+    body: req.body,
+    params: req.params
+  })
   res.status(statusCode).send(body);
 })
 
