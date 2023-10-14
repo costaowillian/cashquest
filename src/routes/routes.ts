@@ -20,6 +20,8 @@ import { DeleteSpendingController } from "../controllers/delete-spending/delete-
 import { MongoDeleteSpendingRepository } from "../respositories/delete-spending/mongo-delete-spending";
 import { MongoUpdateSpendingRepository } from "../respositories/update-spending/mongo-update-spending";
 import { UpdateSpendingController } from "../controllers/update-spending/update-spending";
+import { MongoGetBasePetsRepository } from "../respositories/base-pets/get-base-pets/mongo-get-base-pets";
+import { GetBasePetsController } from "../controllers/base-pets/get-base-pets/get-base-pets";
 
 const router = express.Router();
 
@@ -104,32 +106,47 @@ router.post("/spendings/create", chectToken, async (req, res) => {
 
 router.get("/spendings/get-spending/:id", chectToken, async (req, res) => {
   const mongoGetSpendingRepository = new MongoGetSpendingRepository();
-  const getSpendingController = new GetSpendingController(mongoGetSpendingRepository);
+  const getSpendingController = new GetSpendingController(
+    mongoGetSpendingRepository
+  );
   const { body, statusCode } = await getSpendingController.handle({
     params: req.params
   });
 
   res.status(statusCode).send(body);
-})
+});
 
-router.delete("/spendings/delete/:id", chectToken, async (req, res) =>{
+router.delete("/spendings/delete/:id", chectToken, async (req, res) => {
   const mongoDeleteSpendingRepository = new MongoDeleteSpendingRepository();
-  const deleteSpendingController = new DeleteSpendingController(mongoDeleteSpendingRepository);
+  const deleteSpendingController = new DeleteSpendingController(
+    mongoDeleteSpendingRepository
+  );
   const { body, statusCode } = await deleteSpendingController.handle({
     params: req.params
-  })
+  });
 
   res.status(statusCode).send(body);
-})
+});
 
 router.patch("/spendings/update/:id", chectToken, async (req, res) => {
   const mongoUpdateSpendingRepository = new MongoUpdateSpendingRepository();
-  const updateSpendingController = new UpdateSpendingController(mongoUpdateSpendingRepository);
+  const updateSpendingController = new UpdateSpendingController(
+    mongoUpdateSpendingRepository
+  );
   const { body, statusCode } = await updateSpendingController.handle({
     body: req.body,
     params: req.params
-  })
+  });
   res.status(statusCode).send(body);
-})
+});
+
+router.get("pets/get-all-base-pets", chectToken, async (req, res) => {
+  const mongoGetBasePetsRepository = new MongoGetBasePetsRepository();
+  const getBasePetsController = new GetBasePetsController(
+    mongoGetBasePetsRepository
+  );
+  const { body, statusCode } = await getBasePetsController.handle();
+  res.status(statusCode).send(body);
+});
 
 export default router;
