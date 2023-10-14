@@ -1,5 +1,3 @@
-import { error } from 'console';
-import { ISpending } from './../../models/spending';
 import { ISpending } from "../../models/spending";
 import { badRequest, ok, serverError } from "../helpers";
 import { HttpRequest, HttpResponse, Icontroller } from "../protocols";

@@ -102,7 +102,7 @@ router.post("/spendings/create", chectToken, async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-router.get("spendings/get-spending/:id", chectToken, async (req, res) => {
+router.get("/spendings/get-spending/:id", chectToken, async (req, res) => {
   const mongoGetSpendingRepository = new MongoGetSpendingRepository();
   const getSpendingController = new GetSpendingController(mongoGetSpendingRepository);
   const { body, statusCode } = await getSpendingController.handle({
@@ -112,7 +112,7 @@ router.get("spendings/get-spending/:id", chectToken, async (req, res) => {
   res.status(statusCode).send(body);
 })
 
-router.delete("spendings/delete/:id", chectToken, async (req, res) =>{
+router.delete("/spendings/delete/:id", chectToken, async (req, res) =>{
   const mongoDeleteSpendingRepository = new MongoDeleteSpendingRepository();
   const deleteSpendingController = new DeleteSpendingController(mongoDeleteSpendingRepository);
   const { body, statusCode } = await deleteSpendingController.handle({
@@ -121,7 +121,6 @@ router.delete("spendings/delete/:id", chectToken, async (req, res) =>{
 
   res.status(statusCode).send(body);
 })
-
 
 router.patch("/spendings/update/:id", chectToken, async (req, res) => {
   const mongoUpdateSpendingRepository = new MongoUpdateSpendingRepository();

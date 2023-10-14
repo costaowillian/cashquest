@@ -1,4 +1,4 @@
-export interface ISpending {
+export interface IRevenue {
     id: string;
     userId: string;
     category: string;

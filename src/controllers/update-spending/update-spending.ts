@@ -6,13 +6,12 @@ import { IUpdateSpendingRepository, UpdateSpendingParams } from "./protocols";
 export class UpdateSpendingController implements Icontroller {
 
     constructor(private readonly updateSpendingRepository: IUpdateSpendingRepository) {
-
     }
 
     async handle(httpRequest: HttpRequest<UpdateSpendingParams>): Promise<HttpResponse<ISpending| string>> {
         try {
             const id = httpRequest?.params?.id;
-            const body = httpRequest?.params?.body;
+            const body = httpRequest?.body;
 
             if(!body) {
                 return badRequest("Missing fields");

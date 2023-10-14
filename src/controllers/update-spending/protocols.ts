@@ -5,6 +5,8 @@ export interface UpdateSpendingParams {
     description?: string;
     value?: string;
     attachment?: string;
+    isFixed?: boolean;
+    comments?: string;
 }
 
 export interface IUpdateSpendingRepository {
