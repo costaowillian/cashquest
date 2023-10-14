@@ -1,25 +1,34 @@
 import { ISpending } from "../../models/spending";
-import { ok, serverError } from "../helpers";
+import { badRequest, ok, serverError } from "../helpers";
 import { HttpRequest, HttpResponse, Icontroller } from "../protocols";
 import { GetSpendingParams, IGetSpendingsRepository } from "./protocols";
 
-export class GetSpendingsController implements Icontroller{
+export class GetSpendingsController implements Icontroller {
+  constructor(
+    private readonly getSpendingsRepository: IGetSpendingsRepository
+  ) {}
 
-    constructor(private readonly getSpendingsRepository: IGetSpendingsRepository) {}
+  async handle(
+    httpRequest: HttpRequest<GetSpendingParams>
+  ): Promise<HttpResponse<ISpending[] | string>> {
+    try {
+      const id = httpRequest?.params?.id;
 
-    async handle(httpRequest: HttpRequest<GetSpendingParams>): Promise<HttpResponse<ISpending[] | string>> {
-        try {
-            const spending = await this.getSpendingsRepository.getSpendingByUserId(httpRequest.params);
-            
+      if (!id) {
+        return badRequest("Missing id");
+      }
 
-            if(!spending) {
-                throw new Error("user has no spendings");
-            }
+      const spending = await this.getSpendingsRepository.getSpendingByUserId(
+        httpRequest.params
+      );
 
-            return ok<ISpending[]>(spending);
-        } catch(error) {
-            return serverError("06");
-        }
+      if (!spending) {
+        throw new Error("user has no spendings");
+      }
+
+      return ok<ISpending[]>(spending);
+    } catch (error) {
+      return serverError("06");
     }
-
+  }
 }
