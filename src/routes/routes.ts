@@ -22,6 +22,8 @@ import { MongoUpdateSpendingRepository } from "../respositories/update-spending/
 import { UpdateSpendingController } from "../controllers/update-spending/update-spending";
 import { MongoGetBasePetsRepository } from "../respositories/base-pets/get-base-pets/mongo-get-base-pets";
 import { GetBasePetsController } from "../controllers/base-pets/get-base-pets/get-base-pets";
+import { MongoGetBasePetRepository } from "../respositories/base-pets/get-base-pet/mongo-get-base-pet";
+import { GetBasePetController } from "../controllers/base-pets/get-base-pet/get-base-pet";
 
 const router = express.Router();
 
@@ -148,5 +150,14 @@ router.get("pets/get-all-base-pets", chectToken, async (req, res) => {
   const { body, statusCode } = await getBasePetsController.handle();
   res.status(statusCode).send(body);
 });
+
+router.get("pets/get-base-pet/:id", chectToken, async (req, res) => {
+  const mongoGetBasePetRepository = new MongoGetBasePetRepository();
+  const getBasePetController = new GetBasePetController(mongoGetBasePetRepository);
+  const { body, statusCode } = await getBasePetController.handle({
+    params: req.params
+  })
+  res.status(statusCode).send(body);
+})
 
 export default router;

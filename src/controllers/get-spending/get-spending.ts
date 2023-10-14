@@ -1,5 +1,5 @@
 import { ISpending } from './../../models/spending';
-import { badRequest, notFound, ok, serverError } from "../helpers";
+import { notFound, ok, serverError } from "../helpers";
 import { HttpRequest, HttpResponse, Icontroller } from "../protocols";
 import { IGetSpendingRepository } from './protocols';
 
