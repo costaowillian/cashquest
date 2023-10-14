@@ -4,27 +4,27 @@ import { HttpRequest, HttpResponse, Icontroller } from "../../protocols";
 import { IGetBasePetRepository } from "./protocols";
 
 export class GetBasePetController implements Icontroller {
-    constructor(private readonly getBasePetRepository: IGetBasePetRepository){}
+  constructor(private readonly getBasePetRepository: IGetBasePetRepository) {}
 
-    async handle(httpRequest: HttpRequest<unknown>): Promise<HttpResponse<IBasePet | string>> {
-        try {
-            const id = httpRequest?.params?.id;
+  async handle(
+    httpRequest: HttpRequest<unknown>
+  ): Promise<HttpResponse<IBasePet | string>> {
+    try {
+      const id = httpRequest?.params?.id;
 
-            if(!id) {
-                return badRequest("missing id");
-            }
+      if (!id) {
+        return badRequest("missing id");
+      }
 
-            const basePet = await this.getBasePetRepository.getBasePet(id);
+      const basePet = await this.getBasePetRepository.getBasePet(id);
 
-            if(!basePet) {
-                return notFound("Pet not found");
-            }
+      if (!basePet) {
+        return notFound("Pet not found");
+      }
 
-            return ok<IBasePet>(basePet);
-
-        } catch (error) {
-            return serverError("12");
-        }
+      return ok<IBasePet>(basePet);
+    } catch (error) {
+      return serverError("12");
     }
-
+  }
 }

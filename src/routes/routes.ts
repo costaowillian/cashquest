@@ -153,11 +153,13 @@ router.get("pets/get-all-base-pets", chectToken, async (req, res) => {
 
 router.get("pets/get-base-pet/:id", chectToken, async (req, res) => {
   const mongoGetBasePetRepository = new MongoGetBasePetRepository();
-  const getBasePetController = new GetBasePetController(mongoGetBasePetRepository);
+  const getBasePetController = new GetBasePetController(
+    mongoGetBasePetRepository
+  );
   const { body, statusCode } = await getBasePetController.handle({
     params: req.params
-  })
+  });
   res.status(statusCode).send(body);
-})
+});
 
 export default router;
