@@ -6,12 +6,12 @@ import { MongoBasePet } from "../../mongo-protocols";
 
 export class MongoGetBasePetRepository implements IGetBasePetRepository {
   async getBasePet(id: string): Promise<IBasePet | null> {
-    console.log({id});
+    console.log({ id });
     const basePet = await MongoClient.db
       .collection<MongoBasePet>("base-pets")
       .findOne({ _id: new ObjectId(id) });
 
-    console.log({basePet});
+    console.log({ basePet });
 
     if (!basePet) {
       return null;

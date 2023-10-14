@@ -1,4 +1,4 @@
-export interface IRevenue {
+export interface IDeposit {
     id: string;
     userId: string;
     category: string;
