@@ -142,7 +142,7 @@ router.patch("/spendings/update/:id", chectToken, async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-router.get("pets/get-all-base-pets", chectToken, async (req, res) => {
+router.get("/pets/get-all-base-pets", chectToken, async (req, res) => {
   const mongoGetBasePetsRepository = new MongoGetBasePetsRepository();
   const getBasePetsController = new GetBasePetsController(
     mongoGetBasePetsRepository
@@ -151,7 +151,7 @@ router.get("pets/get-all-base-pets", chectToken, async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-router.get("pets/get-base-pet/:id", chectToken, async (req, res) => {
+router.get("/pets/get-base-pet/:id", chectToken, async (req, res) => {
   const mongoGetBasePetRepository = new MongoGetBasePetRepository();
   const getBasePetController = new GetBasePetController(
     mongoGetBasePetRepository
