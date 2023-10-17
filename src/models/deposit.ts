@@ -1,6 +1,6 @@
 export interface IDeposit {
     id: string;
-    userId: string;
+    _userId: string;
     category: string;
     description?: string;
     value: string;

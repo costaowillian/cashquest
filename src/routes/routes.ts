@@ -24,6 +24,8 @@ import { MongoGetBasePetsRepository } from "../respositories/base-pets/get-base-
 import { GetBasePetsController } from "../controllers/base-pets/get-base-pets/get-base-pets";
 import { MongoGetBasePetRepository } from "../respositories/base-pets/get-base-pet/mongo-get-base-pet";
 import { GetBasePetController } from "../controllers/base-pets/get-base-pet/get-base-pet";
+import { MongoCreateDepositRepository } from "../respositories/deposit/create-deposit/mongo-create-deposit";
+import { CreateDepositController } from "../controllers/deposit/create-deposit/create-deposit";
 
 const router = express.Router();
 
@@ -161,5 +163,14 @@ router.get("/pets/get-base-pet/:id", chectToken, async (req, res) => {
   });
   res.status(statusCode).send(body);
 });
+
+router.post("/deposit/create", chectToken, async (req, res) => {
+  const mongoCreateDepositRepository = new MongoCreateDepositRepository();
+  const createDepositController = new CreateDepositController(mongoCreateDepositRepository);
+  const { body , statusCode}  =await createDepositController.handle({
+    body : req.body
+  });
+  res.status(statusCode).send(body);
+})
 
 export default router;

@@ -7,6 +7,8 @@ export interface CreateSpendingParams {
     description?: string;
     value: number;
     attachment?: string;
+    isFixed: boolean;
+    comments?: string;
     createAt: Date;
 }
 

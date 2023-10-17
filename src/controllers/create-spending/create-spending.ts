@@ -13,7 +13,7 @@ export class CreateSpendingController implements Icontroller {
         try {
 
             console.log({controller: httpRequest.body});
-            const requiredFields = ["_userId", "category", "value", "createAt"];
+            const requiredFields = ["_userId", "category", "value", " isFixed", "createAt"];
 
             for(const field of requiredFields) {
                 const fieldValue = httpRequest.body?.[field as keyof CreateSpendingParams];
