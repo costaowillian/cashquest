@@ -26,6 +26,8 @@ import { MongoGetBasePetRepository } from "../respositories/base-pets/get-base-p
 import { GetBasePetController } from "../controllers/base-pets/get-base-pet/get-base-pet";
 import { MongoCreateDepositRepository } from "../respositories/deposit/create-deposit/mongo-create-deposit";
 import { CreateDepositController } from "../controllers/deposit/create-deposit/create-deposit";
+import { MongoGetDepositsRepository } from "../respositories/deposit/get-all-deposits/mongo-get-all-deposits";
+import { GetDepositContoller, GetDepositsContoller } from "../controllers/deposit/get-all-deposits/get-all-deposits";
 
 const router = express.Router();
 
@@ -166,11 +168,24 @@ router.get("/pets/get-base-pet/:id", chectToken, async (req, res) => {
 
 router.post("/deposit/create", chectToken, async (req, res) => {
   const mongoCreateDepositRepository = new MongoCreateDepositRepository();
-  const createDepositController = new CreateDepositController(mongoCreateDepositRepository);
-  const { body , statusCode}  =await createDepositController.handle({
-    body : req.body
+  const createDepositController = new CreateDepositController(
+    mongoCreateDepositRepository
+  );
+  const { body, statusCode } = await createDepositController.handle({
+    body: req.body
   });
   res.status(statusCode).send(body);
-})
+});
+
+router.get("/deposit/get-all-deposits/:id", chectToken, async (req, res) => {
+  const mongoGetDepositsRepository = new MongoGetDepositsRepository();
+  const getDepositsController = new GetDepositsContoller(
+    mongoGetDepositsRepository
+  );
+  const { body, statusCode } = await getDepositsController.handle({
+    params: req.params
+  });
+  res.status(statusCode).send(body);
+});
 
 export default router;
