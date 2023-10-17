@@ -22,10 +22,12 @@ export class UpdateSpendingController implements Icontroller {
             }
 
             const AllowedToUpdate: (keyof UpdateSpendingParams)[] = [
-                'attachment',
                 'category',
                 'description',
-                'value'
+                'value',
+                'attachment',
+                'isFixed',
+                'comments'
             ]
 
             const someFieldsNotAllowedToUpdate = Object.keys(body).some((key) => !AllowedToUpdate.includes(key as keyof UpdateSpendingParams));

@@ -35,6 +35,8 @@ import {
 import { MongoGetDepositRepository } from "../respositories/deposit/get-deposit/mongo-get-deposit";
 import { GetDepositController } from "../controllers/deposit/get-deposit/get-deposit";
 import { MongoDeleteDepositRepository } from "../respositories/deposit/delelete-deposit/mongo-delete-deposit";
+import { MongoUpdateDepositRepository } from "../respositories/deposit/update-deposit/mongo-update-deposit";
+import { UpdateDepositController } from "../controllers/deposit/uptade-deposit/update-deposit";
 
 const router = express.Router();
 
@@ -216,5 +218,15 @@ router.delete("/deposit/delete/:id", chectToken, async (req, res) => {
   });
   res.status(statusCode).send(body);
 });
+
+router.patch("/deposti/update/:id", chectToken,async (req, res) => {
+  const updateDepositRepository = new MongoUpdateDepositRepository();
+  const updateDepositController = new UpdateDepositController(updateDepositRepository);
+  const { body, statusCode } = await updateDepositController.handle({
+    params:req.params,
+    body: req.body
+  })
+  res.status(statusCode).send(body);
+})
 
 export default router;
