@@ -1,3 +1,5 @@
+import { httpStatusCode } from "./../controllers/protocols";
+import { DeleteDepositController } from "./../controllers/deposit/delete-deposit/delete-deposit";
 import { MongoGetUserAuthRepository } from "./../respositories/get-user-auth/mongo-get-user-auth";
 import express from "express";
 import { GetUserController } from "../controllers/get-user/get-users";
@@ -27,9 +29,12 @@ import { GetBasePetController } from "../controllers/base-pets/get-base-pet/get-
 import { MongoCreateDepositRepository } from "../respositories/deposit/create-deposit/mongo-create-deposit";
 import { CreateDepositController } from "../controllers/deposit/create-deposit/create-deposit";
 import { MongoGetDepositsRepository } from "../respositories/deposit/get-all-deposits/mongo-get-all-deposits";
-import { GetDepositContoller, GetDepositsContoller } from "../controllers/deposit/get-all-deposits/get-all-deposits";
+import {
+  GetDepositsContoller
+} from "../controllers/deposit/get-all-deposits/get-all-deposits";
 import { MongoGetDepositRepository } from "../respositories/deposit/get-deposit/mongo-get-deposit";
 import { GetDepositController } from "../controllers/deposit/get-deposit/get-deposit";
+import { MongoDeleteDepositRepository } from "../respositories/deposit/delelete-deposit/mongo-delete-deposit";
 
 const router = express.Router();
 
@@ -192,11 +197,24 @@ router.get("/deposit/get-all-deposits/:id", chectToken, async (req, res) => {
 
 router.get("/deposit/get-deposit/:id", chectToken, async (req, res) => {
   const mongoGetDepositRepository = new MongoGetDepositRepository();
-  const getDepositController = new GetDepositController(mongoGetDepositRepository);
+  const getDepositController = new GetDepositController(
+    mongoGetDepositRepository
+  );
   const { body, statusCode } = await getDepositController.handle({
     params: req.params
   });
   res.status(statusCode).send(body);
-})
+});
+
+router.delete("/deposit/delete/:id", chectToken, async (req, res) => {
+  const mongoDeleteDepositRepository = new MongoDeleteDepositRepository();
+  const deleteDepositController = new DeleteDepositController(
+    mongoDeleteDepositRepository
+  );
+  const { body, statusCode } = await deleteDepositController.handle({
+    params: req.params
+  });
+  res.status(statusCode).send(body);
+});
 
 export default router;
