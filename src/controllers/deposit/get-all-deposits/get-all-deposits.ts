@@ -1,12 +1,11 @@
 import { IDeposit } from "../../../models/deposit";
-import { MongoGetDepositsRepository } from "../../../respositories/deposit/get-all-deposits/mongo-get-all-deposits";
 import { badRequest, notFound, ok, serverError } from "../../helpers";
 import { HttpRequest, HttpResponse, Icontroller } from "../../protocols";
-import { GetDepositParams } from "./protocols";
+import { GetDepositParams, IGetDepositsRepository } from "./protocols";
 
 export class GetDepositsContoller implements Icontroller {
   constructor(
-    private readonly getDepositsRepository: MongoGetDepositsRepository
+    private readonly getDepositsRepository: IGetDepositsRepository
   ) {}
 
   async handle(

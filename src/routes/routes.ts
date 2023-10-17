@@ -28,6 +28,8 @@ import { MongoCreateDepositRepository } from "../respositories/deposit/create-de
 import { CreateDepositController } from "../controllers/deposit/create-deposit/create-deposit";
 import { MongoGetDepositsRepository } from "../respositories/deposit/get-all-deposits/mongo-get-all-deposits";
 import { GetDepositContoller, GetDepositsContoller } from "../controllers/deposit/get-all-deposits/get-all-deposits";
+import { MongoGetDepositRepository } from "../respositories/deposit/get-deposit/mongo-get-deposit";
+import { GetDepositController } from "../controllers/deposit/get-deposit/get-deposit";
 
 const router = express.Router();
 
@@ -187,5 +189,14 @@ router.get("/deposit/get-all-deposits/:id", chectToken, async (req, res) => {
   });
   res.status(statusCode).send(body);
 });
+
+router.get("/deposit/get-deposit/:id", chectToken, async (req, res) => {
+  const mongoGetDepositRepository = new MongoGetDepositRepository();
+  const getDepositController = new GetDepositController(mongoGetDepositRepository);
+  const { body, statusCode } = await getDepositController.handle({
+    params: req.params
+  });
+  res.status(statusCode).send(body);
+})
 
 export default router;
