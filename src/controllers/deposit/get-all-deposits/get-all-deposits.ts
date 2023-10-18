@@ -10,7 +10,7 @@ export class GetDepositsContoller implements Icontroller {
 
   async handle(
     httpRequest: HttpRequest<GetDepositParams>
-  ): Promise<HttpResponse<IDeposit | string>> {
+  ): Promise<HttpResponse<IDeposit[] | string>> {
     try {
       const id = httpRequest?.params?.id;
 
@@ -24,7 +24,7 @@ export class GetDepositsContoller implements Icontroller {
         return notFound("Not found Deposits");
       }
 
-      return ok<IDeposit>(deposits);
+      return ok<IDeposit[]>(deposits);
     } catch (error) {
       return serverError("12");
     }
