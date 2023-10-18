@@ -1,9 +1,9 @@
 export interface IDeposit {
     id: string;
-    _userId: string;
+    userId: string;
     category: string;
     description?: string;
-    value: string;
+    value: number;
     attachment?: string;
     isFixed: boolean;
     comments?: string;

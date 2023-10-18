@@ -5,10 +5,10 @@ import { IDeposit } from "../../../models/deposit";
 import { MongoDeposit } from "../../mongo-protocols";
 
 export class MongoGetDepositsRepository implements IGetDepositsRepository {
-  async getDeposits(id: string): Promise<IDeposit[]> {
+  async getDeposits(userIdString: string): Promise<IDeposit[]> {
     const deposits = await MongoClient.db
       .collection<MongoDeposit>("deposit")
-      .find({ _id: new ObjectId(id) })
+      .find({ _userId: new ObjectId(userIdString) })
       .toArray();
 
     return deposits.map(({ _id, ...rest }) => ({

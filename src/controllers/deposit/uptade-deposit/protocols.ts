@@ -3,7 +3,7 @@ import { IDeposit } from "../../../models/deposit";
 export interface UpdateDepositParams {
     category?: string;
     description?: string;
-    value?: string;
+    value?: number;
     attachment?: string;
     isFixed?: boolean;
     comments?: string;
