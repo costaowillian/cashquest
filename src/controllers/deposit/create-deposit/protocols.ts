@@ -2,7 +2,7 @@ import { ObjectId } from "mongodb";
 import { IDeposit } from "../../../models/deposit";
 
 export interface CreateDepositParams {
-    _userId: string | ObjectId;
+    userId: string | ObjectId;
     category: string;
     description?: string;
     value: string;

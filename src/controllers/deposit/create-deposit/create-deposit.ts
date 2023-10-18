@@ -10,7 +10,7 @@ export class CreateDepositController implements Icontroller {
 
     async handle(httpRequest: HttpRequest<CreateDepositParams>): Promise<HttpResponse<IDeposit | string>> {
         try {
-            const requiredFields = ["_userId", "category", "value", "isFixed", "createAt"];
+            const requiredFields = ["userId", "category", "value", "isFixed", "createAt"];
 
             for(const field of requiredFields) {
                 const fieldValue = httpRequest?.body?.[field as keyof CreateDepositParams];
@@ -20,7 +20,7 @@ export class CreateDepositController implements Icontroller {
                 }
             }
 
-            httpRequest.body!._userId = new ObjectId(httpRequest.body!._userId);
+            httpRequest.body!.userId = new ObjectId(httpRequest.body!.userId);
 
             const deposit = await this.createDepositRepository.createDeposit(httpRequest.body!,);
 
