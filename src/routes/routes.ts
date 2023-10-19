@@ -37,6 +37,8 @@ import { GetDepositController } from "../controllers/deposit/get-deposit/get-dep
 import { MongoDeleteDepositRepository } from "../respositories/deposit/delelete-deposit/mongo-delete-deposit";
 import { MongoUpdateDepositRepository } from "../respositories/deposit/update-deposit/mongo-update-deposit";
 import { UpdateDepositController } from "../controllers/deposit/uptade-deposit/update-deposit";
+import { MongoGetWalletRepository } from "../respositories/wallet/get-wallet/mongo-get-wallet";
+import { GetWalletController } from "../controllers/wallet/get-wallet/get-wallet";
 
 const router = express.Router();
 
@@ -227,6 +229,15 @@ router.patch("/deposti/update/:id", chectToken,async (req, res) => {
     body: req.body
   })
   res.status(statusCode).send(body);
-})
+});
+
+router.get("/wallet/get-wallet/:id", chectToken, async (req, res) => {
+  const getWalletRepository = new MongoGetWalletRepository();
+  const getWalletController = new GetWalletController(getWalletRepository);
+  const { body, statusCode } = await getWalletController.handle({
+    params: req.params
+  });
+  res.status(statusCode).send(body);
+});
 
 export default router;
