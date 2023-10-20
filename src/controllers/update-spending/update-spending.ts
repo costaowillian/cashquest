@@ -36,7 +36,11 @@ export class UpdateSpendingController implements Icontroller {
                 return badRequest("Some received fields is not allowed");
             }
 
-            const spending = await this.updateSpendingRepository.updateSpending(id, body);
+            const updatedbody =  {...body};
+            const paramToRemove = "userId";
+            delete updatedbody[paramToRemove];
+
+            const spending = await this.updateSpendingRepository.updateSpending(id, updatedbody);
 
             return ok<ISpending>(spending);
 

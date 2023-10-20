@@ -5,5 +5,5 @@ export interface IGetWalletParams {
 }
 
 export interface IGetWalletREpository {
-    getWallet(id: string): Promise<IWallet[] | null>
+    getWallet(id: string): Promise<IWallet | null>
 }

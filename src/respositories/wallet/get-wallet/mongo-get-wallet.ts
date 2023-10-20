@@ -5,12 +5,14 @@ import { IWallet } from "../../../models/wallet";
 import { MongoWallet } from "../../mongo-protocols";
 
 export class MongoGetWalletRepository implements IGetWalletREpository {
-   async getWallet(userId: string): Promise<IWallet[] | null> {
-        const wallet = await MongoClient.db.collection<MongoWallet>("wallet").find({ _userId: new ObjectId(userId) }).toArray();
+   async getWallet(userId: string): Promise<IWallet | null> {
+        const wallet = await MongoClient.db.collection<MongoWallet>("wallet").findOne({ _userId: new ObjectId(userId) });
 
-        return wallet.map(({ _id, ...rest }) => ({
-            ...rest, 
-            id: _id.toHexString()
-        }));
+        if (!wallet) {
+            return null;
+        }
+        
+        const { _id, ...rest } = wallet;
+        return { id: _id.toHexString(), ...rest };
     }
 }

@@ -7,6 +7,7 @@ export interface UpdateSpendingParams {
     attachment?: string;
     isFixed?: boolean;
     comments?: string;
+    userId?: string;
 }
 
 export interface IUpdateSpendingRepository {
