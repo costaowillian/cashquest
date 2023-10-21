@@ -1,9 +1,14 @@
-import { IWallet } from "../../../models/wallet";
+import { ObjectId } from "mongodb";
 
 export interface IGetWalletParams {
     userId: string;
 }
 
-export interface IGetWalletREpository {
-    getWallet(id: string): Promise<IWallet[] | null>
+export interface ITotalSpendings {
+    userId: string,
+    total: number;
+}
+
+export interface IGetTotalSpendingsRepository {
+    getTotalSpendings(id: string): Promise<ITotalSpendings | null>
 }
