@@ -1,19 +1,20 @@
 import { MongoSpending } from "../../mongo-protocols";
 import { ObjectId } from "mongodb";
 import {
+    IGetTotalDepositsRepository,
   IGetTotalSpendingsRepository,
   ITotal
 } from "../../../controllers/wallet/get-wallet/protocols";
 import { MongoClient } from "../../../database/mongo";
 
-export class MongoGetTotalSpendindsRepository
-  implements IGetTotalSpendingsRepository
+export class MongoGetTotalDepositsRepository
+  implements IGetTotalDepositsRepository
 {
-  async getTotalSpendings(userId: string): Promise<ITotal | null> {
+  async getTotalDeposits(userId: string): Promise<ITotal | null> {
     const spendingsColection =
-      MongoClient.db.collection<MongoSpending>("spending");
+      MongoClient.db.collection<MongoSpending>("deposit");
 
-    const spendings = await spendingsColection
+    const deposits = await spendingsColection
       .aggregate([
         {
           $match: {
@@ -27,8 +28,8 @@ export class MongoGetTotalSpendindsRepository
           }
         }
       ])
-      .toArray();
-    const { _id, total } = spendings[0];
+      .toArray(); 
+    const { _id, total } = deposits[0];
     return { userId: _id.toHexString(), total };
   }
 }

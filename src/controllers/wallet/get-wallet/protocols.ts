@@ -4,11 +4,15 @@ export interface IGetWalletParams {
     userId: string;
 }
 
-export interface ITotalSpendings {
+export interface ITotal {
     userId: string,
     total: number;
 }
 
 export interface IGetTotalSpendingsRepository {
-    getTotalSpendings(id: string): Promise<ITotalSpendings | null>
+    getTotalSpendings(id: string): Promise<ITotal | null>
+}
+
+export interface IGetTotalDepositsRepository {
+    getTotalDeposits(id: string): Promise<ITotal | null>
 }
