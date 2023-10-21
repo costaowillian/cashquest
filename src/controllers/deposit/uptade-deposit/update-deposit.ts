@@ -32,10 +32,14 @@ export class UpdateDepositController implements Icontroller {
             const someFieldsNotAllowedToUpdate = Object.keys(body).some((key) => !AllowedToUpdate.includes(key as keyof UpdateDepositParams));
 
             if(someFieldsNotAllowedToUpdate) {
-                return badRequest("ome received fields is not allowed");
+                return badRequest("Some received fields is not allowed");
             }
 
-            const deposit = await this.updateDepositRepository.update(id, body);
+            const updatedbody =  {...body};
+            const paramToRemove = "userId";
+            delete updatedbody[paramToRemove];
+
+            const deposit = await this.updateDepositRepository.update(id, updatedbody);
 
             return ok<IDeposit>(deposit);
 
