@@ -28,6 +28,7 @@ export class MongoGetTotalSpendindsRepository
         }
       ])
       .toArray();
+      console.log({spendingsTotal: spendings})
     const { _id, total } = spendings[0];
     return { userId: _id.toHexString(), total };
   }

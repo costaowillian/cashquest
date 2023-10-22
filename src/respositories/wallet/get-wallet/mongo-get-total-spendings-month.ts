@@ -15,7 +15,8 @@ export class MongoGetTotalMonthlySpendindsRepository
 
     const currentDate = new Date();
     currentDate.setDate(1);
-
+    currentDate.setHours(0, 0, 0, 0);
+    
     const spendings = await spendingsColection
       .aggregate([
         {
@@ -32,6 +33,10 @@ export class MongoGetTotalMonthlySpendindsRepository
         }
       ])
       .toArray();
+
+    if (!spendings) {
+      throw new Error(`Not found data for date ${currentDate}`);
+    }
     const { _id, total } = spendings[0];
     return { userId: _id.toHexString(), total };
   }

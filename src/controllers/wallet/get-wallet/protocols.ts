@@ -1,4 +1,5 @@
 import { ObjectId } from "mongodb";
+import { Interface } from "readline";
 
 export interface IGetWalletParams {
     userId: string;
@@ -15,4 +16,8 @@ export interface IGetTotalSpendingsRepository {
 
 export interface IGetTotalDepositsRepository {
     getTotalDeposits(id: string): Promise<ITotal | null>
+}
+
+export interface IGetTotalMonthlySpendingsRepository {
+    getTotalSpendings(id: string, currentDate: Date): Promise<ITotal | null>
 }

@@ -24,7 +24,7 @@ export class GetWalletController implements Icontroller {
             const monthlySpendings = await this.getTotalMonthlySpendingdsRepository.getTotalSpendings(id);
 
             const walletTotal = this.sumWallet(depsosits?.total, spendings?.total);
-
+            
             const wallet = {
                 totalDeposits: walletTotal,
                 spendings: spendings?.total,
@@ -32,8 +32,11 @@ export class GetWalletController implements Icontroller {
                 savings: 0
             }
 
+            console.log(wallet);
+
             return ok<IWallet[]>(wallet);
         } catch (error) {
+            console.log(error);
             return serverError("15");
         }
     }
