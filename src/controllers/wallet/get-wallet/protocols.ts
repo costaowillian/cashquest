@@ -1,6 +1,3 @@
-import { ObjectId } from "mongodb";
-import { Interface } from "readline";
-
 export interface IGetWalletParams {
     userId: string;
 }

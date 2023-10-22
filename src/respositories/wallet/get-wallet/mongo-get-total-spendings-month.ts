@@ -16,13 +16,13 @@ export class MongoGetTotalMonthlySpendindsRepository
     const currentDate = new Date();
     currentDate.setDate(1);
     currentDate.setHours(0, 0, 0, 0);
-    
+    console.log(currentDate);
     const spendings = await spendingsColection
       .aggregate([
         {
           $match: {
             _userId: new ObjectId(userId),
-            createAt: { $gte: currentDate }
+            createAt: { $gte: currentDate.toISOString() }
           }
         },
         {
