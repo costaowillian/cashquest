@@ -1,9 +1,7 @@
 import { MongoSpending } from "../../mongo-protocols";
 import { ObjectId } from "mongodb";
 import {
-    IGetTotalDepositsRepository,
-  IGetTotalSpendingsRepository,
-  ITotal
+    IGetTotalDepositsRepository, ITotal
 } from "../../../controllers/wallet/get-wallet/protocols";
 import { MongoClient } from "../../../database/mongo";
 

@@ -7,5 +7,5 @@ export interface ISpending {
     attachment?: string;
     isFixed: boolean;
     comments?: string;
-    createAt: Date;
+    createdAt: Date;
 }

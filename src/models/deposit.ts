@@ -7,5 +7,5 @@ export interface IDeposit {
     attachment?: string;
     isFixed: boolean;
     comments?: string;
-    createAt: Date;
+    createdAt: Date;
 }
