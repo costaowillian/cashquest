@@ -1,26 +1,26 @@
 import { DeleteDepositController } from "./../controllers/deposit/delete-deposit/delete-deposit";
 import { MongoGetUserAuthRepository } from "./../respositories/get-user-auth/mongo-get-user-auth";
 import express from "express";
-import { GetUserController } from "../controllers/get-user/get-users";
-import { CreateUserController } from "../controllers/create-user/create-user";
-import { UpdateUserController } from "../controllers/update-user/update-user";
-import { DeleteUserController } from "../controllers/delete-user/delete-user";
-import { MongoGetUserRepository } from "../respositories/get-users/mongo-get-users";
-import { MongoCreateUserReporitory } from "../respositories/create-user/mongo-create-user";
-import { MongoUpdateUserRepository } from "../respositories/update-user/mongo-update-user";
-import { MongoDeleteUserRepository } from "../respositories/delete-user/mongo-delete-user";
+import { GetUserController } from "../controllers/user/get-user/get-users";
+import { CreateUserController } from "../controllers/user/create-user/create-user";
+import { UpdateUserController } from "../controllers/user/update-user/update-user";
+import { DeleteUserController } from "../controllers/user/delete-user/delete-user";
+import { MongoGetUserRepository } from "../respositories/user/get-users/mongo-get-users";
+import { MongoCreateUserReporitory } from "../respositories/user/create-user/mongo-create-user";
+import { MongoUpdateUserRepository } from "../respositories/user/update-user/mongo-update-user";
+import { MongoDeleteUserRepository } from "../respositories/user/delete-user/mongo-delete-user";
 import { chectToken } from "../middleware/checkToken";
 import { LoginUserController } from "../controllers/user-login/user-login";
-import { MongoGetSpendingsRepository } from "../respositories/get-spendings/mongo-get-spendings";
-import { GetSpendingsController } from "../controllers/get-spendings/get-spendings";
-import { MongoCreateSpendingRepository } from "../respositories/create-spending/mongo-create-spending";
-import { CreateSpendingController } from "../controllers/create-spending/create-spending";
-import { MongoGetSpendingRepository } from "../respositories/get-spending/mongo-get-spending";
-import { GetSpendingController } from "../controllers/get-spending/get-spending";
-import { DeleteSpendingController } from "../controllers/delete-spending/delete-spending";
-import { MongoDeleteSpendingRepository } from "../respositories/delete-spending/mongo-delete-spending";
-import { MongoUpdateSpendingRepository } from "../respositories/update-spending/mongo-update-spending";
-import { UpdateSpendingController } from "../controllers/update-spending/update-spending";
+import { MongoGetSpendingsRepository } from "../respositories/spendings/get-spendings/mongo-get-spendings";
+import { GetSpendingsController } from "../controllers/spendings/get-spendings/get-spendings";
+import { MongoCreateSpendingRepository } from "../respositories/spendings/create-spending/mongo-create-spending";
+import { CreateSpendingController } from "../controllers/spendings/create-spending/create-spending";
+import { MongoGetSpendingRepository } from "../respositories/spendings/get-spending/mongo-get-spending";
+import { GetSpendingController } from "../controllers/spendings/get-spending/get-spending";
+import { DeleteSpendingController } from "../controllers/spendings/delete-spending/delete-spending";
+import { MongoDeleteSpendingRepository } from "../respositories/spendings/create-spending/delete-spending/mongo-delete-spending";
+import { MongoUpdateSpendingRepository } from "../respositories/spendings/update-spending/mongo-update-spending";
+import { UpdateSpendingController } from "../controllers/spendings/update-spending/update-spending";
 import { MongoGetBasePetsRepository } from "../respositories/base-pets/get-base-pets/mongo-get-base-pets";
 import { GetBasePetsController } from "../controllers/base-pets/get-base-pets/get-base-pets";
 import { MongoGetBasePetRepository } from "../respositories/base-pets/get-base-pet/mongo-get-base-pet";
@@ -34,10 +34,10 @@ import { GetDepositController } from "../controllers/deposit/get-deposit/get-dep
 import { MongoDeleteDepositRepository } from "../respositories/deposit/delelete-deposit/mongo-delete-deposit";
 import { MongoUpdateDepositRepository } from "../respositories/deposit/update-deposit/mongo-update-deposit";
 import { UpdateDepositController } from "../controllers/deposit/uptade-deposit/update-deposit";
-import { MongoGetTotalSpendindsRepository } from "../respositories/wallet/get-wallet/mongo-get-total-spendings";
+import { MongoGetTotalSpendindsRepository } from "../respositories/spendings/get-total-spending/mongo-get-total-spendings";
 import { GetWalletController } from "../controllers/wallet/get-wallet/get-wallet";
-import { MongoGetTotalDepositsRepository } from "../respositories/wallet/get-wallet/mongo-get-total-deposits";
-import { MongoGetTotalMonthlySpendindsRepository } from "../respositories/wallet/get-wallet/mongo-get-total-spendings-month";
+import { MongoGetTotalDepositsRepository } from "../respositories/deposit/get-total-deposits/mongo-get-total-deposits";
+import { MongoGetTotalMonthlySpendindsRepository } from "../respositories/spendings/get-total-spending/mongo-get-total-spendings-month";
 
 const router = express.Router();
 
@@ -235,9 +235,12 @@ router.patch("/deposti/update/:id", chectToken, async (req, res) => {
 router.get("/wallet/get-wallet/:id", chectToken, async (req, res) => {
   const getTotalSpendingsRepository = new MongoGetTotalSpendindsRepository();
   const getTotalDepositsRepository = new MongoGetTotalDepositsRepository();
-  const getTotalMonthlySpendingdsRepository = new MongoGetTotalMonthlySpendindsRepository()
+  const getTotalMonthlySpendingdsRepository =
+    new MongoGetTotalMonthlySpendindsRepository();
   const getWalletController = new GetWalletController(
-    getTotalSpendingsRepository, getTotalDepositsRepository, getTotalMonthlySpendingdsRepository
+    getTotalSpendingsRepository,
+    getTotalDepositsRepository,
+    getTotalMonthlySpendingdsRepository
   );
   const { body, statusCode } = await getWalletController.handle({
     params: req.params
