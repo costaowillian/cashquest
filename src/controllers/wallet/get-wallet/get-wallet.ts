@@ -6,7 +6,8 @@ import { IGetWalletParams, IGetTotalSpendingsRepository, IGetTotalDepositsReposi
 export class GetWalletController implements Icontroller {
     
     constructor(private readonly getTotalSpendingsRepository: IGetTotalSpendingsRepository,
-        private readonly getTotalDepositsRepository: IGetTotalDepositsRepository)
+        private readonly getTotalDepositsRepository: IGetTotalDepositsRepository,
+        private readonly getTotalMonthlySpendingdsRepository: IGetTotalSpendingsRepository)
         {}
     async handle(httpRequest: HttpRequest<IGetWalletParams>): Promise<HttpResponse<IWallet[] | string>> {
         try {
@@ -20,11 +21,14 @@ export class GetWalletController implements Icontroller {
 
             const depsosits = await this.getTotalDepositsRepository.getTotalDeposits(id);
 
+            const monthlySpendings = await this.getTotalMonthlySpendingdsRepository.getTotalSpendings(id);
+
             const walletTotal = this.sumWallet(depsosits?.total, spendings?.total);
 
             const wallet = {
                 totalDeposits: walletTotal,
                 spendings: spendings?.total,
+                monthlySpendings: monthlySpendings?.total,
                 savings: 0
             }
 

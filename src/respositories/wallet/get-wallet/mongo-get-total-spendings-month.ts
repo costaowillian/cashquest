@@ -6,7 +6,7 @@ import {
 } from "../../../controllers/wallet/get-wallet/protocols";
 import { MongoClient } from "../../../database/mongo";
 
-export class MongoGetTotalSpendindsByMonthRepository
+export class MongoGetTotalMonthlySpendindsRepository
   implements IGetTotalSpendingsRepository
 {
   async getTotalSpendings(userId: string): Promise<ITotal | null> {
