@@ -16,7 +16,7 @@ export class CreateDepositController implements Icontroller {
                 const fieldValue = httpRequest?.body?.[field as keyof CreateDepositParams];
 
                 if(typeof fieldValue === 'string' && !fieldValue.length) {
-                    return badRequest(`Field ${field} is requires`);
+                    return badRequest(`Field ${field} is required`);
                 }
             }
 

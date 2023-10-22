@@ -11,6 +11,7 @@ export enum httpStatusCode {
   SERVER_ERROR = 500,
   CREATED = 201
 }
+
 export interface HttpRequest<B> {
   params?: any;
   headers?: any;
