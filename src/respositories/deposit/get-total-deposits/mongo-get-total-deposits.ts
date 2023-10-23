@@ -12,6 +12,7 @@ export class MongoGetTotalDepositsRepository
     const spendingsColection =
       MongoClient.db.collection<MongoSpending>("deposit");
 
+      console.log(userId);
     const deposits = await spendingsColection
       .aggregate([
         {
@@ -27,6 +28,7 @@ export class MongoGetTotalDepositsRepository
         }
       ])
       .toArray(); 
+      console.log(deposits[0])
     const { _id, total } = deposits[0];
     return { userId: _id.toHexString(), total };
   }

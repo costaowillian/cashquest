@@ -5,7 +5,7 @@ import { IGetBasePetsRepository } from "../../base-pets/get-base-pets/protocols"
 import { badRequest, serverError } from "../../helpers";
 import { HttpRequest, HttpResponse, Icontroller } from "../../protocols";
 import { IGetTotalDepositsRepository, IGetTotalSpendingsRepository } from "../../wallet/get-wallet/protocols";
-import { CretateUserpetParams, ICreateUserPetRepository, IGetSumDepositsRepository } from "./protocols";
+import { CretateUserpetParams, ICreateUserPetRepository, IGetSumDepositsRepository, IGetSumSpendingsRepository } from "./protocols";
 import { IPetDetailsService } from '../servicves/protocols';
 import { PetDetailsService } from '../servicves/pet-services';
 
@@ -14,7 +14,7 @@ export class CreateUserPetController implements Icontroller {
     private readonly petDetailsService: IPetDetailsService;
     constructor(
         private readonly getSumDepositsRepository: IGetSumDepositsRepository,
-        private readonly getSumSpendingRepository: IGetSumDepositsRepository,
+        private readonly getSumSpendingRepository: IGetSumSpendingsRepository,
         private readonly getTotalDepositsRepository: IGetTotalDepositsRepository,
         private readonly getTotalSpendingsRepository: IGetTotalSpendingsRepository,
         private readonly getBasePetsRepository: IGetBasePetsRepository,
@@ -27,10 +27,17 @@ export class CreateUserPetController implements Icontroller {
         try {
             const requiredFields = ["_userId", "name", "createdAt"];
 
+            const id = httpRequest?.body?._userId;
+
+            if(!id){
+                return badRequest("Missing user id");
+            }
+
             for(const field of requiredFields) {
                 const fieldValue = httpRequest?.body?.[field as keyof CretateUserpetParams];
-
-                if(typeof fieldValue === 'string' && !fieldValue.length) {
+                
+                if(typeof fieldValue ==='string' && !fieldValue.length) {
+                    console.log("validou");
                     return badRequest(`Field ${field} is required`);
                 }
             }
@@ -59,6 +66,7 @@ export class CreateUserPetController implements Icontroller {
             return created<IUserPet>(userPet);
 
         } catch (error) {
+            console.log(error);
             return serverError("19");
         }
     }

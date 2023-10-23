@@ -1,9 +1,9 @@
 import { ObjectId } from "mongodb";
-import { ICountTotal, IGetSumDepositsRepository } from "../../../controllers/user-pet/create-user-pet/protocols";
+import { IGetSumDepositsRepository } from "../../../controllers/user-pet/create-user-pet/protocols";
 import { MongoClient } from "../../../database/mongo";
 
 export class MongoGetSumDepositsRepository implements IGetSumDepositsRepository{
-    async getSumDeposits(id: string): Promise<ICountTotal> {
+    async getSumDeposits(id: string): Promise<any> {
         const collection = MongoClient.db.collection("deposit");
 
         const result = await collection.aggregate([
@@ -13,10 +13,15 @@ export class MongoGetSumDepositsRepository implements IGetSumDepositsRepository{
               }
             },
             {
-              total: {$count: "total"}
+              $group: {
+                _id: null,
+                total: {
+                  $sum: 1 
+                }
+              }
             }
           ]).toArray();
 
-          return result[0].total;
+          return result[0];
     }
 }

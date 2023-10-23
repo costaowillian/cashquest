@@ -26,7 +26,7 @@ export interface ICreateUserPetRepository {
 }
 
 export interface IGetSumSpendingsRepository {
-  getSumSpendings(id: string): Promise<ICountTotal>;
+  getSumSpendings(id: string): Promise<any>;
 }
 
 export interface IGetSumDepositsRepository {

@@ -1,13 +1,13 @@
 import { IBasePet } from "../../../models/base-pet";
 import { IGetBasePetsRepository } from "../../base-pets/get-base-pets/protocols";
-import { IGetSumDepositsRepository, amountXps, baseXps } from "../create-user-pet/protocols";
+import { IGetSumDepositsRepository, IGetSumSpendingsRepository, amountXps, baseXps } from "../create-user-pet/protocols";
 import { IGetTotalDepositsRepository, IGetTotalSpendingsRepository } from "../../wallet/get-wallet/protocols";
 
 export class PetDetailsService {
 
     constructor(
         private readonly getSumDepositsRepository: IGetSumDepositsRepository,
-        private readonly getSumSpendingRepository: IGetSumDepositsRepository,
+        private readonly getSumSpendingRepository: IGetSumSpendingsRepository,
         private readonly getTotalDepositsRepository: IGetTotalDepositsRepository,
         private readonly getTotalSpendingsRepository: IGetTotalSpendingsRepository,
         private readonly getBasePetsRepository: IGetBasePetsRepository,
@@ -16,7 +16,7 @@ export class PetDetailsService {
     }
     async getXps(id: string): Promise<number> {
         const sumDeposits = await this.getSumDepositsRepository.getSumDeposits(id);
-        const sumSpendings = await this.getSumSpendingRepository.getSumDeposits(id);
+        const sumSpendings = await this.getSumSpendingRepository.getSumSpendings(id);
 
         const depositsXps = this.sumXps(amountXps.DEPOSITS, sumDeposits.total);
         const spendingsXps = this.sumXps(amountXps.SPENDINGS, sumSpendings.total);
