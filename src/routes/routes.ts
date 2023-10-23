@@ -18,7 +18,7 @@ import { CreateSpendingController } from "../controllers/spendings/create-spendi
 import { MongoGetSpendingRepository } from "../respositories/spendings/get-spending/mongo-get-spending";
 import { GetSpendingController } from "../controllers/spendings/get-spending/get-spending";
 import { DeleteSpendingController } from "../controllers/spendings/delete-spending/delete-spending";
-import { MongoDeleteSpendingRepository } from "../respositories/spendings/create-spending/delete-spending/mongo-delete-spending";
+import { MongoDeleteSpendingRepository } from "../respositories/spendings/delete-spending/mongo-delete-spending";
 import { MongoUpdateSpendingRepository } from "../respositories/spendings/update-spending/mongo-update-spending";
 import { UpdateSpendingController } from "../controllers/spendings/update-spending/update-spending";
 import { MongoGetBasePetsRepository } from "../respositories/base-pets/get-base-pets/mongo-get-base-pets";

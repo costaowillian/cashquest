@@ -1,8 +1,8 @@
-import { MongoSpending } from "../../../mongo-protocols";
-import { IDeleteSpendingRepository } from "../../../../controllers/spendings/delete-spending/protocols";
-import { ISpending } from "../../../../models/spending";
+import { MongoSpending } from "../../mongo-protocols";
+import { IDeleteSpendingRepository } from "../../../controllers/spendings/delete-spending/protocols";
+import { ISpending } from "../../../models/spending";
 import { ObjectId } from "mongodb";
-import { MongoClient } from "../../../../database/mongo";
+import { MongoClient } from "../../../database/mongo";
 
 export class MongoDeleteSpendingRepository
   implements IDeleteSpendingRepository
