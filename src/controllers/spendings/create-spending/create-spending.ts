@@ -22,13 +22,11 @@ export class CreateSpendingController implements Icontroller {
       ];
 
       for (const field of requiredFields) {
-        const fieldValue =
-          httpRequest.body?.[field as keyof CreateSpendingParams];
-
-        if (typeof fieldValue === "string" && !fieldValue.length) {
+        if (!httpRequest?.body?.[field as keyof CreateSpendingParams]) {
           return badRequest(`Field ${field} is required`);
         }
       }
+      
       httpRequest.body!._userId = new ObjectId(httpRequest.body!._userId);
 
       const spending = await this.createSpendingRepository.createSpending(
