@@ -50,25 +50,25 @@ export class PetDetailsService {
 
         const pets = await this.getBasePetsRepository.getBasePets();
         
-        const petLevel = userXps / baseXps.BASEXPLEVEL;
-
+        const petLevel = Math.floor(userXps / baseXps.BASEXPLEVEL);
+        
         switch (petLevel) {
-            case 1:
+            case 0:
                 return pets[0];
-            case 2:
+            case 1:
                 return pets[1];
-            case 3:
+            case 2:
                 return pets[2];
             case 4:
                 return pets[3];
             case 5:
                 return pets[4];
-            case 7:
+            case 6:
                 return pets[5];
-            case 8:
+            case 7:
                 return pets[6];
             default:
-                throw new Error('Invalid level'); 
+                return pets[0]; 
         }
     }
 }

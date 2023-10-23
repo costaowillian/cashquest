@@ -33,11 +33,8 @@ export class CreateUserPetController implements Icontroller {
                 return badRequest("Missing user id");
             }
 
-            for(const field of requiredFields) {
-                const fieldValue = httpRequest?.body?.[field as keyof CretateUserpetParams];
-                
-                if(typeof fieldValue ==='string' && !fieldValue.length) {
-                    console.log("validou");
+            for(const field of requiredFields) {               
+                if (!httpRequest?.body?.[field as keyof CretateUserpetParams]) {
                     return badRequest(`Field ${field} is required`);
                 }
             }
@@ -58,7 +55,6 @@ export class CreateUserPetController implements Icontroller {
                 pet: basePet,
                 userId: createdPet._userId,
                 xps: xps,
-                level: basePet,
                 health: health,
                 createdAt: createdPet.createdAt
             }]
