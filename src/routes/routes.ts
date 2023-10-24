@@ -42,6 +42,8 @@ import { MongoCreateUserPetRepository } from "../respositories/user-pet/creat-us
 import { MongoGetSumDepositsRepository } from "../respositories/deposit/get-sum-deposits/mongo-get-sum-deposits";
 import { MongoGetSumSpendingsRepository } from "../respositories/spendings/get-sum-spendings/mong-get-sum-spending";
 import { CreateUserPetController } from "../controllers/user-pet/create-user-pet/create-user-pet-controller";
+import { MongoGetUserPetRepository } from "../respositories/user-pet/get-user-pet/mongo-get-user-pet";
+import { GetUserPetController } from "../controllers/user-pet/get-user-pet/get-user-pet";
 
 const router = express.Router();
 
@@ -265,5 +267,19 @@ router.post("/user-pet/create", chectToken, async (req, res) => {
   })
   res.status(statusCode).send(body);
 });
+
+router.get("/user-pet/get/:userId", chectToken, async (req, res) => {
+  const getSumDepositsRepository = new MongoGetSumDepositsRepository();
+  const getSumSpendingRepository = new MongoGetSumSpendingsRepository();
+  const getTotalDepositsRepository = new MongoGetTotalDepositsRepository();
+  const getTotalSpendingsRepository = new MongoGetTotalSpendindsRepository();
+  const getBasePetsRepository = new MongoGetBasePetsRepository();
+  const getUserPetRepository = new MongoGetUserPetRepository();
+  const getUserPetController = new GetUserPetController(getSumDepositsRepository, getSumSpendingRepository,getTotalDepositsRepository, getTotalSpendingsRepository, getBasePetsRepository, getUserPetRepository);
+  const { body, statusCode } = await getUserPetController.handle({
+    params: req.params
+  })
+  res.status(statusCode).send(body);
+})
 
 export default router;

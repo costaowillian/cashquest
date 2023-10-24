@@ -30,5 +30,5 @@ export interface IGetSumSpendingsRepository {
 }
 
 export interface IGetSumDepositsRepository {
-  getSumDeposits(id: string): Promise<ICountTotal>;
+  getSumDeposits(id: string): Promise<ICountTotal | number>;
 }

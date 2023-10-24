@@ -17,14 +17,14 @@ export class GetWalletController implements Icontroller {
                 return badRequest("Missing Id");
             }
             
-            const spendings = await this.getTotalSpendingsRepository.getTotalSpendings(id);
+            const spendings:any = await this.getTotalSpendingsRepository.getTotalSpendings(id);
 
-            const depsosits = await this.getTotalDepositsRepository.getTotalDeposits(id);
+            const depsosits:any = await this.getTotalDepositsRepository.getTotalDeposits(id);
 
-            const monthlySpendings = await this.getTotalMonthlySpendingdsRepository.getTotalSpendings(id);
+            const monthlySpendings:any = await this.getTotalMonthlySpendingdsRepository.getTotalSpendings(id);
 
             const walletTotal = this.sumWallet(depsosits?.total, spendings?.total);
-            
+                
             const wallet = {
                 totalDeposits: walletTotal,
                 spendings: spendings?.total,

@@ -8,11 +8,11 @@ export interface ITotal {
 }
 
 export interface IGetTotalSpendingsRepository {
-    getTotalSpendings(id: string): Promise<ITotal | null>
+    getTotalSpendings(id: string): Promise<ITotal | number>
 }
 
 export interface IGetTotalDepositsRepository {
-    getTotalDeposits(id: string): Promise<ITotal | null>
+    getTotalDeposits(id: string): Promise<ITotal | number>
 }
 
 export interface IGetTotalMonthlySpendingsRepository {

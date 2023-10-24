@@ -9,7 +9,7 @@ import { MongoClient } from "../../../database/mongo";
 export class MongoGetTotalSpendindsRepository
   implements IGetTotalSpendingsRepository
 {
-  async getTotalSpendings(userId: string): Promise<ITotal | null> {
+  async getTotalSpendings(userId: string): Promise<ITotal | number> {
     const spendingsColection =
       MongoClient.db.collection<MongoSpending>("spending");
 
@@ -28,6 +28,10 @@ export class MongoGetTotalSpendindsRepository
         }
       ])
       .toArray();
+
+      if(spendings === null || spendings.length === 0){
+        return 0;
+      }
       console.log({spendingsTotal: spendings})
     const { _id, total } = spendings[0];
     return { userId: _id.toHexString(), total };

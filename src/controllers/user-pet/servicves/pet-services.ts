@@ -15,14 +15,22 @@ export class PetDetailsService {
 
     }
     async getXps(id: string): Promise<number> {
-        const sumDeposits = await this.getSumDepositsRepository.getSumDeposits(id);
-        const sumSpendings = await this.getSumSpendingRepository.getSumSpendings(id);
+        const sumDeposits: any = await this.getSumDepositsRepository.getSumDeposits(id);
+        const sumSpendings: any = await this.getSumSpendingRepository.getSumSpendings(id);
 
-        const depositsXps = this.sumXps(amountXps.DEPOSITS, sumDeposits.total);
-        const spendingsXps = this.sumXps(amountXps.SPENDINGS, sumSpendings.total);
 
+        let spendingsXps = 0;
+        let depositsXps = 0;
+        if(sumDeposits != 0 && sumSpendings != 0) {
+            depositsXps = this.sumXps(amountXps.DEPOSITS, sumDeposits.total);
+            spendingsXps = this.sumXps(amountXps.SPENDINGS, sumSpendings.total);
+        }
+  
         const totalXps = depositsXps + spendingsXps
 
+        if(totalXps === null) {
+            return 0;
+        }
         return totalXps;
     }
 
@@ -31,15 +39,15 @@ export class PetDetailsService {
     }
 
     async  getHealth(id: string): Promise<boolean> {
-        const totalDposits = await this.getTotalDepositsRepository.getTotalDeposits(id);
-        const totalSpendings = await this.getTotalSpendingsRepository.getTotalSpendings(id);
+        const totalDposits: any = await this.getTotalDepositsRepository.getTotalDeposits(id);
+        const totalSpendings: any = await this.getTotalSpendingsRepository.getTotalSpendings(id);
 
         let health = 0
-        if (totalDposits && totalSpendings) {
+        if (totalDposits != 0 && totalSpendings != 0) {
             health = totalDposits?.total - totalSpendings?.total;
         }
 
-        if(health < 0) {
+        if(health <= 0) {
             return true;
         }
         return false;

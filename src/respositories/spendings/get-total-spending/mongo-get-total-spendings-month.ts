@@ -9,7 +9,7 @@ import { MongoClient } from "../../../database/mongo";
 export class MongoGetTotalMonthlySpendindsRepository
   implements IGetTotalSpendingsRepository
 {
-  async getTotalSpendings(userId: string): Promise<ITotal | null> {
+  async getTotalSpendings(userId: string): Promise<ITotal | number> {
     const spendingsColection =
       MongoClient.db.collection<MongoSpending>("spending");
 
@@ -34,8 +34,8 @@ export class MongoGetTotalMonthlySpendindsRepository
       ])
       .toArray();
 
-    if (!spendings) {
-      throw new Error(`Not found data for date ${currentDate}`);
+    if (spendings === null || spendings.length === 0) {
+      return 0;
     }
     const { _id, total } = spendings[0];
     return { userId: _id.toHexString(), total };

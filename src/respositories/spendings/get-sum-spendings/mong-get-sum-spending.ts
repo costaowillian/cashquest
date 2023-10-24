@@ -22,6 +22,10 @@ export class MongoGetSumSpendingsRepository implements IGetSumSpendingsRepositor
             }
           ]).toArray();
 
+          if(result === null || result.length === 0){
+            return 0
+          }
+
           return result[0];
     }
 

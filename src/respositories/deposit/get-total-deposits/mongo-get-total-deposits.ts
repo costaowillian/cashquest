@@ -8,11 +8,10 @@ import { MongoClient } from "../../../database/mongo";
 export class MongoGetTotalDepositsRepository
   implements IGetTotalDepositsRepository
 {
-  async getTotalDeposits(userId: string): Promise<ITotal | null> {
+  async getTotalDeposits(userId: string): Promise<ITotal | number> {
     const spendingsColection =
       MongoClient.db.collection<MongoSpending>("deposit");
 
-      console.log(userId);
     const deposits = await spendingsColection
       .aggregate([
         {
@@ -28,6 +27,11 @@ export class MongoGetTotalDepositsRepository
         }
       ])
       .toArray(); 
+
+      if(deposits === null || deposits.length === 0){
+        return 0;
+      }
+      
       console.log(deposits[0])
     const { _id, total } = deposits[0];
     return { userId: _id.toHexString(), total };
