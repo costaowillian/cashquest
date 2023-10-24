@@ -38,7 +38,7 @@ import { MongoGetTotalSpendindsRepository } from "../respositories/spendings/get
 import { GetWalletController } from "../controllers/wallet/get-wallet/get-wallet";
 import { MongoGetTotalDepositsRepository } from "../respositories/deposit/get-total-deposits/mongo-get-total-deposits";
 import { MongoGetTotalMonthlySpendindsRepository } from "../respositories/spendings/get-total-spending/mongo-get-total-spendings-month";
-import { MongoCreateUserPetRepository } from "../respositories/user-pet/mongo-create-user-pet";
+import { MongoCreateUserPetRepository } from "../respositories/user-pet/creat-user-pet/mongo-create-user-pet";
 import { MongoGetSumDepositsRepository } from "../respositories/deposit/get-sum-deposits/mongo-get-sum-deposits";
 import { MongoGetSumSpendingsRepository } from "../respositories/spendings/get-sum-spendings/mong-get-sum-spending";
 import { CreateUserPetController } from "../controllers/user-pet/create-user-pet/create-user-pet-controller";
@@ -264,6 +264,6 @@ router.post("/user-pet/create", chectToken, async (req, res) => {
     body: req.body
   })
   res.status(statusCode).send(body);
-})
+});
 
 export default router;

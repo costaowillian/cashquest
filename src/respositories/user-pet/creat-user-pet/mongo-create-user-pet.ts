@@ -1,6 +1,6 @@
-import { CretateUserpetParams, ICreateUserPetRepository } from "../../controllers/user-pet/create-user-pet/protocols";
-import { MongoClient } from "../../database/mongo";
-import { MongoCretateUserpetParams } from "../mongo-protocols";
+import { CretateUserpetParams, ICreateUserPetRepository } from "../../../controllers/user-pet/create-user-pet/protocols";
+import { MongoClient } from "../../../database/mongo";
+import { MongoCretateUserpetParams } from "../../mongo-protocols";
 
 export class MongoCreateUserPetRepository implements ICreateUserPetRepository {
     async createUserPet(params: CretateUserpetParams): Promise<CretateUserpetParams> {
