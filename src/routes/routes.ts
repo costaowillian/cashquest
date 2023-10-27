@@ -1,3 +1,4 @@
+import { MongoDeleteSavingRepository } from './../respositories/savings/delete-saving/mongo-delete-saving';
 import { MongoCreateSavingRepository } from './../respositories/savings/create-saving/mongo-create-saving';
 import { DeleteDepositController } from "./../controllers/deposit/delete-deposit/delete-deposit";
 import { MongoGetUserAuthRepository } from "./../respositories/get-user-auth/mongo-get-user-auth";
@@ -50,6 +51,7 @@ import { MongGetSavingRepository } from '../respositories/savings/get-saving/mon
 import { GetSavingController } from '../controllers/savings/get-saving/get-saving';
 import { MongoGetSavingsRepository } from '../respositories/savings/get-all-savings/mongo-get-all-savings';
 import { GetSavingsController } from '../controllers/savings/get-all-savings/get-all-savings';
+import { DeleteSavingController } from '../controllers/savings/delete-saving/delete-saving';
 
 const router = express.Router();
 
@@ -310,6 +312,15 @@ router.get("/savings/get-all-savings/:id",  chectToken, async (req, res) => {
   const getSavingsRepository = new MongoGetSavingsRepository();
   const getSavingsController = new GetSavingsController(getSavingsRepository);
   const { body, statusCode } = await getSavingsController.handle({
+    params: req.params
+  })
+  res.status(statusCode).send(body);
+})
+
+router.delete("/saving/delete/:id", chectToken, async (req, res) => {
+  const deleteSavingRepository = new MongoDeleteSavingRepository();
+  const deleteSavingController = new DeleteSavingController(deleteSavingRepository);
+  const { body, statusCode } = await deleteSavingController.handle({
     params: req.params
   })
   res.status(statusCode).send(body);
