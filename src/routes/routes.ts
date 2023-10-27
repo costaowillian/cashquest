@@ -52,6 +52,8 @@ import { GetSavingController } from '../controllers/savings/get-saving/get-savin
 import { MongoGetSavingsRepository } from '../respositories/savings/get-all-savings/mongo-get-all-savings';
 import { GetSavingsController } from '../controllers/savings/get-all-savings/get-all-savings';
 import { DeleteSavingController } from '../controllers/savings/delete-saving/delete-saving';
+import { MongoUpdateSavingRepository } from '../respositories/savings/update-saving/mongo-update-saving';
+import { UpdateSavingController } from '../controllers/savings/update-saving/update-saving';
 
 const router = express.Router();
 
@@ -325,4 +327,14 @@ router.delete("/saving/delete/:id", chectToken, async (req, res) => {
   })
   res.status(statusCode).send(body);
 })
+
+router.patch("/saving/update/:id", chectToken, async (req, res) => {
+  const updateSavingRepository = new MongoUpdateSavingRepository();
+  const updateSavingController = new UpdateSavingController(updateSavingRepository);
+  const { body, statusCode } = await updateSavingController.handle({
+    params: req.params,
+    body: req.body
+  })
+  res.status(statusCode).send(body);
+});
 export default router;

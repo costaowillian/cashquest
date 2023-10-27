@@ -1,4 +1,3 @@
-import { error } from 'console';
 import { IDeposit } from "../../../models/deposit";
 import { HttpRequest, HttpResponse, Icontroller } from "../../protocols";
 import { IUpdateDepositRepository, UpdateDepositParams } from "./protocols";
@@ -13,7 +12,7 @@ export class UpdateDepositController implements Icontroller {
             const body = httpRequest?.body;
 
             if(!body) {
-                return badRequest('Missing fields data');
+                return badRequest('Missing body');
             }
 
             if(!id) {
