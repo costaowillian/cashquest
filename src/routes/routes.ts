@@ -1,3 +1,4 @@
+import { MongoCreateSavingRepository } from './../respositories/savings/create-saving/mongo-create-saving';
 import { DeleteDepositController } from "./../controllers/deposit/delete-deposit/delete-deposit";
 import { MongoGetUserAuthRepository } from "./../respositories/get-user-auth/mongo-get-user-auth";
 import express from "express";
@@ -44,6 +45,7 @@ import { MongoGetSumSpendingsRepository } from "../respositories/spendings/get-s
 import { CreateUserPetController } from "../controllers/user-pet/create-user-pet/create-user-pet-controller";
 import { MongoGetUserPetRepository } from "../respositories/user-pet/get-user-pet/mongo-get-user-pet";
 import { GetUserPetController } from "../controllers/user-pet/get-user-pet/get-user-pet";
+import { CreateSavingController } from '../controllers/savings/create-savings/create-saving';
 
 const router = express.Router();
 
@@ -278,6 +280,15 @@ router.get("/user-pet/get/:userId", chectToken, async (req, res) => {
   const getUserPetController = new GetUserPetController(getSumDepositsRepository, getSumSpendingRepository,getTotalDepositsRepository, getTotalSpendingsRepository, getBasePetsRepository, getUserPetRepository);
   const { body, statusCode } = await getUserPetController.handle({
     params: req.params
+  })
+  res.status(statusCode).send(body);
+})
+
+router.post("/savings/create", chectToken, async (req, res) => {
+  const createSavingREspoitory = new MongoCreateSavingRepository();
+  const createSavingController = new CreateSavingController(createSavingREspoitory);
+  const { body, statusCode } = await createSavingController.handle({
+    body: req.body
   })
   res.status(statusCode).send(body);
 })
