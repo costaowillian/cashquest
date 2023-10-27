@@ -48,6 +48,8 @@ import { GetUserPetController } from "../controllers/user-pet/get-user-pet/get-u
 import { CreateSavingController } from '../controllers/savings/create-savings/create-saving';
 import { MongGetSavingRepository } from '../respositories/savings/get-saving/mongo-get-saving';
 import { GetSavingController } from '../controllers/savings/get-saving/get-saving';
+import { MongoGetSavingsRepository } from '../respositories/savings/get-all-savings/mongo-get-all-savings';
+import { GetSavingsController } from '../controllers/savings/get-all-savings/get-all-savings';
 
 const router = express.Router();
 
@@ -295,10 +297,19 @@ router.post("/savings/create", chectToken, async (req, res) => {
   res.status(statusCode).send(body);
 })
 
-router.get("/savings/get-saving", chectToken, async (req, res) => {
+router.get("/savings/get-saving/:id", chectToken, async (req, res) => {
   const getSavingRepository = new MongGetSavingRepository();
   const getSavingController = new GetSavingController(getSavingRepository);
   const { body, statusCode } = await getSavingController.handle({
+    params: req.params
+  })
+  res.status(statusCode).send(body);
+})
+
+router.get("/savings/get-all-savings/:id",  chectToken, async (req, res) => {
+  const getSavingsRepository = new MongoGetSavingsRepository();
+  const getSavingsController = new GetSavingsController(getSavingsRepository);
+  const { body, statusCode } = await getSavingsController.handle({
     params: req.params
   })
   res.status(statusCode).send(body);

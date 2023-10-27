@@ -4,7 +4,7 @@ import { ISaving } from "../../../models/savings";
 import { MongoSaving } from "../../mongo-protocols";
 import { IGetSavingsRepository } from "./../../../controllers/savings/get-all-savings/protocols";
 
-export class MongoGetSavingRepository implements IGetSavingsRepository {
+export class MongoGetSavingsRepository implements IGetSavingsRepository {
   async getSavings(userId: string): Promise<ISaving[]> {
     const saving = await MongoClient.db
       .collection<MongoSaving>("saving")
