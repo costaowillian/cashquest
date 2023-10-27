@@ -5,7 +5,7 @@ import { IGetDepositRepository } from "./protocols";
 
 export class GetDepositController implements Icontroller {
     constructor(private readonly getDepositRepository: IGetDepositRepository) {}
-    async handle(httpRequest: HttpRequest<unknown>): Promise<HttpResponse<unknown>> {
+    async handle(httpRequest: HttpRequest<unknown>): Promise<HttpResponse<IDeposit | string>> {
         try {
             const id =  httpRequest?.params?.id;
 

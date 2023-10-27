@@ -46,6 +46,8 @@ import { CreateUserPetController } from "../controllers/user-pet/create-user-pet
 import { MongoGetUserPetRepository } from "../respositories/user-pet/get-user-pet/mongo-get-user-pet";
 import { GetUserPetController } from "../controllers/user-pet/get-user-pet/get-user-pet";
 import { CreateSavingController } from '../controllers/savings/create-savings/create-saving';
+import { MongGetSavingRepository } from '../respositories/savings/get-saving/mongo-get-saving';
+import { GetSavingController } from '../controllers/savings/get-saving/get-saving';
 
 const router = express.Router();
 
@@ -293,4 +295,12 @@ router.post("/savings/create", chectToken, async (req, res) => {
   res.status(statusCode).send(body);
 })
 
+router.get("/savings/get-saving", chectToken, async (req, res) => {
+  const getSavingRepository = new MongGetSavingRepository();
+  const getSavingController = new GetSavingController(getSavingRepository);
+  const { body, statusCode } = await getSavingController.handle({
+    params: req.params
+  })
+  res.status(statusCode).send(body);
+})
 export default router;
