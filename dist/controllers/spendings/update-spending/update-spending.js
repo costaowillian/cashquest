@@ -9,11 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateDepositController = void 0;
+exports.UpdateSpendingController = void 0;
 const helpers_1 = require("../../helpers");
-class UpdateDepositController {
-    constructor(updateDepositRepository) {
-        this.updateDepositRepository = updateDepositRepository;
+class UpdateSpendingController {
+    constructor(updateSpendingRepository) {
+        this.updateSpendingRepository = updateSpendingRepository;
     }
     handle(httpRequest) {
         var _a;
@@ -22,18 +22,18 @@ class UpdateDepositController {
                 const id = (_a = httpRequest === null || httpRequest === void 0 ? void 0 : httpRequest.params) === null || _a === void 0 ? void 0 : _a.id;
                 const body = httpRequest === null || httpRequest === void 0 ? void 0 : httpRequest.body;
                 if (!body) {
-                    return (0, helpers_1.badRequest)('Missing fields data');
+                    return (0, helpers_1.badRequest)("Missing fields");
                 }
                 if (!id) {
-                    return (0, helpers_1.badRequest)('Missing deposit id');
+                    return (0, helpers_1.badRequest)("Missing spending id");
                 }
                 const AllowedToUpdate = [
-                    'category',
-                    'description',
-                    'value',
-                    'attachment',
-                    'isFixed',
-                    'comments'
+                    "category",
+                    "description",
+                    "value",
+                    "attachment",
+                    "isFixed",
+                    "comments"
                 ];
                 const someFieldsNotAllowedToUpdate = Object.keys(body).some((key) => !AllowedToUpdate.includes(key));
                 if (someFieldsNotAllowedToUpdate) {
@@ -42,13 +42,13 @@ class UpdateDepositController {
                 const updatedbody = Object.assign({}, body);
                 const paramToRemove = "userId";
                 delete updatedbody[paramToRemove];
-                const deposit = yield this.updateDepositRepository.update(id, updatedbody);
-                return (0, helpers_1.ok)(deposit);
+                const spending = yield this.updateSpendingRepository.updateSpending(id, updatedbody);
+                return (0, helpers_1.ok)(spending);
             }
             catch (error) {
-                return (0, helpers_1.serverError)("15");
+                return (0, helpers_1.serverError)("10");
             }
         });
     }
 }
-exports.UpdateDepositController = UpdateDepositController;
+exports.UpdateSpendingController = UpdateSpendingController;

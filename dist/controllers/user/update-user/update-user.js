@@ -9,11 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateDepositController = void 0;
+exports.UpdateUserController = void 0;
 const helpers_1 = require("../../helpers");
-class UpdateDepositController {
-    constructor(updateDepositRepository) {
-        this.updateDepositRepository = updateDepositRepository;
+class UpdateUserController {
+    constructor(updateUserRepository) {
+        this.updateUserRepository = updateUserRepository;
     }
     handle(httpRequest) {
         var _a;
@@ -22,33 +22,26 @@ class UpdateDepositController {
                 const id = (_a = httpRequest === null || httpRequest === void 0 ? void 0 : httpRequest.params) === null || _a === void 0 ? void 0 : _a.id;
                 const body = httpRequest === null || httpRequest === void 0 ? void 0 : httpRequest.body;
                 if (!body) {
-                    return (0, helpers_1.badRequest)('Missing fields data');
+                    return (0, helpers_1.badRequest)("Missing fields");
                 }
                 if (!id) {
-                    return (0, helpers_1.badRequest)('Missing deposit id');
+                    return (0, helpers_1.badRequest)("Missing user id");
                 }
                 const AllowedToUpdate = [
-                    'category',
-                    'description',
-                    'value',
-                    'attachment',
-                    'isFixed',
-                    'comments'
+                    "firstName",
+                    "lastName"
                 ];
-                const someFieldsNotAllowedToUpdate = Object.keys(body).some((key) => !AllowedToUpdate.includes(key));
-                if (someFieldsNotAllowedToUpdate) {
-                    return (0, helpers_1.badRequest)("Some received fields is not allowed");
+                const someFieldIsNotAllowedToUpdate = Object.keys(body).some((key) => !AllowedToUpdate.includes(key));
+                if (someFieldIsNotAllowedToUpdate) {
+                    return (0, helpers_1.badRequest)("Some received field is not allowed");
                 }
-                const updatedbody = Object.assign({}, body);
-                const paramToRemove = "userId";
-                delete updatedbody[paramToRemove];
-                const deposit = yield this.updateDepositRepository.update(id, updatedbody);
-                return (0, helpers_1.ok)(deposit);
+                const user = yield this.updateUserRepository.updateUser(id, body);
+                return (0, helpers_1.ok)(user);
             }
             catch (error) {
-                return (0, helpers_1.serverError)("15");
+                return (0, helpers_1.serverError)("03");
             }
         });
     }
 }
-exports.UpdateDepositController = UpdateDepositController;
+exports.UpdateUserController = UpdateUserController;

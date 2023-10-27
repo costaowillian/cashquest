@@ -9,22 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateDepositController = void 0;
+exports.CreateSpendingController = void 0;
 const mongodb_1 = require("mongodb");
 const helpers_1 = require("../../helpers");
-class CreateDepositController {
-    constructor(createDepositRepository) {
-        this.createDepositRepository = createDepositRepository;
+class CreateSpendingController {
+    constructor(createSpendingRepository) {
+        this.createSpendingRepository = createSpendingRepository;
     }
     handle(httpRequest) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                console.log({ controller: httpRequest.body });
                 const requiredFields = [
                     "_userId",
                     "category",
                     "value",
-                    "isFixed",
+                    " isFixed",
                     "createAt"
                 ];
                 for (const field of requiredFields) {
@@ -33,13 +34,14 @@ class CreateDepositController {
                     }
                 }
                 httpRequest.body._userId = new mongodb_1.ObjectId(httpRequest.body._userId);
-                const deposit = yield this.createDepositRepository.createDeposit(httpRequest.body);
-                return (0, helpers_1.created)(deposit);
+                const spending = yield this.createSpendingRepository.createSpending(httpRequest.body);
+                return (0, helpers_1.created)(spending);
             }
             catch (error) {
-                return (0, helpers_1.serverError)("12");
+                console.log(error);
+                return (0, helpers_1.serverError)("07");
             }
         });
     }
 }
-exports.CreateDepositController = CreateDepositController;
+exports.CreateSpendingController = CreateSpendingController;
