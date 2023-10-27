@@ -7,7 +7,6 @@ import { MongoClient } from "../../../database/mongo";
 import { IDeposit } from "../../../models/deposit";
 import { MongoDeposit } from "../../mongo-protocols";
 
-
 export class MongoUpdateDepositRepository implements IUpdateDepositRepository {
   async update(id: string, params: UpdateDepositParams): Promise<IDeposit> {
     await MongoClient.db.collection<MongoDeposit>("deposit").updateOne(
