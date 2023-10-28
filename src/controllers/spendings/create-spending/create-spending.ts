@@ -12,7 +12,12 @@ export class CreateSpendingController implements Icontroller {
     httpRequest: HttpRequest<CreateSpendingParams>
   ): Promise<HttpResponse<ISpending | string>> {
     try {
-      console.log({ controller: httpRequest.body });
+      const body = httpRequest?.body;
+
+      if (!body) {
+        return badRequest("Missing Body");
+      }
+
       const requiredFields = [
         "_userId",
         "category",
@@ -22,11 +27,17 @@ export class CreateSpendingController implements Icontroller {
       ];
 
       for (const field of requiredFields) {
-        if (!httpRequest?.body?.[field as keyof CreateSpendingParams]) {
+        const fieldValue =
+          httpRequest.body?.[field as keyof CreateSpendingParams];
+
+        if (
+          fieldValue === undefined ||
+          (typeof fieldValue === "string" && !fieldValue.trim())
+        ) {
           return badRequest(`Field ${field} is required`);
         }
       }
-      
+
       httpRequest.body!._userId = new ObjectId(httpRequest.body!._userId);
 
       const spending = await this.createSpendingRepository.createSpending(

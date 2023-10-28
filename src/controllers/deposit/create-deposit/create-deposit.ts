@@ -13,6 +13,12 @@ export class CreateDepositController implements Icontroller {
     httpRequest: HttpRequest<CreateDepositParams>
   ): Promise<HttpResponse<IDeposit | string>> {
     try {
+      const body = httpRequest?.body;
+
+      if (!body) {
+        return badRequest("Missing Body");
+      }
+
       const requiredFields = [
         "_userId",
         "category",
@@ -22,7 +28,13 @@ export class CreateDepositController implements Icontroller {
       ];
 
       for (const field of requiredFields) {
-        if (!httpRequest?.body?.[field as keyof CreateDepositParams]) {
+        const fieldValue =
+          httpRequest.body?.[field as keyof CreateDepositParams];
+
+        if (
+          fieldValue === undefined ||
+          (typeof fieldValue === "string" && !fieldValue.trim())
+        ) {
           return badRequest(`Field ${field} is required`);
         }
       }

@@ -5,7 +5,7 @@ export interface CreateSavingParams {
     _userId: string | ObjectId;
     category: string;
     description?: string;
-    value: string;
+    value: number;
     attachment?: string;
     isFixed: boolean;
     comments?: string;
