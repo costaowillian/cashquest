@@ -1,7 +1,6 @@
 import { ObjectId } from "mongodb";
 import { IGetSumSavingsRepository } from "../../../controllers/user-pet/create-user-pet/protocols";
 import { MongoClient } from "../../../database/mongo";
-import { ISaving } from "../../../models/savings";
 
 export class MongoGetSumSavingsRepository implements IGetSumSavingsRepository {
   async getSumSavings(id: string): Promise<number | any> {

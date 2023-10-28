@@ -22,18 +22,18 @@ export class MongoGetTotalSpendindsRepository
         },
         {
           $group: {
-            _id: new ObjectId(userId),
+            _userId: new ObjectId(userId),
             total: { $sum: "$value" }
           }
         }
       ])
       .toArray();
 
-      if(spendings === null || spendings.length === 0){
-        return 0;
-      }
-      console.log({spendingsTotal: spendings})
-    const { _id, total } = spendings[0];
-    return { userId: _id.toHexString(), total };
+    if (spendings === null || spendings.length === 0) {
+      return 0;
+    }
+    console.log({ spendingsTotal: spendings });
+    const { _userId, total } = spendings[0];
+    return { userId: _userId.toHexString(), total };
   }
 }

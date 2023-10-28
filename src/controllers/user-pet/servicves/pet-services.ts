@@ -1,7 +1,7 @@
 import { IBasePet } from "../../../models/base-pet";
 import { IGetBasePetsRepository } from "../../base-pets/get-base-pets/protocols";
 import { IGetSumDepositsRepository, IGetSumSavingsRepository, IGetSumSpendingsRepository, amountXps, baseXps } from "../create-user-pet/protocols";
-import { IGetTotalDepositsRepository, IGetTotalSpendingsRepository } from "../../wallet/get-wallet/protocols";
+import { IGetTotalDepositsRepository, IGetTotalSavingsRepository, IGetTotalSpendingsRepository } from "../../wallet/get-wallet/protocols";
 
 export class PetDetailsService {
 

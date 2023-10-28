@@ -4,7 +4,7 @@ import { ObjectId } from "mongodb";
 import { IGetBasePetsRepository } from "../../base-pets/get-base-pets/protocols";
 import { badRequest, serverError } from "../../helpers";
 import { HttpRequest, HttpResponse, Icontroller } from "../../protocols";
-import { IGetTotalDepositsRepository, IGetTotalSpendingsRepository } from "../../wallet/get-wallet/protocols";
+import { IGetTotalDepositsRepository, IGetTotalSavingsRepository, IGetTotalSpendingsRepository } from "../../wallet/get-wallet/protocols";
 import { CretateUserpetParams, ICreateUserPetRepository, IGetSumDepositsRepository, IGetSumSavingsRepository, IGetSumSpendingsRepository } from "./protocols";
 import { IPetDetailsService } from '../servicves/protocols';
 import { PetDetailsService } from '../servicves/pet-services';

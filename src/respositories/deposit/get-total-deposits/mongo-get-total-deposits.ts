@@ -1,7 +1,8 @@
 import { MongoSpending } from "../../mongo-protocols";
 import { ObjectId } from "mongodb";
 import {
-    IGetTotalDepositsRepository, ITotal
+  IGetTotalDepositsRepository,
+  ITotal
 } from "../../../controllers/wallet/get-wallet/protocols";
 import { MongoClient } from "../../../database/mongo";
 
@@ -9,10 +10,10 @@ export class MongoGetTotalDepositsRepository
   implements IGetTotalDepositsRepository
 {
   async getTotalDeposits(userId: string): Promise<ITotal | number> {
-    const spendingsColection =
+    const spendingsCollection =
       MongoClient.db.collection<MongoSpending>("deposit");
 
-    const deposits = await spendingsColection
+    const deposits = await spendingsCollection
       .aggregate([
         {
           $match: {
@@ -21,19 +22,19 @@ export class MongoGetTotalDepositsRepository
         },
         {
           $group: {
-            _id: new ObjectId(userId),
+            _userId: new ObjectId(userId),
             total: { $sum: "$value" }
           }
         }
       ])
-      .toArray(); 
+      .toArray();
 
-      if(deposits === null || deposits.length === 0){
-        return 0;
-      }
-      
-      console.log(deposits[0])
-    const { _id, total } = deposits[0];
-    return { userId: _id.toHexString(), total };
+    if (deposits === null || deposits.length === 0) {
+      return 0;
+    }
+
+    console.log(deposits[0]);
+    const { _userId, total } = deposits[0];
+    return { userId: _userId.toHexString(), total };
   }
 }

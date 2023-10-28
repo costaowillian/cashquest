@@ -55,6 +55,7 @@ import { DeleteSavingController } from '../controllers/savings/delete-saving/del
 import { MongoUpdateSavingRepository } from '../respositories/savings/update-saving/mongo-update-saving';
 import { UpdateSavingController } from '../controllers/savings/update-saving/update-saving';
 import { MongoGetSumSavingsRepository } from '../respositories/savings/get-sum-savings/mongo-get-sum-savings';
+import { MongoGetTotalSavingsRepository } from '../respositories/savings/get-total-savings/mongo-get-total-savings';
 
 const router = express.Router();
 
@@ -252,12 +253,14 @@ router.patch("/deposti/update/:id", chectToken, async (req, res) => {
 router.get("/wallet/get-wallet/:id", chectToken, async (req, res) => {
   const getTotalSpendingsRepository = new MongoGetTotalSpendindsRepository();
   const getTotalDepositsRepository = new MongoGetTotalDepositsRepository();
+  const getTotalSavingsRepository = new MongoGetTotalSavings();
   const getTotalMonthlySpendingdsRepository =
     new MongoGetTotalMonthlySpendindsRepository();
   const getWalletController = new GetWalletController(
     getTotalSpendingsRepository,
     getTotalDepositsRepository,
-    getTotalMonthlySpendingdsRepository
+    getTotalMonthlySpendingdsRepository, getTotalSavingsRepository
+
   );
   const { body, statusCode } = await getWalletController.handle({
     params: req.params
@@ -269,11 +272,12 @@ router.post("/user-pet/create", chectToken, async (req, res) => {
   const getSumDepositsRepository = new MongoGetSumDepositsRepository();
   const getSumSpendingRepository = new MongoGetSumSpendingsRepository();
   const getTotalDepositsRepository = new MongoGetTotalDepositsRepository();
-  const getTotalSpendingsRepository = new MongoGetTotalSpendindsRepository();
+  const getTotalSpendingsRepository = new MongoGetTotalSpendindsRepository()
+  const getTotalSavingsRepository = new MongoGetTotalSavingsRepository();
   const getBasePetsRepository = new MongoGetBasePetsRepository();
   const getSumSavingsRepository = new MongoGetSumSavingsRepository();
   const createUserPetsRepository = new MongoCreateUserPetRepository();
-  const getUserPetController = new CreateUserPetController(getSumDepositsRepository, getSumSpendingRepository,getTotalDepositsRepository, getTotalSpendingsRepository, getSumSavingsRepository, getBasePetsRepository,  createUserPetsRepository);
+  const getUserPetController = new CreateUserPetController(getSumDepositsRepository, getSumSpendingRepository, getTotalDepositsRepository, getTotalSpendingsRepository, getTotalSavingsRepository, getSumSavingsRepository, getBasePetsRepository,  createUserPetsRepository);
   const { body, statusCode } = await getUserPetController.handle({
     body: req.body
   })
@@ -285,9 +289,11 @@ router.get("/user-pet/get/:userId", chectToken, async (req, res) => {
   const getSumSpendingRepository = new MongoGetSumSpendingsRepository();
   const getTotalDepositsRepository = new MongoGetTotalDepositsRepository();
   const getTotalSpendingsRepository = new MongoGetTotalSpendindsRepository();
+  const getTotalSavingsRepository = new MongoGetTotalSavingsRepository();
+  const getSumSavingsRepository = new MongoGetSumSavingsRepository();
   const getBasePetsRepository = new MongoGetBasePetsRepository();
   const getUserPetRepository = new MongoGetUserPetRepository();
-  const getUserPetController = new GetUserPetController(getSumDepositsRepository, getSumSpendingRepository,getTotalDepositsRepository, getTotalSpendingsRepository, getBasePetsRepository, getUserPetRepository);
+  const getUserPetController = new GetUserPetController(getSumDepositsRepository, getSumSpendingRepository, getTotalDepositsRepository, getTotalSpendingsRepository, getTotalSavingsRepository, getSumSavingsRepository, getBasePetsRepository, getUserPetRepository);
   const { body, statusCode } = await getUserPetController.handle({
     params: req.params
   })
