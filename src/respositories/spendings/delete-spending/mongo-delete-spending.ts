@@ -7,13 +7,13 @@ import { MongoClient } from "../../../database/mongo";
 export class MongoDeleteSpendingRepository
   implements IDeleteSpendingRepository
 {
-  async deleteSpending(id: string): Promise<ISpending> {
+  async deleteSpending(id: string): Promise<ISpending | null> {
     const spending = await MongoClient.db
       .collection<MongoSpending>("spending")
       .findOne({ _id: new ObjectId(id) });
 
     if (!spending) {
-      throw new Error("Spending not found");
+      return null;
     }
 
     const { deletedCount } = await MongoClient.db
@@ -21,7 +21,7 @@ export class MongoDeleteSpendingRepository
       .deleteOne({ _id: new ObjectId(id) });
 
     if (!deletedCount) {
-      throw new Error("Spending not deleted");
+      return null;
     }
 
     const { _id, ...rest } = spending;

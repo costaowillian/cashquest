@@ -18,6 +18,11 @@ export class DeleteSpendingController implements Icontroller {
       }
 
       const spending = await this.deleteSpendingRepository.deleteSpending(id);
+      if (!spending) {
+        return badRequest(
+          `Spending does not exist and was not deleted with the given ID ${id}`
+        );
+      }
 
       return ok<ISpending>(spending);
     } catch (error) {

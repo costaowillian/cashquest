@@ -5,5 +5,5 @@ export interface DeleteSavingParams {
 }
 
 export interface IDeleteSavingRepository {
-    deleteSaving(id: string): Promise<ISaving>;
+    deleteSaving(id: string): Promise<ISaving | null>;
 }

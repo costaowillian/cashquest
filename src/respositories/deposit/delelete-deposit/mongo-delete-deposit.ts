@@ -5,20 +5,20 @@ import { IDeposit } from "../../../models/deposit";
 import { MongoDeposit } from "../../mongo-protocols";
 
 export class MongoDeleteDepositRepository implements IDeleteDepositRepository {
-  async deleteDeposit(id: string): Promise<IDeposit> {
+  async deleteDeposit(id: string): Promise<IDeposit | null> {
     const deposit = await MongoClient.db
       .collection<MongoDeposit>("deposit")
       .findOne({ _id: new ObjectId(id) });
 
     if (!deposit) {
-      throw new Error("Deposit not found");
+      return null;
     }
     const { deletedCount } = await MongoClient.db
       .collection<MongoDeposit>("deposit")
       .deleteOne({ _id: new ObjectId(id) });
 
     if (!deletedCount) {
-      throw new Error("Deposit not deleted");
+      return null;
     }
 
     const { _id, ...rest } = deposit;
