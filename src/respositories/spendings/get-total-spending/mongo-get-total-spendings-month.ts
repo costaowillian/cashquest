@@ -27,7 +27,7 @@ export class MongoGetTotalMonthlySpendindsRepository
         },
         {
           $group: {
-            _userId: new ObjectId(userId),
+            _id: new ObjectId(userId),
             total: { $sum: "$value" }
           }
         }
@@ -37,7 +37,7 @@ export class MongoGetTotalMonthlySpendindsRepository
     if (spendings === null || spendings.length === 0) {
       return 0;
     }
-    const { _userId, total } = spendings[0];
-    return { userId: _userId.toHexString(), total };
+    const { _id, total } = spendings[0];
+    return { userId: _id.toHexString(), total };
   }
 }

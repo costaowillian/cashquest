@@ -18,7 +18,7 @@ export class MongoGetTotalSavingsRepository
         },
         {
           $group: {
-            _userId: new ObjectId(userId),
+            _id: new ObjectId(userId),
             total: { $sum: "$value" }
           }
         }
@@ -29,7 +29,7 @@ export class MongoGetTotalSavingsRepository
       return 0;
     }
 
-    const { _userId, total } = savings[0];
-    return { userId: _userId.toHexString(), total };
+    const { _id, total } = savings[0];
+    return { userId: _id.toHexString(), total };
   }
 }

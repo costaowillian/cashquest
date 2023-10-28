@@ -22,7 +22,7 @@ export class MongoGetTotalSpendindsRepository
         },
         {
           $group: {
-            _userId: new ObjectId(userId),
+            _id: new ObjectId(userId),
             total: { $sum: "$value" }
           }
         }
@@ -33,7 +33,7 @@ export class MongoGetTotalSpendindsRepository
       return 0;
     }
     console.log({ spendingsTotal: spendings });
-    const { _userId, total } = spendings[0];
-    return { userId: _userId.toHexString(), total };
+    const { _id, total } = spendings[0];
+    return { userId: _id.toHexString(), total };
   }
 }
