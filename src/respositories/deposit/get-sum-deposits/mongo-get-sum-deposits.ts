@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { ICountTotal, IGetSumDepositsRepository } from "../../../controllers/user-pet/create-user-pet/protocols";
+import { IGetSumDepositsRepository } from "../../../controllers/user-pet/create-user-pet/protocols";
 import { MongoClient } from "../../../database/mongo";
 
 export class MongoGetSumDepositsRepository implements IGetSumDepositsRepository{

@@ -1,6 +1,6 @@
 import { IBasePet } from "../../../models/base-pet";
 import { IGetBasePetsRepository } from "../../base-pets/get-base-pets/protocols";
-import { IGetSumDepositsRepository, IGetSumSpendingsRepository, amountXps, baseXps } from "../create-user-pet/protocols";
+import { IGetSumDepositsRepository, IGetSumSavingsRepository, IGetSumSpendingsRepository, amountXps, baseXps } from "../create-user-pet/protocols";
 import { IGetTotalDepositsRepository, IGetTotalSpendingsRepository } from "../../wallet/get-wallet/protocols";
 
 export class PetDetailsService {
@@ -10,6 +10,7 @@ export class PetDetailsService {
         private readonly getSumSpendingRepository: IGetSumSpendingsRepository,
         private readonly getTotalDepositsRepository: IGetTotalDepositsRepository,
         private readonly getTotalSpendingsRepository: IGetTotalSpendingsRepository,
+        private readonly getSumSavingsRepository: IGetSumSavingsRepository,
         private readonly getBasePetsRepository: IGetBasePetsRepository,
     ){
 
@@ -17,16 +18,19 @@ export class PetDetailsService {
     async getXps(id: string): Promise<number> {
         const sumDeposits: any = await this.getSumDepositsRepository.getSumDeposits(id);
         const sumSpendings: any = await this.getSumSpendingRepository.getSumSpendings(id);
+        const sumSavings: any = await this.getSumSavingsRepository.getSumSavings(id);
 
 
         let spendingsXps = 0;
         let depositsXps = 0;
-        if(sumDeposits != 0 && sumSpendings != 0) {
+        let savingsXps = 0;
+        if(sumDeposits != 0 || sumSpendings != 0 || sumSavings != 0) {
             depositsXps = this.sumXps(amountXps.DEPOSITS, sumDeposits.total);
             spendingsXps = this.sumXps(amountXps.SPENDINGS, sumSpendings.total);
+            savingsXps = this.sumXps(amountXps.SAVINGS, sumSavings);
         }
   
-        const totalXps = depositsXps + spendingsXps
+        const totalXps = depositsXps + spendingsXps + savingsXps
 
         if(totalXps === null) {
             return 0;

@@ -54,6 +54,7 @@ import { GetSavingsController } from '../controllers/savings/get-all-savings/get
 import { DeleteSavingController } from '../controllers/savings/delete-saving/delete-saving';
 import { MongoUpdateSavingRepository } from '../respositories/savings/update-saving/mongo-update-saving';
 import { UpdateSavingController } from '../controllers/savings/update-saving/update-saving';
+import { MongoGetSumSavingsRepository } from '../respositories/savings/get-sum-savings/mongo-get-sum-savings';
 
 const router = express.Router();
 
@@ -270,8 +271,9 @@ router.post("/user-pet/create", chectToken, async (req, res) => {
   const getTotalDepositsRepository = new MongoGetTotalDepositsRepository();
   const getTotalSpendingsRepository = new MongoGetTotalSpendindsRepository();
   const getBasePetsRepository = new MongoGetBasePetsRepository();
+  const getSumSavingsRepository = new MongoGetSumSavingsRepository();
   const createUserPetsRepository = new MongoCreateUserPetRepository();
-  const getUserPetController = new CreateUserPetController(getSumDepositsRepository, getSumSpendingRepository,getTotalDepositsRepository, getTotalSpendingsRepository, getBasePetsRepository, createUserPetsRepository);
+  const getUserPetController = new CreateUserPetController(getSumDepositsRepository, getSumSpendingRepository,getTotalDepositsRepository, getTotalSpendingsRepository, getSumSavingsRepository, getBasePetsRepository,  createUserPetsRepository);
   const { body, statusCode } = await getUserPetController.handle({
     body: req.body
   })

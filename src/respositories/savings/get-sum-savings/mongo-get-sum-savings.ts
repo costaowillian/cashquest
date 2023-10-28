@@ -1,12 +1,11 @@
 import { ObjectId } from "mongodb";
-import { IGetSumSpendingsRepository } from "../../../controllers/user-pet/create-user-pet/protocols";
+import { IGetSumSavingsRepository } from "../../../controllers/user-pet/create-user-pet/protocols";
 import { MongoClient } from "../../../database/mongo";
+import { ISaving } from "../../../models/savings";
 
-export class MongoGetSumSpendingsRepository
-  implements IGetSumSpendingsRepository
-{
-  async getSumSpendings(id: string): Promise<any> {
-    const collection = MongoClient.db.collection("spending");
+export class MongoGetSumSavingsRepository implements IGetSumSavingsRepository {
+  async getSumSavings(id: string): Promise<number | any> {
+    const collection = MongoClient.db.collection("saving");
 
     const result = await collection
       .aggregate([

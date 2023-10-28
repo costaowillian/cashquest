@@ -1,4 +1,5 @@
 import { ObjectId } from "mongodb";
+import { ISaving } from "../../../models/savings";
 
 export interface CretateUserpetParams {
   id?: string;
@@ -31,4 +32,8 @@ export interface IGetSumSpendingsRepository {
 
 export interface IGetSumDepositsRepository {
   getSumDeposits(id: string): Promise<ICountTotal | number>;
+}
+
+export interface IGetSumSavingsRepository {
+  getSumSavings(id: string): Promise<ISaving | number>;
 }
