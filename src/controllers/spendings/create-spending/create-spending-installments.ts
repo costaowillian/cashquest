@@ -16,7 +16,7 @@ export class CreateInstallmentsSpendingCOntroller {
 
             for (let i = 0; i < numMonths!; i++) {
                 const newDate = addMonths(params.createAt, i);
-                const depositData = { ...params, _userId: params._userId, createAt: newDate, value: installmentsValue};
+                const depositData = { ...params, total: params.value, _userId: params._userId, createAt: newDate, value: installmentsValue};
 
                 const spending = await this.creatSpendingRepository.createSpending(depositData);
 
