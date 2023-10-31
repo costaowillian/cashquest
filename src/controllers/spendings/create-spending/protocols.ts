@@ -10,6 +10,7 @@ export interface CreateSpendingParams {
   isFixed: boolean;
   comments?: string;
   createAt: Date;
+  installments?: number;
 }
 
 export interface ICreateSpendingRepository {

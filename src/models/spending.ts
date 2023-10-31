@@ -8,4 +8,5 @@ export interface ISpending {
     isFixed: boolean;
     comments?: string;
     createAt: Date;
+    installments?: number;
 }

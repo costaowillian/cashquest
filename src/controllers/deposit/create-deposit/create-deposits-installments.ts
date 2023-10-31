@@ -1,6 +1,6 @@
 import { IDeposit } from "../../../models/deposit";
 import { CreateDepositParams, ICreateDepositRepository } from "./protocols";
-import { addMonths, format } from "date-fns";
+import { addMonths } from "date-fns";
 
 export class CreateInstallmentsDepositsController {
 

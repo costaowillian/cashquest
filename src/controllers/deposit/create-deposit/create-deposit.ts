@@ -6,7 +6,7 @@ import { CreateDepositParams, ICreateDepositRepository } from "./protocols";
 import { CreateInstallmentsDepositsController } from "./create-deposits-installments";
 
 export class CreateDepositController implements Icontroller {
-  createInstallmentsDepositsController: CreateInstallmentsDepositsController;
+  private createInstallmentsDepositsController: CreateInstallmentsDepositsController;
   constructor(
     private readonly createDepositRepository: ICreateDepositRepository
   ) {
@@ -58,7 +58,7 @@ export class CreateDepositController implements Icontroller {
     }
   }
 
- validateRequiredFields(body: CreateDepositParams): HttpResponse<IDeposit | string> | undefined {
+ private validateRequiredFields(body: CreateDepositParams): HttpResponse<IDeposit | string> | undefined {
     const requiredFields = ["_userId", "category", "value", "isFixed", "createAt"];
     for (const field of requiredFields) {
       const fieldValue = body?.[field as keyof CreateDepositParams];
@@ -69,7 +69,7 @@ export class CreateDepositController implements Icontroller {
     return undefined;
   }
 
-  prepareDepositData(body: CreateDepositParams): CreateDepositParams {
+  private prepareDepositData(body: CreateDepositParams): CreateDepositParams {
     const depositData = { ...body };
     depositData._userId = new ObjectId(body._userId);
     depositData.createAt = new Date(body.createAt);
