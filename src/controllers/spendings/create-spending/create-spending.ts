@@ -3,16 +3,16 @@ import { ISpending } from "../../../models/spending";
 import { badRequest, created, serverError } from "../../helpers";
 import { HttpRequest, HttpResponse, Icontroller } from "../../protocols";
 import { CreateSpendingParams, ICreateSpendingRepository } from "./protocols";
-import { CreateInstallmentsSpendingCOntroller } from "./create-spending-installments";
+import { CreateInstallmentsSpendingController } from "./create-spending-installments";
 
 export class CreateSpendingController implements Icontroller {
-  private createInstallmentsSpendingController: CreateInstallmentsSpendingCOntroller;
+  private createInstallmentsSpendingController: CreateInstallmentsSpendingController;
   
   constructor(
     private readonly createSpendingRepository: ICreateSpendingRepository
   ) {
     this.createInstallmentsSpendingController =
-      new CreateInstallmentsSpendingCOntroller(createSpendingRepository);
+      new CreateInstallmentsSpendingController(createSpendingRepository);
   }
 
   async handle(
@@ -31,7 +31,7 @@ export class CreateSpendingController implements Icontroller {
         return validationError;
       }
 
-      const spendingData = this.prepareDepositData(body);
+      const spendingData = this.preparespendingData(body);
 
       if (body.installments && body.installments > 1) {
         if(body.isFixed){
@@ -71,7 +71,7 @@ export class CreateSpendingController implements Icontroller {
     return undefined;
   }
 
-  private prepareDepositData(body: CreateSpendingParams): CreateSpendingParams {
+  private preparespendingData(body: CreateSpendingParams): CreateSpendingParams {
     const spendingData = { ...body };
     spendingData._userId = new ObjectId(body._userId);
     spendingData.createAt = new Date(body.createAt);

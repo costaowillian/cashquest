@@ -2,7 +2,7 @@ import { ISpending } from "../../../models/spending";
 import { CreateSpendingParams, ICreateSpendingRepository } from "./protocols";
 import { addMonths } from "date-fns";
 
-export class CreateInstallmentsSpendingCOntroller {
+export class CreateInstallmentsSpendingController {
     constructor(
         private readonly creatSpendingRepository: ICreateSpendingRepository
     ) {}
@@ -34,5 +34,4 @@ export class CreateInstallmentsSpendingCOntroller {
             return "Server Error"
         }
     }
-
 }
