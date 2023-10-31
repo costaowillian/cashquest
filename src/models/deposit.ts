@@ -8,4 +8,5 @@ export interface IDeposit {
     isFixed: boolean;
     comments?: string;
     createdAt: Date;
+    installments?: number;
 }

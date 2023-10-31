@@ -20,6 +20,10 @@ class CreateDepositController {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                const body = httpRequest === null || httpRequest === void 0 ? void 0 : httpRequest.body;
+                if (!body) {
+                    return (0, helpers_1.badRequest)("Missing Body");
+                }
                 const requiredFields = [
                     "_userId",
                     "category",
@@ -28,7 +32,9 @@ class CreateDepositController {
                     "createAt"
                 ];
                 for (const field of requiredFields) {
-                    if (!((_a = httpRequest === null || httpRequest === void 0 ? void 0 : httpRequest.body) === null || _a === void 0 ? void 0 : _a[field])) {
+                    const fieldValue = (_a = httpRequest.body) === null || _a === void 0 ? void 0 : _a[field];
+                    if (fieldValue === undefined ||
+                        (typeof fieldValue === "string" && !fieldValue.trim())) {
                         return (0, helpers_1.badRequest)(`Field ${field} is required`);
                     }
                 }

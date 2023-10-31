@@ -12,24 +12,28 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PetDetailsService = void 0;
 const protocols_1 = require("../create-user-pet/protocols");
 class PetDetailsService {
-    constructor(getSumDepositsRepository, getSumSpendingRepository, getTotalDepositsRepository, getTotalSpendingsRepository, getBasePetsRepository) {
+    constructor(getSumDepositsRepository, getSumSpendingRepository, getTotalDepositsRepository, getTotalSpendingsRepository, getSumSavingsRepository, getBasePetsRepository) {
         this.getSumDepositsRepository = getSumDepositsRepository;
         this.getSumSpendingRepository = getSumSpendingRepository;
         this.getTotalDepositsRepository = getTotalDepositsRepository;
         this.getTotalSpendingsRepository = getTotalSpendingsRepository;
+        this.getSumSavingsRepository = getSumSavingsRepository;
         this.getBasePetsRepository = getBasePetsRepository;
     }
     getXps(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const sumDeposits = yield this.getSumDepositsRepository.getSumDeposits(id);
             const sumSpendings = yield this.getSumSpendingRepository.getSumSpendings(id);
+            const sumSavings = yield this.getSumSavingsRepository.getSumSavings(id);
             let spendingsXps = 0;
             let depositsXps = 0;
-            if (sumDeposits != 0 && sumSpendings != 0) {
+            let savingsXps = 0;
+            if (sumDeposits != 0 || sumSpendings != 0 || sumSavings != 0) {
                 depositsXps = this.sumXps(protocols_1.amountXps.DEPOSITS, sumDeposits.total);
                 spendingsXps = this.sumXps(protocols_1.amountXps.SPENDINGS, sumSpendings.total);
+                savingsXps = this.sumXps(protocols_1.amountXps.SAVINGS, sumSavings);
             }
-            const totalXps = depositsXps + spendingsXps;
+            const totalXps = depositsXps + spendingsXps + savingsXps;
             if (totalXps === null) {
                 return 0;
             }

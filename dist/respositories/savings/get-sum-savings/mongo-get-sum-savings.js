@@ -9,13 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MongoGetSumSpendingsRepository = void 0;
+exports.MongoGetSumSavingsRepository = void 0;
 const mongodb_1 = require("mongodb");
 const mongo_1 = require("../../../database/mongo");
-class MongoGetSumSpendingsRepository {
-    getSumSpendings(id) {
+class MongoGetSumSavingsRepository {
+    getSumSavings(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const collection = mongo_1.MongoClient.db.collection("spending");
+            const collection = mongo_1.MongoClient.db.collection("saving");
             const result = yield collection
                 .aggregate([
                 {
@@ -40,4 +40,4 @@ class MongoGetSumSpendingsRepository {
         });
     }
 }
-exports.MongoGetSumSpendingsRepository = MongoGetSumSpendingsRepository;
+exports.MongoGetSumSavingsRepository = MongoGetSumSavingsRepository;

@@ -13,14 +13,15 @@ exports.GetUserPetController = void 0;
 const helpers_1 = require("../../helpers");
 const pet_services_1 = require("../servicves/pet-services");
 class GetUserPetController {
-    constructor(getSumDepositsRepository, getSumSpendingRepository, getTotalDepositsRepository, getTotalSpendingsRepository, getBasePetsRepository, getUserPetRepository) {
+    constructor(getSumDepositsRepository, getSumSpendingRepository, getTotalDepositsRepository, getTotalSpendingsRepository, getSumSavingsRepository, getBasePetsRepository, getUserPetRepository) {
         this.getSumDepositsRepository = getSumDepositsRepository;
         this.getSumSpendingRepository = getSumSpendingRepository;
         this.getTotalDepositsRepository = getTotalDepositsRepository;
         this.getTotalSpendingsRepository = getTotalSpendingsRepository;
+        this.getSumSavingsRepository = getSumSavingsRepository;
         this.getBasePetsRepository = getBasePetsRepository;
         this.getUserPetRepository = getUserPetRepository;
-        this.petDetailsService = new pet_services_1.PetDetailsService(this.getSumDepositsRepository, this.getSumSpendingRepository, this.getTotalDepositsRepository, this.getTotalSpendingsRepository, this.getBasePetsRepository);
+        this.petDetailsService = new pet_services_1.PetDetailsService(this.getSumDepositsRepository, this.getSumSpendingRepository, this.getTotalDepositsRepository, this.getTotalSpendingsRepository, this.getSumSavingsRepository, this.getBasePetsRepository);
     }
     handle(httpRequest) {
         var _a;

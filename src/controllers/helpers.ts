@@ -34,3 +34,4 @@ export const serverError = (code: string): HttpResponse<string> => {
     body: "something went wrong. internal code: " + code
   };
 };
+

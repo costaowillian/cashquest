@@ -30,13 +30,13 @@ class MongoDeleteDepositRepository {
                 .collection("deposit")
                 .findOne({ _id: new mongodb_1.ObjectId(id) });
             if (!deposit) {
-                throw new Error("Deposit not found");
+                return null;
             }
             const { deletedCount } = yield mongo_1.MongoClient.db
                 .collection("deposit")
                 .deleteOne({ _id: new mongodb_1.ObjectId(id) });
             if (!deletedCount) {
-                throw new Error("Deposit not deleted");
+                return null;
             }
             const { _id } = deposit, rest = __rest(deposit, ["_id"]);
             return Object.assign({ id: _id.toHexString() }, rest);

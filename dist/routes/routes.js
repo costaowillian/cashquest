@@ -12,6 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const mongo_delete_saving_1 = require("./../respositories/savings/delete-saving/mongo-delete-saving");
+const mongo_create_saving_1 = require("./../respositories/savings/create-saving/mongo-create-saving");
 const delete_deposit_1 = require("./../controllers/deposit/delete-deposit/delete-deposit");
 const mongo_get_user_auth_1 = require("./../respositories/get-user-auth/mongo-get-user-auth");
 const express_1 = __importDefault(require("express"));
@@ -58,6 +60,16 @@ const mong_get_sum_spending_1 = require("../respositories/spendings/get-sum-spen
 const create_user_pet_controller_1 = require("../controllers/user-pet/create-user-pet/create-user-pet-controller");
 const mongo_get_user_pet_1 = require("../respositories/user-pet/get-user-pet/mongo-get-user-pet");
 const get_user_pet_1 = require("../controllers/user-pet/get-user-pet/get-user-pet");
+const create_saving_1 = require("../controllers/savings/create-savings/create-saving");
+const mongo_get_saving_1 = require("../respositories/savings/get-saving/mongo-get-saving");
+const get_saving_1 = require("../controllers/savings/get-saving/get-saving");
+const mongo_get_all_savings_1 = require("../respositories/savings/get-all-savings/mongo-get-all-savings");
+const get_all_savings_1 = require("../controllers/savings/get-all-savings/get-all-savings");
+const delete_saving_1 = require("../controllers/savings/delete-saving/delete-saving");
+const mongo_update_saving_1 = require("../respositories/savings/update-saving/mongo-update-saving");
+const update_saving_1 = require("../controllers/savings/update-saving/update-saving");
+const mongo_get_sum_savings_1 = require("../respositories/savings/get-sum-savings/mongo-get-sum-savings");
+const mongo_get_total_savings_1 = require("../respositories/savings/get-total-savings/mongo-get-total-savings");
 const router = express_1.default.Router();
 router.get("/users", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const mongoGetUserRepository = new mongo_get_users_1.MongoGetUserRepository();
@@ -200,8 +212,9 @@ router.patch("/deposti/update/:id", checkToken_1.chectToken, (req, res) => __awa
 router.get("/wallet/get-wallet/:id", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const getTotalSpendingsRepository = new mongo_get_total_spendings_1.MongoGetTotalSpendindsRepository();
     const getTotalDepositsRepository = new mongo_get_total_deposits_1.MongoGetTotalDepositsRepository();
+    const getTotalSavingsRepository = new mongo_get_total_savings_1.MongoGetTotalSavingsRepository();
     const getTotalMonthlySpendingdsRepository = new mongo_get_total_spendings_month_1.MongoGetTotalMonthlySpendindsRepository();
-    const getWalletController = new get_wallet_1.GetWalletController(getTotalSpendingsRepository, getTotalDepositsRepository, getTotalMonthlySpendingdsRepository);
+    const getWalletController = new get_wallet_1.GetWalletController(getTotalSpendingsRepository, getTotalDepositsRepository, getTotalMonthlySpendingdsRepository, getTotalSavingsRepository);
     const { body, statusCode } = yield getWalletController.handle({
         params: req.params
     });
@@ -213,8 +226,9 @@ router.post("/user-pet/create", checkToken_1.chectToken, (req, res) => __awaiter
     const getTotalDepositsRepository = new mongo_get_total_deposits_1.MongoGetTotalDepositsRepository();
     const getTotalSpendingsRepository = new mongo_get_total_spendings_1.MongoGetTotalSpendindsRepository();
     const getBasePetsRepository = new mongo_get_base_pets_1.MongoGetBasePetsRepository();
+    const getSumSavingsRepository = new mongo_get_sum_savings_1.MongoGetSumSavingsRepository();
     const createUserPetsRepository = new mongo_create_user_pet_1.MongoCreateUserPetRepository();
-    const getUserPetController = new create_user_pet_controller_1.CreateUserPetController(getSumDepositsRepository, getSumSpendingRepository, getTotalDepositsRepository, getTotalSpendingsRepository, getBasePetsRepository, createUserPetsRepository);
+    const getUserPetController = new create_user_pet_controller_1.CreateUserPetController(getSumDepositsRepository, getSumSpendingRepository, getTotalDepositsRepository, getTotalSpendingsRepository, getSumSavingsRepository, getBasePetsRepository, createUserPetsRepository);
     const { body, statusCode } = yield getUserPetController.handle({
         body: req.body
     });
@@ -225,11 +239,53 @@ router.get("/user-pet/get/:userId", checkToken_1.chectToken, (req, res) => __awa
     const getSumSpendingRepository = new mong_get_sum_spending_1.MongoGetSumSpendingsRepository();
     const getTotalDepositsRepository = new mongo_get_total_deposits_1.MongoGetTotalDepositsRepository();
     const getTotalSpendingsRepository = new mongo_get_total_spendings_1.MongoGetTotalSpendindsRepository();
+    const getSumSavingsRepository = new mongo_get_sum_savings_1.MongoGetSumSavingsRepository();
     const getBasePetsRepository = new mongo_get_base_pets_1.MongoGetBasePetsRepository();
     const getUserPetRepository = new mongo_get_user_pet_1.MongoGetUserPetRepository();
-    const getUserPetController = new get_user_pet_1.GetUserPetController(getSumDepositsRepository, getSumSpendingRepository, getTotalDepositsRepository, getTotalSpendingsRepository, getBasePetsRepository, getUserPetRepository);
+    const getUserPetController = new get_user_pet_1.GetUserPetController(getSumDepositsRepository, getSumSpendingRepository, getTotalDepositsRepository, getTotalSpendingsRepository, getSumSavingsRepository, getBasePetsRepository, getUserPetRepository);
     const { body, statusCode } = yield getUserPetController.handle({
         params: req.params
+    });
+    res.status(statusCode).send(body);
+}));
+router.post("/savings/create", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const createSavingREspoitory = new mongo_create_saving_1.MongoCreateSavingRepository();
+    const createSavingController = new create_saving_1.CreateSavingController(createSavingREspoitory);
+    const { body, statusCode } = yield createSavingController.handle({
+        body: req.body
+    });
+    res.status(statusCode).send(body);
+}));
+router.get("/savings/get-saving/:id", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const getSavingRepository = new mongo_get_saving_1.MongGetSavingRepository();
+    const getSavingController = new get_saving_1.GetSavingController(getSavingRepository);
+    const { body, statusCode } = yield getSavingController.handle({
+        params: req.params
+    });
+    res.status(statusCode).send(body);
+}));
+router.get("/savings/get-all-savings/:id", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const getSavingsRepository = new mongo_get_all_savings_1.MongoGetSavingsRepository();
+    const getSavingsController = new get_all_savings_1.GetSavingsController(getSavingsRepository);
+    const { body, statusCode } = yield getSavingsController.handle({
+        params: req.params
+    });
+    res.status(statusCode).send(body);
+}));
+router.delete("/saving/delete/:id", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const deleteSavingRepository = new mongo_delete_saving_1.MongoDeleteSavingRepository();
+    const deleteSavingController = new delete_saving_1.DeleteSavingController(deleteSavingRepository);
+    const { body, statusCode } = yield deleteSavingController.handle({
+        params: req.params
+    });
+    res.status(statusCode).send(body);
+}));
+router.patch("/saving/update/:id", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const updateSavingRepository = new mongo_update_saving_1.MongoUpdateSavingRepository();
+    const updateSavingController = new update_saving_1.UpdateSavingController(updateSavingRepository);
+    const { body, statusCode } = yield updateSavingController.handle({
+        params: req.params,
+        body: req.body
     });
     res.status(statusCode).send(body);
 }));

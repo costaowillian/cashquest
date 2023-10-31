@@ -3,11 +3,16 @@ import { IDeposit } from "../../../models/deposit";
 import { badRequest, created, serverError } from "../../helpers";
 import { HttpRequest, HttpResponse, Icontroller } from "../../protocols";
 import { CreateDepositParams, ICreateDepositRepository } from "./protocols";
+import { CreateInstallmentsDepositsController } from "./create-deposits-installments";
 
 export class CreateDepositController implements Icontroller {
+  createInstallmentsDepositsController: CreateInstallmentsDepositsController;
   constructor(
     private readonly createDepositRepository: ICreateDepositRepository
-  ) {}
+  ) {
+    this.createInstallmentsDepositsController =
+      new CreateInstallmentsDepositsController(createDepositRepository);
+  }
 
   async handle(
     httpRequest: HttpRequest<CreateDepositParams>
@@ -19,35 +24,55 @@ export class CreateDepositController implements Icontroller {
         return badRequest("Missing Body");
       }
 
-      const requiredFields = [
-        "_userId",
-        "category",
-        "value",
-        "isFixed",
-        "createAt"
-      ];
+      const validationError = this.validateRequiredFields(body);
 
-      for (const field of requiredFields) {
-        const fieldValue =
-          httpRequest.body?.[field as keyof CreateDepositParams];
-
-        if (
-          fieldValue === undefined ||
-          (typeof fieldValue === "string" && !fieldValue.trim())
-        ) {
-          return badRequest(`Field ${field} is required`);
-        }
+      if (validationError) {
+        return validationError;
       }
 
-      httpRequest.body!._userId = new ObjectId(httpRequest.body!._userId);
+      const depositData = this.prepareDepositData(body);
 
-      const deposit = await this.createDepositRepository.createDeposit(
-        httpRequest.body!
-      );
+      if (body.installments && body.installments > 1) {
+        if(body.isFixed){
+        const installmentsDeposits =
+          await this.createInstallmentsDepositsController.handle(
+            depositData
+          );
 
-      return created<IDeposit>(deposit);
+        if (installmentsDeposits) {
+          return created<IDeposit>(installmentsDeposits);
+        } else {
+          return serverError("12");
+        }
+        } else {
+          return badRequest("Missing fields");
+        }
+      } else {
+        const deposit = await this.createDepositRepository.createDeposit(
+          depositData
+        );
+        return created<IDeposit>(deposit);
+      }
     } catch (error) {
       return serverError("12");
     }
+  }
+
+ validateRequiredFields(body: CreateDepositParams): HttpResponse<IDeposit | string> | undefined {
+    const requiredFields = ["_userId", "category", "value", "isFixed", "createAt"];
+    for (const field of requiredFields) {
+      const fieldValue = body?.[field as keyof CreateDepositParams];
+      if (fieldValue === undefined || (typeof fieldValue === "string" && !fieldValue.trim())) {
+        return badRequest(`Field ${field} is required`);
+      }
+    }
+    return undefined;
+  }
+
+  prepareDepositData(body: CreateDepositParams): CreateDepositParams {
+    const depositData = { ...body };
+    depositData._userId = new ObjectId(body._userId);
+    depositData.createAt = new Date(body.createAt);
+    return depositData;
   }
 }

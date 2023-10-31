@@ -24,6 +24,9 @@ class DeleteSpendingController {
                     return (0, helpers_1.badRequest)("Missing spending id");
                 }
                 const spending = yield this.deleteSpendingRepository.deleteSpending(id);
+                if (!spending) {
+                    return (0, helpers_1.badRequest)(`Spending does not exist and was not deleted with the given ID ${id}`);
+                }
                 return (0, helpers_1.ok)(spending);
             }
             catch (error) {

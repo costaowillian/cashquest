@@ -20,27 +20,21 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MongoDeleteSpendingRepository = void 0;
+exports.MongoGetSavingsRepository = void 0;
 const mongodb_1 = require("mongodb");
 const mongo_1 = require("../../../database/mongo");
-class MongoDeleteSpendingRepository {
-    deleteSpending(id) {
+class MongoGetSavingsRepository {
+    getSavings(userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const spending = yield mongo_1.MongoClient.db
-                .collection("spending")
-                .findOne({ _id: new mongodb_1.ObjectId(id) });
-            if (!spending) {
-                return null;
-            }
-            const { deletedCount } = yield mongo_1.MongoClient.db
-                .collection("spending")
-                .deleteOne({ _id: new mongodb_1.ObjectId(id) });
-            if (!deletedCount) {
-                return null;
-            }
-            const { _id } = spending, rest = __rest(spending, ["_id"]);
-            return Object.assign({ id: _id.toHexString() }, rest);
+            const saving = yield mongo_1.MongoClient.db
+                .collection("saving")
+                .find({ _userId: new mongodb_1.ObjectId(userId) })
+                .toArray();
+            return saving.map((_a) => {
+                var { _id } = _a, rest = __rest(_a, ["_id"]);
+                return (Object.assign({ id: _id.toHexString() }, rest));
+            });
         });
     }
 }
-exports.MongoDeleteSpendingRepository = MongoDeleteSpendingRepository;
+exports.MongoGetSavingsRepository = MongoGetSavingsRepository;

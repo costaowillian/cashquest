@@ -9,35 +9,32 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MongoGetSumSpendingsRepository = void 0;
+exports.MongoGetTotalSavingsRepository = void 0;
 const mongodb_1 = require("mongodb");
 const mongo_1 = require("../../../database/mongo");
-class MongoGetSumSpendingsRepository {
-    getSumSpendings(id) {
+class MongoGetTotalSavingsRepository {
+    getTotalSavings(userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const collection = mongo_1.MongoClient.db.collection("spending");
-            const result = yield collection
+            const savingsCollection = mongo_1.MongoClient.db.collection("saving");
+            const savings = yield savingsCollection
                 .aggregate([
                 {
-                    $match: {
-                        _userId: new mongodb_1.ObjectId(id)
-                    }
+                    $match: { _userId: new mongodb_1.ObjectId(userId) }
                 },
                 {
                     $group: {
-                        _id: null,
-                        total: {
-                            $sum: 1
-                        }
+                        _id: new mongodb_1.ObjectId(userId),
+                        total: { $sum: "$value" }
                     }
                 }
             ])
                 .toArray();
-            if (result === null || result.length === 0) {
+            if (savings === null || savings.length === 0) {
                 return 0;
             }
-            return result[0];
+            const { _id, total } = savings[0];
+            return { userId: _id.toHexString(), total };
         });
     }
 }
-exports.MongoGetSumSpendingsRepository = MongoGetSumSpendingsRepository;
+exports.MongoGetTotalSavingsRepository = MongoGetTotalSavingsRepository;

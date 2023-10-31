@@ -5,11 +5,12 @@ export interface CreateDepositParams {
     _userId: string | ObjectId;
     category: string;
     description?: string;
-    value: string;
+    value: number;
     attachment?: string;
     isFixed: boolean;
     comments?: string;
     createAt: Date;
+    installments?: number;
 }
 
 export interface ICreateDepositRepository {

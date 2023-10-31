@@ -15,8 +15,8 @@ const mongo_1 = require("../../../database/mongo");
 class MongoGetTotalDepositsRepository {
     getTotalDeposits(userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const spendingsColection = mongo_1.MongoClient.db.collection("deposit");
-            const deposits = yield spendingsColection
+            const spendingsCollection = mongo_1.MongoClient.db.collection("deposit");
+            const deposits = yield spendingsCollection
                 .aggregate([
                 {
                     $match: {

@@ -9,11 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateDepositController = void 0;
+exports.UpdateSavingController = void 0;
 const helpers_1 = require("../../helpers");
-class UpdateDepositController {
-    constructor(updateDepositRepository) {
-        this.updateDepositRepository = updateDepositRepository;
+class UpdateSavingController {
+    constructor(updateSavingRepository) {
+        this.updateSavingRepository = updateSavingRepository;
     }
     handle(httpRequest) {
         var _a;
@@ -22,10 +22,10 @@ class UpdateDepositController {
                 const id = (_a = httpRequest === null || httpRequest === void 0 ? void 0 : httpRequest.params) === null || _a === void 0 ? void 0 : _a.id;
                 const body = httpRequest === null || httpRequest === void 0 ? void 0 : httpRequest.body;
                 if (!body) {
-                    return (0, helpers_1.badRequest)('Missing body');
+                    return (0, helpers_1.badRequest)("Missing body");
                 }
                 if (!id) {
-                    return (0, helpers_1.badRequest)('Missing deposit id');
+                    return (0, helpers_1.badRequest)("Missing saving id");
                 }
                 const AllowedToUpdate = [
                     'category',
@@ -42,13 +42,13 @@ class UpdateDepositController {
                 const updatedbody = Object.assign({}, body);
                 const paramToRemove = "userId";
                 delete updatedbody[paramToRemove];
-                const deposit = yield this.updateDepositRepository.update(id, updatedbody);
-                return (0, helpers_1.ok)(deposit);
+                const saving = yield this.updateSavingRepository.update(id, updatedbody);
+                return (0, helpers_1.ok)(saving);
             }
             catch (error) {
-                return (0, helpers_1.serverError)("15");
+                return (0, helpers_1.serverError)("25");
             }
         });
     }
 }
-exports.UpdateDepositController = UpdateDepositController;
+exports.UpdateSavingController = UpdateSavingController;

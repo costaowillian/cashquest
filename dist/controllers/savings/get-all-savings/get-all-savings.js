@@ -9,11 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DeleteDepositController = void 0;
+exports.GetSavingsController = void 0;
 const helpers_1 = require("../../helpers");
-class DeleteDepositController {
-    constructor(deleteSpendingRepository) {
-        this.deleteSpendingRepository = deleteSpendingRepository;
+class GetSavingsController {
+    constructor(getSavingsRepository) {
+        this.getSavingsRepository = getSavingsRepository;
     }
     handle(httpRequest) {
         var _a;
@@ -21,18 +21,18 @@ class DeleteDepositController {
             try {
                 const id = (_a = httpRequest === null || httpRequest === void 0 ? void 0 : httpRequest.params) === null || _a === void 0 ? void 0 : _a.id;
                 if (!id) {
-                    return (0, helpers_1.badRequest)("Missing deposit id");
+                    return (0, helpers_1.badRequest)("Missing user id");
                 }
-                const deposit = yield this.deleteSpendingRepository.deleteDeposit(id);
-                if (!deposit) {
-                    return (0, helpers_1.badRequest)(`Deposit does not exist and was not deleted with the given ID ${id}`);
+                const savings = yield this.getSavingsRepository.getSavings(id);
+                if (!savings) {
+                    return (0, helpers_1.notFound)("Not found Savings");
                 }
-                return (0, helpers_1.ok)(deposit);
+                return (0, helpers_1.ok)(savings);
             }
             catch (error) {
-                return (0, helpers_1.serverError)("14");
+                return (0, helpers_1.serverError)("23");
             }
         });
     }
 }
-exports.DeleteDepositController = DeleteDepositController;
+exports.GetSavingsController = GetSavingsController;

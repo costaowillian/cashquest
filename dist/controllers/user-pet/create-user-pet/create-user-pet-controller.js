@@ -15,14 +15,15 @@ const mongodb_1 = require("mongodb");
 const helpers_2 = require("../../helpers");
 const pet_services_1 = require("../servicves/pet-services");
 class CreateUserPetController {
-    constructor(getSumDepositsRepository, getSumSpendingRepository, getTotalDepositsRepository, getTotalSpendingsRepository, getBasePetsRepository, createUserPetRepository) {
+    constructor(getSumDepositsRepository, getSumSpendingRepository, getTotalDepositsRepository, getTotalSpendingsRepository, getSumSavingsRepository, getBasePetsRepository, createUserPetRepository) {
         this.getSumDepositsRepository = getSumDepositsRepository;
         this.getSumSpendingRepository = getSumSpendingRepository;
         this.getTotalDepositsRepository = getTotalDepositsRepository;
         this.getTotalSpendingsRepository = getTotalSpendingsRepository;
+        this.getSumSavingsRepository = getSumSavingsRepository;
         this.getBasePetsRepository = getBasePetsRepository;
         this.createUserPetRepository = createUserPetRepository;
-        this.petDetailsService = new pet_services_1.PetDetailsService(this.getSumDepositsRepository, this.getSumSpendingRepository, this.getTotalDepositsRepository, this.getTotalSpendingsRepository, this.getBasePetsRepository);
+        this.petDetailsService = new pet_services_1.PetDetailsService(this.getSumDepositsRepository, this.getSumSpendingRepository, this.getTotalDepositsRepository, this.getTotalSpendingsRepository, this.getSumSavingsRepository, this.getBasePetsRepository);
     }
     handle(httpRequest) {
         var _a, _b;

@@ -9,12 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateSpendingController = void 0;
-const mongodb_1 = require("mongodb");
+exports.CreateSavingController = void 0;
 const helpers_1 = require("../../helpers");
-class CreateSpendingController {
-    constructor(createSpendingRepository) {
-        this.createSpendingRepository = createSpendingRepository;
+const mongodb_1 = require("mongodb");
+class CreateSavingController {
+    constructor(createSavingRepository) {
+        this.createSavingRepository = createSavingRepository;
     }
     handle(httpRequest) {
         var _a;
@@ -28,7 +28,7 @@ class CreateSpendingController {
                     "_userId",
                     "category",
                     "value",
-                    " isFixed",
+                    "isFixed",
                     "createAt"
                 ];
                 for (const field of requiredFields) {
@@ -39,14 +39,13 @@ class CreateSpendingController {
                     }
                 }
                 httpRequest.body._userId = new mongodb_1.ObjectId(httpRequest.body._userId);
-                const spending = yield this.createSpendingRepository.createSpending(httpRequest.body);
-                return (0, helpers_1.created)(spending);
+                const saving = yield this.createSavingRepository.createSaving(httpRequest.body);
+                return (0, helpers_1.created)(saving);
             }
             catch (error) {
-                console.log(error);
-                return (0, helpers_1.serverError)("07");
+                return (0, helpers_1.serverError)("21");
             }
         });
     }
 }
-exports.CreateSpendingController = CreateSpendingController;
+exports.CreateSavingController = CreateSavingController;
