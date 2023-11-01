@@ -10,10 +10,6 @@ export class MongoGetTotalSavingsRepository
 {
   async getTotalSavings(userId: string): Promise<number | ITotal> {
     const savingsCollection = MongoClient.db.collection("saving");
-   
-    const startDate = new Date();
-    startDate.setDate(1);
-    startDate.setHours(0, 0, 0, 0);
 
     const endDate = new Date();
 
@@ -22,7 +18,6 @@ export class MongoGetTotalSavingsRepository
         {
           $match: { _userId: new ObjectId(userId),
             createAt: {
-              $gte: startDate,
               $lte: endDate,
           }, }
         },

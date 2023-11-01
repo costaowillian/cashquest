@@ -12,10 +12,6 @@ export class MongoGetTotalDepositsRepository
   async getTotalDeposits(userId: string): Promise<ITotal | number> {
     const spendingsCollection =
       MongoClient.db.collection<MongoSpending>("deposit");
-    
-      const startDate = new Date();
-      startDate.setDate(1);
-      startDate.setHours(0, 0, 0, 0);
   
       const endDate = new Date();
 
@@ -25,7 +21,6 @@ export class MongoGetTotalDepositsRepository
           $match: {
             _userId: new ObjectId(userId),
             createAt: {
-              $gte: startDate,
               $lte: endDate,
           },
           }
