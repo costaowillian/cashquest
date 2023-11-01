@@ -19,7 +19,7 @@ export class MongoGetSpendingDepositGraphicRepository implements IGetSpandingAnd
             {
                 $group: {
                     _id: null,
-                    total: { $sum: 1 },
+                    total: { $sum: "$value" },
                 },
             },
         ]).toArray();
