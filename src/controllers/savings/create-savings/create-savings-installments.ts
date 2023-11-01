@@ -3,14 +3,10 @@ import { CreateSavingParams, ICreateSavingRepository } from "./protocols";
 import { ISaving } from "../../../models/savings";
 
 export class CreateInstallmentsSavingController {
-    private createInstallmentsSavingController: CreateInstallmentsSavingController;
 
     constructor(
         private readonly creatSavingsRepository: ICreateSavingRepository
-    ) {
-        this.createInstallmentsSavingController =
-      new CreateInstallmentsSavingController(creatSavingsRepository);
-    }
+    ) { }
     
     async handle(params: CreateSavingParams): Promise<ISaving |  string | boolean> {
         try {

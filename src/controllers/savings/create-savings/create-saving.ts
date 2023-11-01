@@ -3,11 +3,16 @@ import { HttpRequest, HttpResponse, Icontroller } from "../../protocols";
 import { CreateSavingParams, ICreateSavingRepository } from "./protocols";
 import { badRequest, created, serverError } from "../../helpers";
 import { ObjectId } from "mongodb";
+import { CreateInstallmentsSavingController } from "./create-savings-installments";
 
 export class CreateSavingController implements Icontroller {
+  private createInstallmentsSavingController: CreateInstallmentsSavingController;
   constructor(
     private readonly createSavingRepository: ICreateSavingRepository
-  ) {}
+  ) {
+    this.createInstallmentsSavingController =
+      new CreateInstallmentsSavingController(creatSavingsRepository);
+  }
 
   async handle(
     httpRequest: HttpRequest<CreateSavingParams>
@@ -31,7 +36,7 @@ export class CreateSavingController implements Icontroller {
       if (body.installments && body.installments > 1) {
         if(body.isFixed){
         const installmentsDeposits =
-          await this.createInstallmentsSpendingController.handle(
+          await this.createInstallmentsSavingController.handle(
             savingData
           );
 

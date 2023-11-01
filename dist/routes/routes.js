@@ -70,6 +70,10 @@ const mongo_update_saving_1 = require("../respositories/savings/update-saving/mo
 const update_saving_1 = require("../controllers/savings/update-saving/update-saving");
 const mongo_get_sum_savings_1 = require("../respositories/savings/get-sum-savings/mongo-get-sum-savings");
 const mongo_get_total_savings_1 = require("../respositories/savings/get-total-savings/mongo-get-total-savings");
+const mongo_get_spendings_graphic_1 = require("../respositories/graphics/get-spending-deposits-graphics/mongo-get-spendings-graphic");
+const get_depoist_spending_graphics_1 = require("../controllers/graphics/get-deposits-spendings-graphics/get-depoist-spending-graphics");
+const mongo_get_spending_graphics_1 = require("../respositories/graphics/get-spending-graphics/mongo-get-spending-graphics");
+const get_spendingd_graphics_1 = require("../controllers/graphics/get-spendings-graphics/get-spendingd-graphics");
 const router = express_1.default.Router();
 router.get("/users", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const mongoGetUserRepository = new mongo_get_users_1.MongoGetUserRepository();
@@ -285,6 +289,22 @@ router.patch("/saving/update/:id", checkToken_1.chectToken, (req, res) => __awai
     const updateSavingController = new update_saving_1.UpdateSavingController(updateSavingRepository);
     const { body, statusCode } = yield updateSavingController.handle({
         params: req.params,
+        body: req.body
+    });
+    res.status(statusCode).send(body);
+}));
+router.get("/graphics/user-month-graphic", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const getSpendingDepositGraphicRepository = new mongo_get_spendings_graphic_1.MongoGetSpendingDepositGraphicRepository();
+    const getDepositSpendingGraphicController = new get_depoist_spending_graphics_1.GetDepositSpendingGraphicController(getSpendingDepositGraphicRepository);
+    const { body, statusCode } = yield getDepositSpendingGraphicController.handle({
+        body: req.body
+    });
+    res.status(statusCode).send(body);
+}));
+router.get("/graphics/how-did-Spend-graphic", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const getSpendingGraphicsRepository = new mongo_get_spending_graphics_1.MongoGetSpendingGraphicsRepository();
+    const getSpendingGraphicsController = new get_spendingd_graphics_1.GetSpendigsGraphicsController(getSpendingGraphicsRepository);
+    const { body, statusCode } = yield getSpendingGraphicsController.handle({
         body: req.body
     });
     res.status(statusCode).send(body);
