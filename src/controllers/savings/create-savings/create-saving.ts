@@ -11,7 +11,7 @@ export class CreateSavingController implements Icontroller {
     private readonly createSavingRepository: ICreateSavingRepository
   ) {
     this.createInstallmentsSavingController =
-      new CreateInstallmentsSavingController(creatSavingsRepository);
+      new CreateInstallmentsSavingController(createSavingRepository);
   }
 
   async handle(
