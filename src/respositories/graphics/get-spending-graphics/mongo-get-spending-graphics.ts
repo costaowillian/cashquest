@@ -20,7 +20,7 @@ export class MongoGetSpendingGraphicsRepository implements IGetSpendingsGraphicR
             {
                 $group: {
                     _id: null,
-                    total: { $sum: 1 },
+                    total: { $sum: "$value" },
                 },
             },
         ]).toArray();
