@@ -56,6 +56,8 @@ import { MongoUpdateSavingRepository } from '../respositories/savings/update-sav
 import { UpdateSavingController } from '../controllers/savings/update-saving/update-saving';
 import { MongoGetSumSavingsRepository } from '../respositories/savings/get-sum-savings/mongo-get-sum-savings';
 import { MongoGetTotalSavingsRepository } from '../respositories/savings/get-total-savings/mongo-get-total-savings';
+import { MongoGetSpendingDepositGraphicRepository } from '../respositories/graphics/get-spending-deposits-graphics/mongo-get-spendings-graphic';
+import { GetDepositSpendingGraphicController } from '../controllers/graphics/get-deposits-spendings-graphics/get-depoist-spending-graphics';
 
 const router = express.Router();
 
@@ -343,4 +345,15 @@ router.patch("/saving/update/:id", chectToken, async (req, res) => {
   })
   res.status(statusCode).send(body);
 });
+
+router.get("/graphics/user-month-graphic", chectToken, async (req, res) => {
+  const getSpendingDepositGraphicRepository = new MongoGetSpendingDepositGraphicRepository();
+  const getDepositSpendingGraphicController = new GetDepositSpendingGraphicController(getSpendingDepositGraphicRepository);
+  const { body, statusCode } = await getDepositSpendingGraphicController.handle({
+    body: req.body
+  })
+  res.status(statusCode).send(body);
+});
+
+
 export default router;
