@@ -22,3 +22,7 @@ export interface IGetTotalMonthlySpendingsRepository {
 export interface IGetTotalSavingsRepository {
   getTotalSavings(id: string): Promise<ITotal | number>;
 }
+
+export interface IGetTotalTransferredSavingsRepository {
+  getTotalTransferredSavings(id: string):Promise<ITotal | number>
+}
