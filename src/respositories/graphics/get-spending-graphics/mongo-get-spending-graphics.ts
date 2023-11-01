@@ -31,6 +31,4 @@ export class MongoGetSpendingGraphicsRepository implements IGetSpendingsGraphicR
 
         return result[0];
     }
-    }
-
 }
