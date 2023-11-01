@@ -58,6 +58,8 @@ import { MongoGetSumSavingsRepository } from '../respositories/savings/get-sum-s
 import { MongoGetTotalSavingsRepository } from '../respositories/savings/get-total-savings/mongo-get-total-savings';
 import { MongoGetSpendingDepositGraphicRepository } from '../respositories/graphics/get-spending-deposits-graphics/mongo-get-spendings-graphic';
 import { GetDepositSpendingGraphicController } from '../controllers/graphics/get-deposits-spendings-graphics/get-depoist-spending-graphics';
+import { MongoGetSpendingGraphicsRepository } from '../respositories/graphics/get-spending-graphics/mongo-get-spending-graphics';
+import { GetSpendigsGraphicsController } from '../controllers/graphics/get-spendings-graphics/get-spendingd-graphics';
 
 const router = express.Router();
 
@@ -354,6 +356,15 @@ router.get("/graphics/user-month-graphic", chectToken, async (req, res) => {
   })
   res.status(statusCode).send(body);
 });
+
+router.get("/graphics/how-did-Spend-graphic", chectToken, async (req, res) =>  {
+  const getSpendingGraphicsRepository = new MongoGetSpendingGraphicsRepository();
+  const getSpendingGraphicsController = new GetSpendigsGraphicsController(getSpendingGraphicsRepository);
+  const{ body, statusCode } = await getSpendingGraphicsController.handle({
+    body: req.body
+  })
+  res.status(statusCode).send(body);
+} )
 
 
 export default router;
