@@ -16,7 +16,7 @@ export class MongoGetTotalMonthlySpendindsRepository
     const currentDate = new Date();
     currentDate.setDate(1);
     currentDate.setHours(0, 0, 0, 0);
-    console.log(currentDate);
+    
     const spendings = await spendingsColection
       .aggregate([
         {

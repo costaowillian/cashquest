@@ -6,7 +6,6 @@ export interface UpdateSpendingParams {
   value?: number;
   total?: number;
   attachment?: string;
-  total?: number,
   isFixed?: boolean;
   comments?: string;
   userId?: string;
