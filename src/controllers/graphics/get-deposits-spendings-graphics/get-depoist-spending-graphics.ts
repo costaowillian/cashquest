@@ -38,8 +38,8 @@ export class GetDepositSpendingGraphicController implements Icontroller {
             }
 
             const graphicData = {
-                depositsTotal: deposits.total,
-                spendingsTotal: spendings.total,
+                depositsTotal: deposits.total || 0,
+                spendingsTotal: spendings.total || 0,
             }
             
             return ok<IMonthGraphicData>(graphicData);
