@@ -6,7 +6,7 @@ import { CreateDepositParams, ICreateDepositRepository } from "./protocols";
 import { CreateInstallmentsDepositsController } from "./create-deposits-installments";
 
 export class CreateDepositController implements Icontroller {
-  createInstallmentsDepositsController: CreateInstallmentsDepositsController;
+  private createInstallmentsDepositsController: CreateInstallmentsDepositsController;
   constructor(
     private readonly createDepositRepository: ICreateDepositRepository
   ) {

@@ -1,6 +1,6 @@
 import { IDeposit } from "../../../models/deposit";
 import { CreateDepositParams, ICreateDepositRepository } from "./protocols";
-import { addMonths, format } from "date-fns";
+import { addMonths } from "date-fns";
 
 export class CreateInstallmentsDepositsController {
 
@@ -17,7 +17,7 @@ export class CreateInstallmentsDepositsController {
 
             for (let i = 0; i < numMonths!; i++) {
                 const newDate = addMonths(params.createAt, i);
-                const depositData = { ...params, _userId: params._userId, createAt: newDate, value: installmentsValue};
+                const depositData = { ...params, total: params.value, _userId: params._userId, createAt: newDate, value: installmentsValue};
 
                 const deposit = await this.createDepositRepository.createDeposit(depositData);
 

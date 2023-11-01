@@ -6,10 +6,12 @@ export interface CreateSpendingParams {
   category: string;
   description?: string;
   value: number;
+  total: number;
   attachment?: string;
   isFixed: boolean;
   comments?: string;
   createAt: Date;
+  installments?: number;
 }
 
 export interface ICreateSpendingRepository {

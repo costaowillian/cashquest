@@ -3,9 +3,11 @@ export interface ISpending {
     userId: string;
     category: string;
     description?: string;
-    value: string;
+    value: number;
+    total: number;
     attachment?: string;
     isFixed: boolean;
     comments?: string;
     createAt: Date;
+    installments?: number;
 }

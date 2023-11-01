@@ -4,6 +4,7 @@ export interface IDeposit {
     category: string;
     description?: string;
     value: number;
+    total: number;
     attachment?: string;
     isFixed: boolean;
     comments?: string;

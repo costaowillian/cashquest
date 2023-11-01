@@ -19,35 +19,57 @@ export class CreateSavingController implements Icontroller {
         return badRequest("Missing Body");
       }
 
-      const requiredFields = [
-        "_userId",
-        "category",
-        "value",
-        "isFixed",
-        "createAt"
-      ];
+      const validationError = this.validateRequiredFields(body);
 
-      for (const field of requiredFields) {
-        const fieldValue =
-          httpRequest.body?.[field as keyof CreateSavingParams];
-
-        if (
-          fieldValue === undefined ||
-          (typeof fieldValue === "string" && !fieldValue.trim())
-        ) {
-          return badRequest(`Field ${field} is required`);
-        }
+      if (validationError) {
+        return validationError;
       }
 
-      httpRequest.body!._userId = new ObjectId(httpRequest.body!._userId);
 
-      const saving = await this.createSavingRepository.createSaving(
-        httpRequest.body!
-      );
+      const savingData = this.prepareSavingsData(body);
 
-      return created<ISaving>(saving);
+      if (body.installments && body.installments > 1) {
+        if(body.isFixed){
+        const installmentsDeposits =
+          await this.createInstallmentsSpendingController.handle(
+            savingData
+          );
+
+        if (installmentsDeposits) {
+          return created<ISaving>(installmentsDeposits);
+        } else {
+          return serverError("12");
+        }
+        } else {
+          return badRequest("Missing fields");
+        }
+      } else {
+        const deposit = await this.createSavingRepository.createSaving(
+          savingData
+        );
+        return created<ISaving>(deposit);
+      }
     } catch (error) {
       return serverError("21");
     }
   }
+
+  private validateRequiredFields(body: CreateSavingParams): HttpResponse<ISaving | string> | undefined {
+    const requiredFields = ["_userId", "category", "value", "isFixed", "createAt"];
+    for (const field of requiredFields) {
+      const fieldValue = body?.[field as keyof CreateSavingParams];
+      if (fieldValue === undefined || (typeof fieldValue === "string" && !fieldValue.trim())) {
+        return badRequest(`Field ${field} is required`);
+      }
+    }
+    return undefined;
+  }
+
+  private prepareSavingsData(body: CreateSavingParams): CreateSavingParams {
+    const savingData = { ...body };
+    savingData._userId = new ObjectId(body._userId);
+    savingData.createAt = new Date(body.createAt);
+    return savingData;
+  }
+
 }
