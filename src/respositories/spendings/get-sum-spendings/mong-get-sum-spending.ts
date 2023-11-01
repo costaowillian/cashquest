@@ -8,21 +8,11 @@ export class MongoGetSumSpendingsRepository
   async getSumSpendings(id: string): Promise<any> {
     const collection = MongoClient.db.collection("spending");
 
-    const startDate = new Date();
-    startDate.setDate(1);
-    startDate.setHours(0, 0, 0, 0);
-
-    const endDate = new Date();
-
     const result = await collection
       .aggregate([
         {
           $match: {
             _userId: new ObjectId(id),
-            createAt: {
-              $gte: startDate,
-              $lte: endDate,
-          },
           }
         },
         {

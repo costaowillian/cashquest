@@ -13,11 +13,21 @@ export class MongoGetTotalSpendindsRepository
     const spendingsColection =
       MongoClient.db.collection<MongoSpending>("spending");
 
+    const startDate = new Date();
+    startDate.setDate(1);
+    startDate.setHours(0, 0, 0, 0);
+
+    const endDate = new Date();
+
     const spendings = await spendingsColection
       .aggregate([
         {
           $match: {
-            _userId: new ObjectId(userId)
+            _userId: new ObjectId(userId),
+            createAt: {
+              $gte: startDate,
+              $lte: endDate,
+          },
           }
         },
         {
