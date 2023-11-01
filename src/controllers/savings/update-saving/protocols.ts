@@ -4,10 +4,12 @@ export interface UpdateSavingParams {
     category?: string;
     description?: string;
     value?: number;
+    total?: number;
     attachment?: string;
     isFixed?: boolean;
     comments?: string;
     userId?: string;
+    installments?: number; 
 }
 
 export interface IUpdateSavingRepository {

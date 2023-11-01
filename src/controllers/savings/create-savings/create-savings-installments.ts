@@ -3,7 +3,6 @@ import { CreateSavingParams, ICreateSavingRepository } from "./protocols";
 import { ISaving } from "../../../models/savings";
 
 export class CreateInstallmentsSavingController {
-   
 
     constructor(
         private readonly creatSavingsRepository: ICreateSavingRepository

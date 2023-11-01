@@ -9,51 +9,45 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateSavingController = void 0;
+exports.GetDepositSpendingGraphicController = void 0;
 const helpers_1 = require("../../helpers");
-const mongodb_1 = require("mongodb");
-class CreateSavingController {
-    constructor(createSavingRepository) {
-        this.createSavingRepository = createSavingRepository;
+class GetDepositSpendingGraphicController {
+    constructor(getSpendingDepositGraphicRepository) {
+        this.getSpendingDepositGraphicRepository = getSpendingDepositGraphicRepository;
     }
     handle(httpRequest) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const body = httpRequest === null || httpRequest === void 0 ? void 0 : httpRequest.body;
                 if (!body) {
-                    return (0, helpers_1.badRequest)("Missing Body");
+                    return (0, helpers_1.badRequest)("Missing Fields");
                 }
                 const validationError = this.validateRequiredFields(body);
                 if (validationError) {
                     return validationError;
                 }
-                const savingData = this.prepareSavingsData(body);
-                if (body.installments && body.installments > 1) {
-                    if (body.isFixed) {
-                        const installmentsDeposits = yield this.createInstallmentsSpendingController.handle(savingData);
-                        if (installmentsDeposits) {
-                            return (0, helpers_1.created)(installmentsDeposits);
-                        }
-                        else {
-                            return (0, helpers_1.serverError)("12");
-                        }
-                    }
-                    else {
-                        return (0, helpers_1.badRequest)("Missing fields");
-                    }
+                const data = this.prepareDepositData(body);
+                let deposits = yield this.getSpendingDepositGraphicRepository.getSpandingAndDepositGraphic(data, "deposit");
+                if (!deposits) {
+                    deposits = 0;
                 }
-                else {
-                    const deposit = yield this.createSavingRepository.createSaving(savingData);
-                    return (0, helpers_1.created)(deposit);
+                let spendings = yield this.getSpendingDepositGraphicRepository.getSpandingAndDepositGraphic(data, "spending");
+                if (!spendings) {
+                    spendings = 0;
                 }
+                const graphicData = {
+                    depositsTotal: deposits.total || 0,
+                    spendingsTotal: spendings.total || 0,
+                };
+                return (0, helpers_1.ok)(graphicData);
             }
             catch (error) {
-                return (0, helpers_1.serverError)("21");
+                return (0, helpers_1.badRequest)("26");
             }
         });
     }
     validateRequiredFields(body) {
-        const requiredFields = ["_userId", "category", "value", "isFixed", "createAt"];
+        const requiredFields = ["userId", "startDate", "endDate"];
         for (const field of requiredFields) {
             const fieldValue = body === null || body === void 0 ? void 0 : body[field];
             if (fieldValue === undefined || (typeof fieldValue === "string" && !fieldValue.trim())) {
@@ -62,11 +56,11 @@ class CreateSavingController {
         }
         return undefined;
     }
-    prepareSavingsData(body) {
-        const savingData = Object.assign({}, body);
-        savingData._userId = new mongodb_1.ObjectId(body._userId);
-        savingData.createAt = new Date(body.createAt);
-        return savingData;
+    prepareDepositData(body) {
+        const data = Object.assign({}, body);
+        data.startDate = new Date(body.startDate);
+        data.endDate = new Date(body.endDate);
+        return data;
     }
 }
-exports.CreateSavingController = CreateSavingController;
+exports.GetDepositSpendingGraphicController = GetDepositSpendingGraphicController;

@@ -6,7 +6,6 @@ import { ObjectId } from "mongodb";
 import { CreateInstallmentsSavingController } from "./create-savings-installments";
 
 export class CreateSavingController implements Icontroller {
-
   private createInstallmentsSavingController: CreateInstallmentsSavingController;
   constructor(
     private readonly createSavingRepository: ICreateSavingRepository

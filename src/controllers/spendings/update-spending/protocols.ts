@@ -4,11 +4,13 @@ export interface UpdateSpendingParams {
   category?: string;
   description?: string;
   value?: number;
+  total?: number;
   attachment?: string;
   total?: number,
   isFixed?: boolean;
   comments?: string;
   userId?: string;
+  installments?: number; 
 }
 
 export interface IUpdateSpendingRepository {
