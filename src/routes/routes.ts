@@ -60,6 +60,7 @@ import { MongoGetSpendingDepositGraphicRepository } from '../respositories/graph
 import { GetDepositSpendingGraphicController } from '../controllers/graphics/get-deposits-spendings-graphics/get-depoist-spending-graphics';
 import { MongoGetSpendingGraphicsRepository } from '../respositories/graphics/get-spending-graphics/mongo-get-spending-graphics';
 import { GetSpendigsGraphicsController } from '../controllers/graphics/get-spendings-graphics/get-spendingd-graphics';
+import { MongoGetTotalTransferredSavingsRepository } from '../respositories/savings/get-total-transferred-savings/mongo-get-transferred-savings';
 
 const router = express.Router();
 
@@ -260,11 +261,11 @@ router.get("/wallet/get-wallet/:id", chectToken, async (req, res) => {
   const getTotalSavingsRepository = new MongoGetTotalSavingsRepository();
   const getTotalMonthlySpendingdsRepository =
     new MongoGetTotalMonthlySpendindsRepository();
+  const getTotalTransferredSavingsRepository = new MongoGetTotalTransferredSavingsRepository()
   const getWalletController = new GetWalletController(
     getTotalSpendingsRepository,
     getTotalDepositsRepository,
-    getTotalMonthlySpendingdsRepository, getTotalSavingsRepository
-
+    getTotalMonthlySpendingdsRepository, getTotalSavingsRepository, getTotalTransferredSavingsRepository
   );
   const { body, statusCode } = await getWalletController.handle({
     params: req.params
