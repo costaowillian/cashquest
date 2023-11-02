@@ -1,6 +1,6 @@
 export interface GetMonthlyReportParams {
     userId: string;
-    endDate: Date;
+    date: Date;
 }
   
 export interface IGetMonthlyReportRepoisitory {
