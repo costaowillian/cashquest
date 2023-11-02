@@ -28,7 +28,7 @@ export class MongoGetMopnthlyReportRepository implements IGetMonthlyReportRepois
         ]).toArray();
 
         return result.map(({ _id, ...rest }) => ({
-            ...rest, id: _id.ttoHexString()
+            ...rest, id: _id.toHexString()
         }));
     }
 }
