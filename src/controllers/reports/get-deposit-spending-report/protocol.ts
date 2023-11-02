@@ -5,5 +5,5 @@ export interface GetReportParams {
 }
   
 export interface IGetReportRepoisitory {
-    getMonthlyReport(params: GetReportParams, collectionName: string): Promise<any[]>
+    getReport(params: GetReportParams, collectionName: string): Promise<any[]>
 }
