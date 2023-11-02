@@ -3,7 +3,7 @@ import { MongoClient } from "../../../database/mongo";
 import { GetReportParams, IGetReportRepoisitory } from "../../../controllers/reports/get-deposit-spending-report/protocol";
 
 
-export class MongoGetMopnthlyReportRepository implements IGetReportRepoisitory {
+export class MongoGetReportRepository implements IGetReportRepoisitory {
     async getReport(params: GetReportParams, collectionName: string): Promise<any[]> {
         const collection = MongoClient.db.collection(collectionName);
 
@@ -11,8 +11,8 @@ export class MongoGetMopnthlyReportRepository implements IGetReportRepoisitory {
             {
               $match: { _userId: new ObjectId(params.userId),
                 createAt: {
-                    $gte: params.startDate,
-                    $lte: params.endDate,
+                    $gte: new Date(params.startDate),
+                    $lte: new Date(params.endDate),
                   }
               }
             },

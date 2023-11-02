@@ -63,6 +63,8 @@ import { GetSpendigsGraphicsController } from '../controllers/graphics/get-spend
 import { MongoGetTotalTransferredSavingsRepository } from '../respositories/savings/get-total-transferred-savings/mongo-get-transferred-savings';
 import { MongoGetMopnthlyReportRepository } from "../respositories/reports/get-monthly-repot/mongo-get-monthly-report";
 import { GetMonthlyReportController } from "../controllers/reports/get-monthly-report/get-monthly-report";
+import { GetReportController } from "../controllers/reports/get-deposit-spending-report/get-deposit-spending-report";
+import { MongoGetReportRepository } from "../respositories/reports/get-deposit-spending-report/mongo-get-depoist-spending-report";
 
 const router = express.Router();
 
@@ -408,5 +410,16 @@ router.get("/reports/get-monthly-report-home/:id", chectToken, async (req, res) 
 });
 res.status(statusCode).send(body);
 });
+
+
+router.get("/reports/get-depoist-spending-report", chectToken, async (req, res) =>{
+  const getReportHomeRepository = new MongoGetReportRepository();
+  const getReportHomeController = new GetReportController(getReportHomeRepository);
+  const { body, statusCode } = await getReportHomeController.handle({
+    body: req.body
+});
+res.status(statusCode).send(body);
+});
+
 
 export default router;
