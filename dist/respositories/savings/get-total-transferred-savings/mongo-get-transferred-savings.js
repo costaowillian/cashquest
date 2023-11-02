@@ -9,23 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MongoGetTotalSpendindsRepository = void 0;
+exports.MongoGetTotalTransferredSavingsRepository = void 0;
 const mongodb_1 = require("mongodb");
 const mongo_1 = require("../../../database/mongo");
-class MongoGetTotalSpendindsRepository {
-    getTotalSpendings(userId) {
+class MongoGetTotalTransferredSavingsRepository {
+    getTotalTransferredSavings(userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const spendingsColection = mongo_1.MongoClient.db.collection("spending");
-            const endDate = new Date();
-            const spendings = yield spendingsColection
-                .aggregate([
+            const collection = mongo_1.MongoClient.db.collection("saving");
+            const saving = yield collection.aggregate([
                 {
-                    $match: {
-                        _userId: new mongodb_1.ObjectId(userId),
-                        createAt: {
-                            $lte: endDate,
-                        },
-                    }
+                    $match: { _userId: new mongodb_1.ObjectId(userId), isTransferred: true }
                 },
                 {
                     $group: {
@@ -33,15 +26,13 @@ class MongoGetTotalSpendindsRepository {
                         total: { $sum: "$value" }
                     }
                 }
-            ])
-                .toArray();
-            if (spendings === null || spendings.length === 0) {
+            ]).toArray();
+            if (saving === null || saving.length === 0) {
                 return 0;
             }
-            console.log({ spendingsTotal: spendings });
-            const { _id, total } = spendings[0];
+            const { _id, total } = saving[0];
             return { userId: _id.toHexString(), total };
         });
     }
 }
-exports.MongoGetTotalSpendindsRepository = MongoGetTotalSpendindsRepository;
+exports.MongoGetTotalTransferredSavingsRepository = MongoGetTotalTransferredSavingsRepository;

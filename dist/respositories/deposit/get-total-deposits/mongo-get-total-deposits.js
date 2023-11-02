@@ -16,11 +16,15 @@ class MongoGetTotalDepositsRepository {
     getTotalDeposits(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             const spendingsCollection = mongo_1.MongoClient.db.collection("deposit");
+            const endDate = new Date();
             const deposits = yield spendingsCollection
                 .aggregate([
                 {
                     $match: {
-                        _userId: new mongodb_1.ObjectId(userId)
+                        _userId: new mongodb_1.ObjectId(userId),
+                        createAt: {
+                            $lte: endDate,
+                        },
                     }
                 },
                 {

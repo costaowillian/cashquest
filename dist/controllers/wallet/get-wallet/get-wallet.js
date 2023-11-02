@@ -12,11 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GetWalletController = void 0;
 const helpers_1 = require("../../helpers");
 class GetWalletController {
-    constructor(getTotalSpendingsRepository, getTotalDepositsRepository, getTotalMonthlySpendingdsRepository, getTotalSavingsRepositoyr) {
+    constructor(getTotalSpendingsRepository, getTotalDepositsRepository, getTotalMonthlySpendingdsRepository, getTotalSavingsRepositoyr, getTotalTransferredSavingsRepository) {
         this.getTotalSpendingsRepository = getTotalSpendingsRepository;
         this.getTotalDepositsRepository = getTotalDepositsRepository;
         this.getTotalMonthlySpendingdsRepository = getTotalMonthlySpendingdsRepository;
         this.getTotalSavingsRepositoyr = getTotalSavingsRepositoyr;
+        this.getTotalTransferredSavingsRepository = getTotalTransferredSavingsRepository;
     }
     handle(httpRequest) {
         var _a;
@@ -29,15 +30,14 @@ class GetWalletController {
                 const spendings = yield this.getTotalSpendingsRepository.getTotalSpendings(id);
                 const depsosits = yield this.getTotalDepositsRepository.getTotalDeposits(id);
                 const savings = yield this.getTotalSavingsRepositoyr.getTotalSavings(id);
+                const transferredSavings = yield this.getTotalTransferredSavingsRepository.getTotalTransferredSavings(id);
                 const monthlySpendings = yield this.getTotalMonthlySpendingdsRepository.getTotalSpendings(id);
-                const walletTotal = this.sumWallet(depsosits === null || depsosits === void 0 ? void 0 : depsosits.total, spendings === null || spendings === void 0 ? void 0 : spendings.total);
+                const walletTotal = this.sumWallet(depsosits === null || depsosits === void 0 ? void 0 : depsosits.total, spendings === null || spendings === void 0 ? void 0 : spendings.total, transferredSavings === null || transferredSavings === void 0 ? void 0 : transferredSavings.total);
                 const wallet = {
                     totalDeposits: walletTotal,
-                    spendings: spendings === null || spendings === void 0 ? void 0 : spendings.total,
                     monthlySpendings: monthlySpendings === null || monthlySpendings === void 0 ? void 0 : monthlySpendings.total,
                     savings: savings === null || savings === void 0 ? void 0 : savings.total
                 };
-                console.log(wallet);
                 return (0, helpers_1.ok)(wallet);
             }
             catch (error) {
@@ -46,8 +46,8 @@ class GetWalletController {
             }
         });
     }
-    sumWallet(deposits = 0, spendings = 0) {
-        return deposits - spendings;
+    sumWallet(deposits = 0, spendings = 0, transferredSavings = 0) {
+        return deposits - (spendings + transferredSavings);
     }
 }
 exports.GetWalletController = GetWalletController;

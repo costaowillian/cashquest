@@ -74,6 +74,7 @@ const mongo_get_spendings_graphic_1 = require("../respositories/graphics/get-spe
 const get_depoist_spending_graphics_1 = require("../controllers/graphics/get-deposits-spendings-graphics/get-depoist-spending-graphics");
 const mongo_get_spending_graphics_1 = require("../respositories/graphics/get-spending-graphics/mongo-get-spending-graphics");
 const get_spendingd_graphics_1 = require("../controllers/graphics/get-spendings-graphics/get-spendingd-graphics");
+const mongo_get_transferred_savings_1 = require("../respositories/savings/get-total-transferred-savings/mongo-get-transferred-savings");
 const router = express_1.default.Router();
 router.get("/users", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const mongoGetUserRepository = new mongo_get_users_1.MongoGetUserRepository();
@@ -218,7 +219,8 @@ router.get("/wallet/get-wallet/:id", checkToken_1.chectToken, (req, res) => __aw
     const getTotalDepositsRepository = new mongo_get_total_deposits_1.MongoGetTotalDepositsRepository();
     const getTotalSavingsRepository = new mongo_get_total_savings_1.MongoGetTotalSavingsRepository();
     const getTotalMonthlySpendingdsRepository = new mongo_get_total_spendings_month_1.MongoGetTotalMonthlySpendindsRepository();
-    const getWalletController = new get_wallet_1.GetWalletController(getTotalSpendingsRepository, getTotalDepositsRepository, getTotalMonthlySpendingdsRepository, getTotalSavingsRepository);
+    const getTotalTransferredSavingsRepository = new mongo_get_transferred_savings_1.MongoGetTotalTransferredSavingsRepository();
+    const getWalletController = new get_wallet_1.GetWalletController(getTotalSpendingsRepository, getTotalDepositsRepository, getTotalMonthlySpendingdsRepository, getTotalSavingsRepository, getTotalTransferredSavingsRepository);
     const { body, statusCode } = yield getWalletController.handle({
         params: req.params
     });

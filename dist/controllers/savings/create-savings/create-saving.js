@@ -56,7 +56,7 @@ class CreateSavingController {
         });
     }
     validateRequiredFields(body) {
-        const requiredFields = ["_userId", "category", "value", "isFixed", "createAt"];
+        const requiredFields = ["_userId", "category", "value", "isFixed", "createAt", "isTransferred"];
         for (const field of requiredFields) {
             const fieldValue = body === null || body === void 0 ? void 0 : body[field];
             if (fieldValue === undefined || (typeof fieldValue === "string" && !fieldValue.trim())) {

@@ -19,13 +19,14 @@ class MongoGetTotalMonthlySpendindsRepository {
             const currentDate = new Date();
             currentDate.setDate(1);
             currentDate.setHours(0, 0, 0, 0);
-            console.log(currentDate);
+            const endDate = new Date();
             const spendings = yield spendingsColection
                 .aggregate([
                 {
                     $match: {
                         _userId: new mongodb_1.ObjectId(userId),
-                        createAt: { $gte: currentDate.toISOString() }
+                        createAt: { $gte: currentDate,
+                            $lte: endDate, }
                     }
                 },
                 {

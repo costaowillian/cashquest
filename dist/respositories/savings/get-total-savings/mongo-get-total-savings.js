@@ -16,10 +16,14 @@ class MongoGetTotalSavingsRepository {
     getTotalSavings(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             const savingsCollection = mongo_1.MongoClient.db.collection("saving");
+            const endDate = new Date();
             const savings = yield savingsCollection
                 .aggregate([
                 {
-                    $match: { _userId: new mongodb_1.ObjectId(userId) }
+                    $match: { _userId: new mongodb_1.ObjectId(userId),
+                        createAt: {
+                            $lte: endDate,
+                        }, }
                 },
                 {
                     $group: {

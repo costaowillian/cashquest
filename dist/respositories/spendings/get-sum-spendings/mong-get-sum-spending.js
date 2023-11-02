@@ -20,7 +20,7 @@ class MongoGetSumSpendingsRepository {
                 .aggregate([
                 {
                     $match: {
-                        _userId: new mongodb_1.ObjectId(id)
+                        _userId: new mongodb_1.ObjectId(id),
                     }
                 },
                 {
