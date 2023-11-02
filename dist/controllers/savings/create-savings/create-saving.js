@@ -12,9 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateSavingController = void 0;
 const helpers_1 = require("../../helpers");
 const mongodb_1 = require("mongodb");
+const create_savings_installments_1 = require("./create-savings-installments");
 class CreateSavingController {
     constructor(createSavingRepository) {
         this.createSavingRepository = createSavingRepository;
+        this.createInstallmentsSavingController =
+            new create_savings_installments_1.CreateInstallmentsSavingController(createSavingRepository);
     }
     handle(httpRequest) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -30,7 +33,7 @@ class CreateSavingController {
                 const savingData = this.prepareSavingsData(body);
                 if (body.installments && body.installments > 1) {
                     if (body.isFixed) {
-                        const installmentsDeposits = yield this.createInstallmentsSpendingController.handle(savingData);
+                        const installmentsDeposits = yield this.createInstallmentsSavingController.handle(savingData);
                         if (installmentsDeposits) {
                             return (0, helpers_1.created)(installmentsDeposits);
                         }

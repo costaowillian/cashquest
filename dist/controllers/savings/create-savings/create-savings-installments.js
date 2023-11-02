@@ -14,8 +14,6 @@ const date_fns_1 = require("date-fns");
 class CreateInstallmentsSavingController {
     constructor(creatSavingsRepository) {
         this.creatSavingsRepository = creatSavingsRepository;
-        this.createInstallmentsSavingController =
-            new CreateInstallmentsSavingController(creatSavingsRepository);
     }
     handle(params) {
         return __awaiter(this, void 0, void 0, function* () {
