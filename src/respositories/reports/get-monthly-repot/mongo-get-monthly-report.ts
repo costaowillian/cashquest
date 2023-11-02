@@ -4,7 +4,7 @@ import { MongoClient } from "../../../database/mongo";
 
 
 export class MongoGetMopnthlyReportRepository implements IGetMonthlyReportRepoisitory {
-    async getMonthlyReport(userId: string, collectionName: string): Promise<any> {
+    async getMonthlyReport(userId: string, collectionName: string): Promise<any[]> {
         const collection = MongoClient.db.collection(collectionName);
 
         const today = new Date();

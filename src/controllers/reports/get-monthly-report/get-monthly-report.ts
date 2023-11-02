@@ -18,7 +18,7 @@ export class GetMonthlyReportController implements Icontroller {
 
             const deposits = await this.getMonthlyReportRepository.getMonthlyReport(id, "deposit");
             const savings = await this.getMonthlyReportRepository.getMonthlyReport(id, "saving");
-            const spendings = await this.getMonthlyReportRepository.getMonthlyReport(id,"spendig");
+            const spendings = await this.getMonthlyReportRepository.getMonthlyReport(id,"spending");
 
             const data = {
                 depoists: deposits || [],
