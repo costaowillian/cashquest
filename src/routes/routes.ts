@@ -61,6 +61,8 @@ import { GetDepositSpendingGraphicController } from '../controllers/graphics/get
 import { MongoGetSpendingGraphicsRepository } from '../respositories/graphics/get-spending-graphics/mongo-get-spending-graphics';
 import { GetSpendigsGraphicsController } from '../controllers/graphics/get-spendings-graphics/get-spendingd-graphics';
 import { MongoGetTotalTransferredSavingsRepository } from '../respositories/savings/get-total-transferred-savings/mongo-get-transferred-savings';
+import { MongoGetMopnthlyReportRepository } from "../respositories/reports/get-monthly-repot/mongo-get-monthly-report";
+import { GetMonthlyReportController } from "../controllers/reports/get-monthly-report/get-monthly-report";
 
 const router = express.Router();
 
@@ -354,7 +356,7 @@ router.delete("/saving/delete/:id", chectToken, async (req, res) => {
     deleteSavingRepository
   );
   const { body, statusCode } = await deleteSavingController.handle({
-    params: req.params
+    params: req.params,
   });
   res.status(statusCode).send(body);
 });
@@ -366,7 +368,7 @@ router.patch("/saving/update/:id", chectToken, async (req, res) => {
   );
   const { body, statusCode } = await updateSavingController.handle({
     params: req.params,
-    body: req.body
+    body: req.body,
   });
   res.status(statusCode).send(body);
 });
@@ -380,7 +382,7 @@ router.get("/graphics/user-month-graphic", chectToken, async (req, res) => {
     );
   const { body, statusCode } = await getDepositSpendingGraphicController.handle(
     {
-      body: req.body
+      body: req.body,
     }
   );
   res.status(statusCode).send(body);
@@ -393,9 +395,18 @@ router.get("/graphics/how-did-Spend-graphic", chectToken, async (req, res) => {
     getSpendingGraphicsRepository
   );
   const { body, statusCode } = await getSpendingGraphicsController.handle({
-    body: req.body
+    body: req.body,
   });
   res.status(statusCode).send(body);
+});
+
+router.get("/reports/get-monthly-report-home/:id", chectToken, async (req, res) =>{
+  const getMonthlyReportHomeRepository = new MongoGetMopnthlyReportRepository();
+  const getMonthlyReportHomeController = new GetMonthlyReportController(getMonthlyReportHomeRepository);
+  const { body, statusCode } = await getMonthlyReportHomeController.handle({
+    params: req.params
+});
+res.status(statusCode).send(body);
 });
 
 export default router;

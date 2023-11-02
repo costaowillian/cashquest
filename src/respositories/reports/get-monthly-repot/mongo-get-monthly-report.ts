@@ -1,9 +1,7 @@
 import { ObjectId } from "mongodb";
 import { IGetMonthlyReportRepoisitory } from "../../../controllers/reports/get-monthly-report/protocols";
 import { MongoClient } from "../../../database/mongo";
-import { IDeposit } from "../../../models/deposit";
-import { ISaving } from "../../../models/savings";
-import { ISpending } from "../../../models/spending";
+
 
 export class MongoGetMopnthlyReportRepository implements IGetMonthlyReportRepoisitory {
     async getMonthlyReport(userId: string, collectionName: string): Promise<any> {
@@ -33,5 +31,4 @@ export class MongoGetMopnthlyReportRepository implements IGetMonthlyReportRepois
             ...rest, id: _id.ttoHexString()
         }));
     }
-
 }
