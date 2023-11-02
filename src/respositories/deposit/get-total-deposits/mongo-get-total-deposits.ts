@@ -12,12 +12,17 @@ export class MongoGetTotalDepositsRepository
   async getTotalDeposits(userId: string): Promise<ITotal | number> {
     const spendingsCollection =
       MongoClient.db.collection<MongoSpending>("deposit");
+  
+      const endDate = new Date();
 
     const deposits = await spendingsCollection
       .aggregate([
         {
           $match: {
-            _userId: new ObjectId(userId)
+            _userId: new ObjectId(userId),
+            createAt: {
+              $lte: endDate,
+          },
           }
         },
         {

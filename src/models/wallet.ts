@@ -1,6 +1,5 @@
 export interface IWallet {
-    Spendings: number;
     deposits: number;
-    monthlyDeposits: number;
+    monthlySpendings: number;
     savings: number;
 }

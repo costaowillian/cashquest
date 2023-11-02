@@ -12,7 +12,7 @@ export class MongoGetSumSpendingsRepository
       .aggregate([
         {
           $match: {
-            _userId: new ObjectId(id)
+            _userId: new ObjectId(id),
           }
         },
         {

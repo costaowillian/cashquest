@@ -46,20 +46,21 @@ import { MongoGetSumSpendingsRepository } from "../respositories/spendings/get-s
 import { CreateUserPetController } from "../controllers/user-pet/create-user-pet/create-user-pet-controller";
 import { MongoGetUserPetRepository } from "../respositories/user-pet/get-user-pet/mongo-get-user-pet";
 import { GetUserPetController } from "../controllers/user-pet/get-user-pet/get-user-pet";
-import { CreateSavingController } from "../controllers/savings/create-savings/create-saving";
-import { MongGetSavingRepository } from "../respositories/savings/get-saving/mongo-get-saving";
-import { GetSavingController } from "../controllers/savings/get-saving/get-saving";
-import { MongoGetSavingsRepository } from "../respositories/savings/get-all-savings/mongo-get-all-savings";
-import { GetSavingsController } from "../controllers/savings/get-all-savings/get-all-savings";
-import { DeleteSavingController } from "../controllers/savings/delete-saving/delete-saving";
-import { MongoUpdateSavingRepository } from "../respositories/savings/update-saving/mongo-update-saving";
-import { UpdateSavingController } from "../controllers/savings/update-saving/update-saving";
-import { MongoGetSumSavingsRepository } from "../respositories/savings/get-sum-savings/mongo-get-sum-savings";
-import { MongoGetTotalSavingsRepository } from "../respositories/savings/get-total-savings/mongo-get-total-savings";
-import { MongoGetSpendingDepositGraphicRepository } from "../respositories/graphics/get-spending-deposits-graphics/mongo-get-spendings-graphic";
-import { GetDepositSpendingGraphicController } from "../controllers/graphics/get-deposits-spendings-graphics/get-depoist-spending-graphics";
-import { MongoGetSpendingGraphicsRepository } from "../respositories/graphics/get-spending-graphics/mongo-get-spending-graphics";
-import { GetSpendigsGraphicsController } from "../controllers/graphics/get-spendings-graphics/get-spendingd-graphics";
+import { CreateSavingController } from '../controllers/savings/create-savings/create-saving';
+import { MongGetSavingRepository } from '../respositories/savings/get-saving/mongo-get-saving';
+import { GetSavingController } from '../controllers/savings/get-saving/get-saving';
+import { MongoGetSavingsRepository } from '../respositories/savings/get-all-savings/mongo-get-all-savings';
+import { GetSavingsController } from '../controllers/savings/get-all-savings/get-all-savings';
+import { DeleteSavingController } from '../controllers/savings/delete-saving/delete-saving';
+import { MongoUpdateSavingRepository } from '../respositories/savings/update-saving/mongo-update-saving';
+import { UpdateSavingController } from '../controllers/savings/update-saving/update-saving';
+import { MongoGetSumSavingsRepository } from '../respositories/savings/get-sum-savings/mongo-get-sum-savings';
+import { MongoGetTotalSavingsRepository } from '../respositories/savings/get-total-savings/mongo-get-total-savings';
+import { MongoGetSpendingDepositGraphicRepository } from '../respositories/graphics/get-spending-deposits-graphics/mongo-get-spendings-graphic';
+import { GetDepositSpendingGraphicController } from '../controllers/graphics/get-deposits-spendings-graphics/get-depoist-spending-graphics';
+import { MongoGetSpendingGraphicsRepository } from '../respositories/graphics/get-spending-graphics/mongo-get-spending-graphics';
+import { GetSpendigsGraphicsController } from '../controllers/graphics/get-spendings-graphics/get-spendingd-graphics';
+import { MongoGetTotalTransferredSavingsRepository } from '../respositories/savings/get-total-transferred-savings/mongo-get-transferred-savings';
 
 const router = express.Router();
 
@@ -260,11 +261,11 @@ router.get("/wallet/get-wallet/:id", chectToken, async (req, res) => {
   const getTotalSavingsRepository = new MongoGetTotalSavingsRepository();
   const getTotalMonthlySpendingdsRepository =
     new MongoGetTotalMonthlySpendindsRepository();
+  const getTotalTransferredSavingsRepository = new MongoGetTotalTransferredSavingsRepository()
   const getWalletController = new GetWalletController(
     getTotalSpendingsRepository,
     getTotalDepositsRepository,
-    getTotalMonthlySpendingdsRepository,
-    getTotalSavingsRepository
+    getTotalMonthlySpendingdsRepository, getTotalSavingsRepository, getTotalTransferredSavingsRepository
   );
   const { body, statusCode } = await getWalletController.handle({
     params: req.params

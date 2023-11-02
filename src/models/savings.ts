@@ -9,4 +9,5 @@ export interface ISaving {
   isFixed: boolean;
   comments?: string;
   createdAt: Date;
+  isTransferred: boolean;
 }
