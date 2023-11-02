@@ -65,6 +65,7 @@ import { MongoGetMopnthlyReportRepository } from "../respositories/reports/get-m
 import { GetMonthlyReportController } from "../controllers/reports/get-monthly-report/get-monthly-report";
 import { GetReportController } from "../controllers/reports/get-deposit-spending-report/get-deposit-spending-report";
 import { MongoGetReportRepository } from "../respositories/reports/get-deposit-spending-report/mongo-get-depoist-spending-report";
+import { GetSpendingReportController } from "../controllers/reports/get-spendings-report/get-spending-report";
 
 const router = express.Router();
 
@@ -416,6 +417,15 @@ router.get("/reports/get-depoist-spending-report", chectToken, async (req, res) 
   const getReportHomeRepository = new MongoGetReportRepository();
   const getReportHomeController = new GetReportController(getReportHomeRepository);
   const { body, statusCode } = await getReportHomeController.handle({
+    body: req.body
+});
+res.status(statusCode).send(body);
+});
+
+router.get("/reports/get-spending-report", chectToken, async (req, res) =>{
+  const getReportHomeRepository = new MongoGetReportRepository();
+  const getSpendingReportController = new GetSpendingReportController(getReportHomeRepository);
+  const { body, statusCode } = await getSpendingReportController.handle({
     body: req.body
 });
 res.status(statusCode).send(body);
