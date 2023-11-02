@@ -27,10 +27,10 @@ export class GetWalletController implements Icontroller {
 
             const transferredSavings: any = await this.getTotalTransferredSavingsRepository.getTotalTransferredSavings(id);
 
-            const monthlySpendings:any = await this.getTotalMonthlySpendingdsRepository.getTotalSpendings(id);
+            const monthlySpendings:any = await this.getTotalMonthlySpendingdsRepository.getTotalSpendings(id);         
 
             const walletTotal = this.sumWallet(depsosits?.total, spendings?.total, transferredSavings?.total);
-                
+
             const wallet = {
                 totalDeposits: walletTotal,
                 monthlySpendings: monthlySpendings?.total,

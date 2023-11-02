@@ -60,7 +60,7 @@ export class CreateSavingController implements Icontroller {
   }
 
   private validateRequiredFields(body: CreateSavingParams): HttpResponse<ISaving | string> | undefined {
-    const requiredFields = ["_userId", "category", "value", "isFixed", "createAt"];
+    const requiredFields = ["_userId", "category", "value", "isFixed", "createAt", "isTransferred"];
     for (const field of requiredFields) {
       const fieldValue = body?.[field as keyof CreateSavingParams];
       if (fieldValue === undefined || (typeof fieldValue === "string" && !fieldValue.trim())) {

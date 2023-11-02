@@ -9,7 +9,8 @@ export interface UpdateSavingParams {
     isFixed?: boolean;
     comments?: string;
     userId?: string;
-    installments?: number; 
+    installments?: number;
+    isTransferred?: boolean; 
 }
 
 export interface IUpdateSavingRepository {
