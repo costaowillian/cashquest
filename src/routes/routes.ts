@@ -403,11 +403,11 @@ router.get("/graphics/how-did-Spend-graphic", chectToken, async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-router.get("/reports/get-monthly-report-home/:id", chectToken, async (req, res) =>{
+router.get("/reports/get-monthly-report-home", chectToken, async (req, res) =>{
   const getMonthlyReportHomeRepository = new MongoGetMopnthlyReportRepository();
   const getMonthlyReportHomeController = new GetMonthlyReportController(getMonthlyReportHomeRepository);
   const { body, statusCode } = await getMonthlyReportHomeController.handle({
-    params: req.params
+    body: req.body
 });
 res.status(statusCode).send(body);
 });

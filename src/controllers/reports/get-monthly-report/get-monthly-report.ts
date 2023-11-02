@@ -1,24 +1,24 @@
 import { IMonthlyRepost } from "../../../models/monthly-report";
 import { ok, serverError } from "../../helpers";
 import { HttpRequest, HttpResponse, Icontroller } from "../../protocols";
-import { IGetMonthlyReportRepoisitory } from "./protocols";
+import { GetMonthlyReportParams, IGetMonthlyReportRepoisitory } from "./protocols";
 
 export class GetMonthlyReportController implements Icontroller {
 
     constructor(
         private readonly getMonthlyReportRepository: IGetMonthlyReportRepoisitory
       ) {}
-    async handle(httpRequest: HttpRequest<unknown>): Promise<HttpResponse<unknown>> {
+    async handle(httpRequest: HttpRequest<GetMonthlyReportParams>): Promise<HttpResponse<unknown>> {
         try {
-            const id = httpRequest?.params.id;
+            const body = httpRequest?.body;
 
-            if(!id) {
+            if(!body) {
                 return serverError("Missing Id");
             }
 
-            const deposits = await this.getMonthlyReportRepository.getMonthlyReport(id, "deposit");
-            const savings = await this.getMonthlyReportRepository.getMonthlyReport(id, "saving");
-            const spendings = await this.getMonthlyReportRepository.getMonthlyReport(id,"spending");
+            const deposits = await this.getMonthlyReportRepository.getMonthlyReport(body, "deposit");
+            const savings = await this.getMonthlyReportRepository.getMonthlyReport(body, "saving");
+            const spendings = await this.getMonthlyReportRepository.getMonthlyReport(body,"spending");
 
             const data = {
                 depoists: deposits || [],
