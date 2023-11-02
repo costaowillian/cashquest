@@ -431,5 +431,14 @@ router.get("/reports/get-spending-report", chectToken, async (req, res) =>{
 res.status(statusCode).send(body);
 });
 
+router.get("/reports/get-savings-report", chectToken, async (req, res) =>{
+  const getReportHomeRepository = new MongoGetReportRepository();
+  const getSpendingReportController = new GetSpendingReportController(getReportHomeRepository);
+  const { body, statusCode } = await getSpendingReportController.handle({
+    body: req.body
+});
+res.status(statusCode).send(body);
+});
+
 
 export default router;

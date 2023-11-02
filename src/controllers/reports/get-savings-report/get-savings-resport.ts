@@ -1,28 +1,28 @@
-import { ISpending } from "../../../models/spending";
+import { ISaving } from "../../../models/savings";
 import { ok, serverError } from "../../helpers";
 import { HttpRequest, HttpResponse, Icontroller } from "../../protocols";
 import { GetReportParams, IGetReportRepoisitory } from "../get-deposit-spending-report/protocol";
 
 
-export class GetSpendingReportController implements Icontroller {
+export class GetSavingsReportController implements Icontroller {
 
     constructor(
         private readonly getReportRepository: IGetReportRepoisitory
       ) {}
-    async handle(httpRequest: HttpRequest<GetReportParams>): Promise<HttpResponse<ISpending[]| string>> {
+    async handle(httpRequest: HttpRequest<GetReportParams>): Promise<HttpResponse<ISaving[]| string>> {
         try {
             const body = httpRequest?.body;
 
-            if(!body) {
+            if(!body) { 
                 return serverError("Missing fields");
             }
 
-            const spendings = await this.getReportRepository.getReport(body,"saving");
+            const savings = await this.getReportRepository.getReport(body,"spending");
 
-            return ok<ISpending[]>(spendings || []);
+            return ok<ISaving[]>(savings || []);
         } catch (error) {
             console.log(error);
-            return serverError("29");
+            return serverError("30");
         }
     }
   
