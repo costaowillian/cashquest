@@ -19,7 +19,9 @@ export class MongoGetTotalSavingsRepository
           $match: { _userId: new ObjectId(userId),
             createAt: {
               $lte: endDate,
-          }, }
+          },
+          isTransferred: false,
+         }
         },
         {
           $group: {

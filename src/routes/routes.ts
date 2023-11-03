@@ -66,6 +66,7 @@ import { GetMonthlyReportController } from "../controllers/reports/get-monthly-r
 import { GetReportController } from "../controllers/reports/get-deposit-spending-report/get-deposit-spending-report";
 import { MongoGetReportRepository } from "../respositories/reports/get-deposit-spending-report/mongo-get-depoist-spending-report";
 import { GetSpendingReportController } from "../controllers/reports/get-spendings-report/get-spending-report";
+import { MongoGetTotalTransferredSpendindsRepository } from "../respositories/spendings/get-total-spending/mongo-get-total-transferred-spendings";
 
 const router = express.Router();
 
@@ -262,6 +263,7 @@ router.patch("/deposti/update/:id", chectToken, async (req, res) => {
 
 router.get("/wallet/get-wallet/:id", chectToken, async (req, res) => {
   const getTotalSpendingsRepository = new MongoGetTotalSpendindsRepository();
+  const getTotalTranferredSpendings = new MongoGetTotalTransferredSpendindsRepository();
   const getTotalDepositsRepository = new MongoGetTotalDepositsRepository();
   const getTotalSavingsRepository = new MongoGetTotalSavingsRepository();
   const getTotalMonthlySpendingdsRepository =
@@ -270,7 +272,8 @@ router.get("/wallet/get-wallet/:id", chectToken, async (req, res) => {
   const getWalletController = new GetWalletController(
     getTotalSpendingsRepository,
     getTotalDepositsRepository,
-    getTotalMonthlySpendingdsRepository, getTotalSavingsRepository, getTotalTransferredSavingsRepository
+    getTotalMonthlySpendingdsRepository, getTotalSavingsRepository, getTotalTransferredSavingsRepository,getTotalTranferredSpendings
+    
   );
   const { body, statusCode } = await getWalletController.handle({
     params: req.params

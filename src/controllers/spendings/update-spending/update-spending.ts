@@ -30,7 +30,7 @@ export class UpdateSpendingController implements Icontroller {
         "attachment",
         "isFixed",
         "comments",
-        "isTransfer",
+        "isTransferred",
         "installments"
       ];
 

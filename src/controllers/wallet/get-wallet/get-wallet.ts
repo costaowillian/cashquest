@@ -9,8 +9,8 @@ export class GetWalletController implements Icontroller {
         private readonly getTotalDepositsRepository: IGetTotalDepositsRepository,
         private readonly getTotalMonthlySpendingdsRepository: IGetTotalSpendingsRepository,
         private readonly getTotalSavingsRepositoyr: IGetTotalSavingsRepository,
-        private readonly getTotalTransferredSavingsRepository: IGetTotalTransferredSavingsRepository)
-        {}
+        private readonly getTotalTransferredSavingsRepository: IGetTotalTransferredSavingsRepository,
+        private readonly getTotalTranferredSpendingsRepository: IGetTotalSpendingsRepository,){}
     async handle(httpRequest: HttpRequest<IGetWalletParams>): Promise<HttpResponse<IWallet[] | string>> {
         try {
             const id = httpRequest?.params?.id;
@@ -29,14 +29,16 @@ export class GetWalletController implements Icontroller {
 
             const monthlySpendings:any = await this.getTotalMonthlySpendingdsRepository.getTotalSpendings(id);
             
-            const spendings: any = 0;         
+            const transferredSpendings: any = await this.getTotalTranferredSpendingsRepository.getTotalSpendings(id);         
 
-            const walletTotal = this.sumWallet(depsosits?.total, spendings?.total, transferredSavings?.total);
+            const walletTotalDeposits = this.sumWalletDeposits(depsosits?.total, spendings?.total, transferredSavings?.total);
+
+            const walletTotalSavings = this.sumWalletSavings(savings?.total, transferredSpendings?.total);
 
             const wallet = {
-                totalDeposits: walletTotal,
+                totalDeposits: walletTotalDeposits,
                 monthlySpendings: monthlySpendings?.total,
-                savings: savings?.total
+                savings: walletTotalSavings
             }
 
             return ok<IWallet[]>(wallet);
@@ -46,7 +48,11 @@ export class GetWalletController implements Icontroller {
         }
     }
 
-    private sumWallet(deposits: number = 0, spendings: number = 0, transferredSavings: number = 0) {
+    private sumWalletSavings(deposits: number = 0, spendings: number = 0, transferredSavings: number = 0) {
+        return deposits - (spendings + transferredSavings);
+    }
+
+    private sumWalletDeposits(deposits: number = 0, spendings: number = 0, transferredSavings: number = 0) {
         return deposits - (spendings + transferredSavings);
     }
 
