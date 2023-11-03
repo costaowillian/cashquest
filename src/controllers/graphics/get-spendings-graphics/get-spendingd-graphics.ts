@@ -51,21 +51,28 @@ export class GetSpendigsGraphicsController implements Icontroller {
         variableSpendingsTotal = 0;
       }
 
-      let savingsTotal =
+      const savingsTotalFixed =
         await this.getSpendingGraphicsRepository.getSpendingsGraphic(
           data,
           false,
           "saving"
         );
 
-      if (!savingsTotal) {
-        savingsTotal = 0;
+      const savingsTotalNotFixed = await this.getSpendingGraphicsRepository.getSpendingsGraphic(
+        data,
+        false,
+        "saving"
+      );
+
+      let savingsTotal = 0
+      if (savingsTotalFixed || savingsTotalNotFixed ) {
+        savingsTotal = savingsTotalFixed.total + savingsTotalNotFixed.total;
       }
 
       const graphicData = {
         fixedSpendingsTotal: fixedSpendingsTotal.total || 0,
         variableSpendingsTotal: variableSpendingsTotal.total || 0,
-        savingsTotal: savingsTotal.total || 0
+        savingsTotal: savingsTotal
       };
 
       return ok<IHowDidYouSpend>(graphicData);
