@@ -22,7 +22,8 @@ export class MongoGetTotalSpendindsRepository
             _userId: new ObjectId(userId),
             createAt: {
               $lte: endDate,
-          },
+            },
+            isTransferred: false,
           }
         },
         {
