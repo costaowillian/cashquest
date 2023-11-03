@@ -61,7 +61,7 @@ export class CreateSpendingController implements Icontroller {
   }
 
   private validateRequiredFields(body: CreateSpendingParams): HttpResponse<ISpending| string> | undefined {
-    const requiredFields = ["_userId", "category", "value", "isFixed", "createAt"];
+    const requiredFields = ["_userId", "category", "value", "isFixed", "createAt", "isTransfer"];
     for (const field of requiredFields) {
       const fieldValue = body?.[field as keyof CreateSpendingParams];
       if (fieldValue === undefined || (typeof fieldValue === "string" && !fieldValue.trim())) {

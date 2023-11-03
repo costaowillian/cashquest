@@ -24,15 +24,15 @@ exports.MongoGetMopnthlyReportRepository = void 0;
 const mongodb_1 = require("mongodb");
 const mongo_1 = require("../../../database/mongo");
 class MongoGetMopnthlyReportRepository {
-    getMonthlyReport(userId, collectionName) {
+    getMonthlyReport(params, collectionName) {
         return __awaiter(this, void 0, void 0, function* () {
             const collection = mongo_1.MongoClient.db.collection(collectionName);
-            const today = new Date();
+            const today = new Date(params.date);
             const firstDayMonth = new Date(today.getFullYear(), today.getMonth(), 1);
             const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
             const result = yield collection.aggregate([
                 {
-                    $match: { _userId: new mongodb_1.ObjectId(userId),
+                    $match: { _userId: new mongodb_1.ObjectId(params.userId),
                         createAt: {
                             $gte: firstDayMonth,
                             $lte: todayDate

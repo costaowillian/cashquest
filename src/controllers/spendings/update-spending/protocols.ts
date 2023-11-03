@@ -9,7 +9,8 @@ export interface UpdateSpendingParams {
   isFixed?: boolean;
   comments?: string;
   userId?: string;
-  installments?: number; 
+  installments?: number;
+  isTransfer?: boolean; 
 }
 
 export interface IUpdateSpendingRepository {

@@ -18,13 +18,13 @@ class GetMonthlyReportController {
     handle(httpRequest) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const id = httpRequest === null || httpRequest === void 0 ? void 0 : httpRequest.params.id;
-                if (!id) {
+                const body = httpRequest === null || httpRequest === void 0 ? void 0 : httpRequest.body;
+                if (!body) {
                     return (0, helpers_1.serverError)("Missing Id");
                 }
-                const deposits = yield this.getMonthlyReportRepository.getMonthlyReport(id, "deposit");
-                const savings = yield this.getMonthlyReportRepository.getMonthlyReport(id, "saving");
-                const spendings = yield this.getMonthlyReportRepository.getMonthlyReport(id, "spending");
+                const deposits = yield this.getMonthlyReportRepository.getMonthlyReport(body, "deposit");
+                const savings = yield this.getMonthlyReportRepository.getMonthlyReport(body, "saving");
+                const spendings = yield this.getMonthlyReportRepository.getMonthlyReport(body, "spending");
                 const data = {
                     depoists: deposits || [],
                     savings: savings || [],

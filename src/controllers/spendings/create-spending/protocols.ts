@@ -12,6 +12,7 @@ export interface CreateSpendingParams {
   comments?: string;
   createAt: Date;
   installments?: number;
+  isTransfer: boolean;
 }
 
 export interface ICreateSpendingRepository {

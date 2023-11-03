@@ -8,6 +8,7 @@ export interface UpdateDepositParams {
     isFixed?: boolean;
     comments?: string;
     userId?: string;
+    installments?: number;
 }
 
 export interface IUpdateDepositRepository {

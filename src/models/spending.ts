@@ -10,4 +10,5 @@ export interface ISpending {
     comments?: string;
     createAt: Date;
     installments?: number;
+    isTransfer: boolean;
 }

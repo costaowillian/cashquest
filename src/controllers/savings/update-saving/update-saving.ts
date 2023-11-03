@@ -24,7 +24,8 @@ export class UpdateSavingController implements Icontroller {
                 'value',
                 'attachment',
                 'isFixed',
-                'comments'
+                'comments',
+                "installments"
             ];
             const someFieldsNotAllowedToUpdate = Object.keys(body).some((key) => !AllowedToUpdate.includes(key as keyof UpdateSavingParams));
 

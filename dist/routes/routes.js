@@ -316,11 +316,11 @@ router.get("/graphics/how-did-Spend-graphic", checkToken_1.chectToken, (req, res
     });
     res.status(statusCode).send(body);
 }));
-router.get("/reports/get-monthly-report-home/:id", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/reports/get-monthly-report-home", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const getMonthlyReportHomeRepository = new mongo_get_monthly_report_1.MongoGetMopnthlyReportRepository();
     const getMonthlyReportHomeController = new get_monthly_report_1.GetMonthlyReportController(getMonthlyReportHomeRepository);
     const { body, statusCode } = yield getMonthlyReportHomeController.handle({
-        params: req.params
+        body: req.body
     });
     res.status(statusCode).send(body);
 }));
