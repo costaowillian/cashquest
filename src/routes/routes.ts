@@ -69,8 +69,6 @@ import { GetSpendingReportController } from "../controllers/reports/get-spending
 import { MongoGetTotalTransferredSpendindsRepository } from "../respositories/spendings/get-total-spending/mongo-get-total-transferred-spendings";
 import { MongoUploadPhotoRepository } from "../respositories/user/upload-photo/mongo-upload-photo";
 import { CreateUserPhotoController } from "../controllers/user-photo/create-user-photo/create-user-photo";
-import { MongoGetUserPhotoRepository } from "../respositories/user/get-user-photo/mongo-get-user-photo";
-import { GetUserPhotoController } from "../controllers/user-photo/get-user-photo/get-user-photo";
 import { MongoUpdatePhotoRepository } from "../respositories/user/update-user-photo/mongo-update-user-photo";
 import { UpdateuserPhotoController } from "../controllers/user-photo/update-user-photo/update-user-photo";
 
@@ -96,7 +94,6 @@ router.post("/auth/login", async (req, res) => {
 });
 
 router.post("/users/create-user", async (req, res) => {
-  console.log(req.body);
   const mongoGetUserAuthRepository = new MongoGetUserAuthRepository();
   const mongoCreateUserRepository = new MongoCreateUserReporitory();
   const createUserController = new CreateUserController(

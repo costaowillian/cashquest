@@ -19,5 +19,4 @@ export class MongoUploadPhotoRepository implements IUploadPhotoRepository {
 
         return {id: _id.toHexString(), ...rest}
     }
-
 }

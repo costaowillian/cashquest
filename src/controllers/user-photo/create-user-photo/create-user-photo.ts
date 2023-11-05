@@ -24,7 +24,7 @@ export class CreateUserPhotoController implements Icontroller {
 
             const UserPhotoData = this.prepareDepositData(body);
 
-            const UserPhoto = this.createUserPhotoRepository.uploadPhoto(UserPhotoData);
+            const UserPhoto = await this.createUserPhotoRepository.uploadPhoto(UserPhotoData);
             return created<IUserPhoto>(UserPhoto);
 
 
