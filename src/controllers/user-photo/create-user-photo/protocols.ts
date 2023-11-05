@@ -1,8 +1,9 @@
+import { ObjectId } from "mongodb";
 import { IUserPhoto } from "../../../models/user-photo";
 
 export interface UploadPhotoParams {
-    userId: string;
-    userphot: string;
+    userId: string | ObjectId;
+    userPhoto: string;
 }
 
 export interface IUploadPhotoRepository {

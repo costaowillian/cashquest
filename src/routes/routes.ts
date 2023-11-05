@@ -67,6 +67,8 @@ import { GetReportController } from "../controllers/reports/get-deposit-spending
 import { MongoGetReportRepository } from "../respositories/reports/get-deposit-spending-report/mongo-get-depoist-spending-report";
 import { GetSpendingReportController } from "../controllers/reports/get-spendings-report/get-spending-report";
 import { MongoGetTotalTransferredSpendindsRepository } from "../respositories/spendings/get-total-spending/mongo-get-total-transferred-spendings";
+import { MongoUploadPhotoRepositoy } from "../respositories/user/upload-photo/mongo-upload-photo";
+import { CreateUserPhotoController } from "../controllers/user-photo/create-user-photo/create-user-photo";
 
 const router = express.Router();
 
@@ -101,6 +103,15 @@ router.post("/users/create-user", async (req, res) => {
     body: req.body
   });
   res.status(statusCode).send(body);
+});
+
+router.post("/users/upload-photo", async (req, res) => {
+ const uploadPhotoRepository = new MongoUploadPhotoRepositoy();
+ const createUserPhotoController = new CreateUserPhotoController(uploadPhotoRepository);
+ const { body, statusCode} = await createUserPhotoController.handle({
+  body: req.body
+})
+ res.status(statusCode).send(body);
 });
 
 router.patch("/users/update/:id", chectToken, async (req, res) => {
