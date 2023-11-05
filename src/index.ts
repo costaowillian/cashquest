@@ -3,7 +3,6 @@ import { config } from 'dotenv';
 import { MongoClient } from './database/mongo';
 import routes from './routes/routes';
 
-
 const main = async () => {
   config();
 

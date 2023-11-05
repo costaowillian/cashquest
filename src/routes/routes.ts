@@ -89,7 +89,7 @@ router.post("/auth/login", async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-router.post("users/create-user", async (req, res) => {
+router.post("/users/create-user", async (req, res) => {
   console.log(req.body);
   const mongoGetUserAuthRepository = new MongoGetUserAuthRepository();
   const mongoCreateUserRepository = new MongoCreateUserReporitory();
