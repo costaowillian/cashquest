@@ -67,7 +67,7 @@ import { GetReportController } from "../controllers/reports/get-deposit-spending
 import { MongoGetReportRepository } from "../respositories/reports/get-deposit-spending-report/mongo-get-depoist-spending-report";
 import { GetSpendingReportController } from "../controllers/reports/get-spendings-report/get-spending-report";
 import { MongoGetTotalTransferredSpendindsRepository } from "../respositories/spendings/get-total-spending/mongo-get-total-transferred-spendings";
-import { MongoUploadPhotoRepositoy } from "../respositories/user/upload-photo/mongo-upload-photo";
+import { MongoUploadPhotoRepository } from "../respositories/user/upload-photo/mongo-upload-photo";
 import { CreateUserPhotoController } from "../controllers/user-photo/create-user-photo/create-user-photo";
 import { MongoGetUserPhotoRepository } from "../respositories/user/get-user-photo/mongo-get-user-photo";
 import { GetUserPhotoController } from "../controllers/user-photo/get-user-photo/get-user-photo";
