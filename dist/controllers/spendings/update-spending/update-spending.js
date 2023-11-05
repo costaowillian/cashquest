@@ -33,7 +33,9 @@ class UpdateSpendingController {
                     "value",
                     "attachment",
                     "isFixed",
-                    "comments"
+                    "comments",
+                    "isTransferred",
+                    "installments"
                 ];
                 const someFieldsNotAllowedToUpdate = Object.keys(body).some((key) => !AllowedToUpdate.includes(key));
                 if (someFieldsNotAllowedToUpdate) {

@@ -9,22 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MongoGetTotalSavingsRepository = void 0;
+exports.MongoGetTotalTransferredSpendindsRepository = void 0;
 const mongodb_1 = require("mongodb");
 const mongo_1 = require("../../../database/mongo");
-class MongoGetTotalSavingsRepository {
-    getTotalSavings(userId) {
+class MongoGetTotalTransferredSpendindsRepository {
+    getTotalSpendings(userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const savingsCollection = mongo_1.MongoClient.db.collection("saving");
+            const spendingsColection = mongo_1.MongoClient.db.collection("spending");
             const endDate = new Date();
-            const savings = yield savingsCollection
+            const spendings = yield spendingsColection
                 .aggregate([
                 {
-                    $match: { _userId: new mongodb_1.ObjectId(userId),
+                    $match: {
+                        _userId: new mongodb_1.ObjectId(userId),
                         createAt: {
                             $lte: endDate,
                         },
-                        isTransferred: false,
+                        isTransferred: true,
                     }
                 },
                 {
@@ -35,12 +36,13 @@ class MongoGetTotalSavingsRepository {
                 }
             ])
                 .toArray();
-            if (savings === null || savings.length === 0) {
+            if (spendings === null || spendings.length === 0) {
                 return 0;
             }
-            const { _id, total } = savings[0];
+            console.log({ spendingsTotal: spendings });
+            const { _id, total } = spendings[0];
             return { userId: _id.toHexString(), total };
         });
     }
 }
-exports.MongoGetTotalSavingsRepository = MongoGetTotalSavingsRepository;
+exports.MongoGetTotalTransferredSpendindsRepository = MongoGetTotalTransferredSpendindsRepository;

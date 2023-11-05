@@ -25,6 +25,7 @@ class MongoGetTotalSpendindsRepository {
                         createAt: {
                             $lte: endDate,
                         },
+                        isTransferred: false,
                     }
                 },
                 {

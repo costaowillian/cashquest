@@ -7,7 +7,7 @@ import { GetUserController } from "../controllers/user/get-user/get-users";
 import { CreateUserController } from "../controllers/user/create-user/create-user";
 import { UpdateUserController } from "../controllers/user/update-user/update-user";
 import { DeleteUserController } from "../controllers/user/delete-user/delete-user";
-import { MongoGetUserRepository } from "../respositories/user/get-users/mongo-get-users"; 
+import { MongoGetUserRepository } from "../respositories/user/get-users/mongo-get-users";
 import { MongoCreateUserReporitory } from "../respositories/user/create-user/mongo-create-user";
 import { MongoUpdateUserRepository } from "../respositories/user/update-user/mongo-update-user";
 import { MongoDeleteUserRepository } from "../respositories/user/delete-user/mongo-delete-user";
@@ -46,21 +46,21 @@ import { MongoGetSumSpendingsRepository } from "../respositories/spendings/get-s
 import { CreateUserPetController } from "../controllers/user-pet/create-user-pet/create-user-pet-controller";
 import { MongoGetUserPetRepository } from "../respositories/user-pet/get-user-pet/mongo-get-user-pet";
 import { GetUserPetController } from "../controllers/user-pet/get-user-pet/get-user-pet";
-import { CreateSavingController } from '../controllers/savings/create-savings/create-saving';
-import { MongGetSavingRepository } from '../respositories/savings/get-saving/mongo-get-saving';
-import { GetSavingController } from '../controllers/savings/get-saving/get-saving';
-import { MongoGetSavingsRepository } from '../respositories/savings/get-all-savings/mongo-get-all-savings';
-import { GetSavingsController } from '../controllers/savings/get-all-savings/get-all-savings';
-import { DeleteSavingController } from '../controllers/savings/delete-saving/delete-saving';
-import { MongoUpdateSavingRepository } from '../respositories/savings/update-saving/mongo-update-saving';
-import { UpdateSavingController } from '../controllers/savings/update-saving/update-saving';
-import { MongoGetSumSavingsRepository } from '../respositories/savings/get-sum-savings/mongo-get-sum-savings';
-import { MongoGetTotalSavingsRepository } from '../respositories/savings/get-total-savings/mongo-get-total-savings';
-import { MongoGetSpendingDepositGraphicRepository } from '../respositories/graphics/get-spending-deposits-graphics/mongo-get-spendings-graphic';
-import { GetDepositSpendingGraphicController } from '../controllers/graphics/get-deposits-spendings-graphics/get-depoist-spending-graphics';
-import { MongoGetSpendingGraphicsRepository } from '../respositories/graphics/get-spending-graphics/mongo-get-spending-graphics';
-import { GetSpendigsGraphicsController } from '../controllers/graphics/get-spendings-graphics/get-spendingd-graphics';
-import { MongoGetTotalTransferredSavingsRepository } from '../respositories/savings/get-total-transferred-savings/mongo-get-transferred-savings';
+import { CreateSavingController } from "../controllers/savings/create-savings/create-saving";
+import { MongGetSavingRepository } from "../respositories/savings/get-saving/mongo-get-saving";
+import { GetSavingController } from "../controllers/savings/get-saving/get-saving";
+import { MongoGetSavingsRepository } from "../respositories/savings/get-all-savings/mongo-get-all-savings";
+import { GetSavingsController } from "../controllers/savings/get-all-savings/get-all-savings";
+import { DeleteSavingController } from "../controllers/savings/delete-saving/delete-saving";
+import { MongoUpdateSavingRepository } from "../respositories/savings/update-saving/mongo-update-saving";
+import { UpdateSavingController } from "../controllers/savings/update-saving/update-saving";
+import { MongoGetSumSavingsRepository } from "../respositories/savings/get-sum-savings/mongo-get-sum-savings";
+import { MongoGetTotalSavingsRepository } from "../respositories/savings/get-total-savings/mongo-get-total-savings";
+import { MongoGetSpendingDepositGraphicRepository } from "../respositories/graphics/get-spending-deposits-graphics/mongo-get-spendings-graphic";
+import { GetDepositSpendingGraphicController } from "../controllers/graphics/get-deposits-spendings-graphics/get-depoist-spending-graphics";
+import { MongoGetSpendingGraphicsRepository } from "../respositories/graphics/get-spending-graphics/mongo-get-spending-graphics";
+import { GetSpendigsGraphicsController } from "../controllers/graphics/get-spendings-graphics/get-spendingd-graphics";
+import { MongoGetTotalTransferredSavingsRepository } from "../respositories/savings/get-total-transferred-savings/mongo-get-transferred-savings";
 import { MongoGetMopnthlyReportRepository } from "../respositories/reports/get-monthly-repot/mongo-get-monthly-report";
 import { GetMonthlyReportController } from "../controllers/reports/get-monthly-report/get-monthly-report";
 import { GetReportController } from "../controllers/reports/get-deposit-spending-report/get-deposit-spending-report";
@@ -263,17 +263,21 @@ router.patch("/deposti/update/:id", chectToken, async (req, res) => {
 
 router.get("/wallet/get-wallet/:id", chectToken, async (req, res) => {
   const getTotalSpendingsRepository = new MongoGetTotalSpendindsRepository();
-  const getTotalTranferredSpendings = new MongoGetTotalTransferredSpendindsRepository();
+  const getTotalTranferredSpendings =
+    new MongoGetTotalTransferredSpendindsRepository();
   const getTotalDepositsRepository = new MongoGetTotalDepositsRepository();
   const getTotalSavingsRepository = new MongoGetTotalSavingsRepository();
   const getTotalMonthlySpendingdsRepository =
     new MongoGetTotalMonthlySpendindsRepository();
-  const getTotalTransferredSavingsRepository = new MongoGetTotalTransferredSavingsRepository()
+  const getTotalTransferredSavingsRepository =
+    new MongoGetTotalTransferredSavingsRepository();
   const getWalletController = new GetWalletController(
     getTotalSpendingsRepository,
     getTotalDepositsRepository,
-    getTotalMonthlySpendingdsRepository, getTotalSavingsRepository, getTotalTransferredSavingsRepository,getTotalTranferredSpendings
-    
+    getTotalMonthlySpendingdsRepository,
+    getTotalSavingsRepository,
+    getTotalTransferredSavingsRepository,
+    getTotalTranferredSpendings
   );
   const { body, statusCode } = await getWalletController.handle({
     params: req.params
@@ -281,7 +285,7 @@ router.get("/wallet/get-wallet/:id", chectToken, async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-router.post("/user-pet/create", chectToken, async (req, res) => {
+router.post("/user-pet/create", async (req, res) => {
   const getSumDepositsRepository = new MongoGetSumDepositsRepository();
   const getSumSpendingRepository = new MongoGetSumSpendingsRepository();
   const getTotalDepositsRepository = new MongoGetTotalDepositsRepository();
@@ -362,7 +366,7 @@ router.delete("/saving/delete/:id", chectToken, async (req, res) => {
     deleteSavingRepository
   );
   const { body, statusCode } = await deleteSavingController.handle({
-    params: req.params,
+    params: req.params
   });
   res.status(statusCode).send(body);
 });
@@ -374,7 +378,7 @@ router.patch("/saving/update/:id", chectToken, async (req, res) => {
   );
   const { body, statusCode } = await updateSavingController.handle({
     params: req.params,
-    body: req.body,
+    body: req.body
   });
   res.status(statusCode).send(body);
 });
@@ -388,7 +392,7 @@ router.get("/graphics/user-month-graphic", chectToken, async (req, res) => {
     );
   const { body, statusCode } = await getDepositSpendingGraphicController.handle(
     {
-      body: req.body,
+      body: req.body
     }
   );
   res.status(statusCode).send(body);
@@ -401,47 +405,57 @@ router.get("/graphics/how-did-Spend-graphic", chectToken, async (req, res) => {
     getSpendingGraphicsRepository
   );
   const { body, statusCode } = await getSpendingGraphicsController.handle({
-    body: req.body,
+    body: req.body
   });
   res.status(statusCode).send(body);
 });
 
-router.get("/reports/get-monthly-report-home", chectToken, async (req, res) =>{
+router.get("/reports/get-monthly-report-home", chectToken, async (req, res) => {
   const getMonthlyReportHomeRepository = new MongoGetMopnthlyReportRepository();
-  const getMonthlyReportHomeController = new GetMonthlyReportController(getMonthlyReportHomeRepository);
+  const getMonthlyReportHomeController = new GetMonthlyReportController(
+    getMonthlyReportHomeRepository
+  );
   const { body, statusCode } = await getMonthlyReportHomeController.handle({
     body: req.body
-});
-res.status(statusCode).send(body);
+  });
+  res.status(statusCode).send(body);
 });
 
+router.get(
+  "/reports/get-depoist-spending-report",
+  chectToken,
+  async (req, res) => {
+    const getReportHomeRepository = new MongoGetReportRepository();
+    const getReportHomeController = new GetReportController(
+      getReportHomeRepository
+    );
+    const { body, statusCode } = await getReportHomeController.handle({
+      body: req.body
+    });
+    res.status(statusCode).send(body);
+  }
+);
 
-router.get("/reports/get-depoist-spending-report", chectToken, async (req, res) =>{
+router.get("/reports/get-spending-report", chectToken, async (req, res) => {
   const getReportHomeRepository = new MongoGetReportRepository();
-  const getReportHomeController = new GetReportController(getReportHomeRepository);
-  const { body, statusCode } = await getReportHomeController.handle({
-    body: req.body
-});
-res.status(statusCode).send(body);
-});
-
-router.get("/reports/get-spending-report", chectToken, async (req, res) =>{
-  const getReportHomeRepository = new MongoGetReportRepository();
-  const getSpendingReportController = new GetSpendingReportController(getReportHomeRepository);
+  const getSpendingReportController = new GetSpendingReportController(
+    getReportHomeRepository
+  );
   const { body, statusCode } = await getSpendingReportController.handle({
     body: req.body
-});
-res.status(statusCode).send(body);
+  });
+  res.status(statusCode).send(body);
 });
 
-router.get("/reports/get-savings-report", chectToken, async (req, res) =>{
+router.get("/reports/get-savings-report", chectToken, async (req, res) => {
   const getReportHomeRepository = new MongoGetReportRepository();
-  const getSpendingReportController = new GetSpendingReportController(getReportHomeRepository);
+  const getSpendingReportController = new GetSpendingReportController(
+    getReportHomeRepository
+  );
   const { body, statusCode } = await getSpendingReportController.handle({
     body: req.body
+  });
+  res.status(statusCode).send(body);
 });
-res.status(statusCode).send(body);
-});
-
 
 export default router;

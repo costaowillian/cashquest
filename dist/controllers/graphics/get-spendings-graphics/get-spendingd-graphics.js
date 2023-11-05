@@ -35,14 +35,16 @@ class GetSpendigsGraphicsController {
                 if (!variableSpendingsTotal) {
                     variableSpendingsTotal = 0;
                 }
-                let savingsTotal = yield this.getSpendingGraphicsRepository.getSpendingsGraphic(data, false, "saving");
-                if (!savingsTotal) {
-                    savingsTotal = 0;
+                const savingsTotalFixed = yield this.getSpendingGraphicsRepository.getSpendingsGraphic(data, false, "saving");
+                const savingsTotalNotFixed = yield this.getSpendingGraphicsRepository.getSpendingsGraphic(data, false, "saving");
+                let savingsTotal = 0;
+                if (savingsTotalFixed || savingsTotalNotFixed) {
+                    savingsTotal = savingsTotalFixed.total + savingsTotalNotFixed.total;
                 }
                 const graphicData = {
                     fixedSpendingsTotal: fixedSpendingsTotal.total || 0,
                     variableSpendingsTotal: variableSpendingsTotal.total || 0,
-                    savingsTotal: savingsTotal.total || 0
+                    savingsTotal: savingsTotal
                 };
                 return (0, helpers_1.ok)(graphicData);
             }

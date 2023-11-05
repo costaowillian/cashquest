@@ -6,6 +6,7 @@ import { User } from "../models/user";
 import { IWallet } from "../models/wallet";
 import { CretateUserpetParams } from "../controllers/user-pet/create-user-pet/protocols";
 import { ISaving } from "../models/savings";
+import { IUserPhoto } from "../models/user-photo";
 
 export type MongoUser = Omit<User, "id">;
 export type MongoSpending = Omit<ISpending, "id">;
@@ -14,3 +15,4 @@ export type MongoDeposit = Omit<IDeposit, "id">;
 export type MongoWallet = Omit<IWallet, "id">;
 export type MongoCretateUserpetParams = Omit<CretateUserpetParams, "id">;
 export type MongoSaving = Omit<ISaving, "id">;
+export type MongoPhoto = Omit<IUserPhoto, "id">;

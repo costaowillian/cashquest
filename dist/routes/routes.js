@@ -80,6 +80,7 @@ const get_monthly_report_1 = require("../controllers/reports/get-monthly-report/
 const get_deposit_spending_report_1 = require("../controllers/reports/get-deposit-spending-report/get-deposit-spending-report");
 const mongo_get_depoist_spending_report_1 = require("../respositories/reports/get-deposit-spending-report/mongo-get-depoist-spending-report");
 const get_spending_report_1 = require("../controllers/reports/get-spendings-report/get-spending-report");
+const mongo_get_total_transferred_spendings_1 = require("../respositories/spendings/get-total-spending/mongo-get-total-transferred-spendings");
 const router = express_1.default.Router();
 router.get("/users", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const mongoGetUserRepository = new mongo_get_users_1.MongoGetUserRepository();
@@ -95,7 +96,7 @@ router.post("/auth/login", (req, res) => __awaiter(void 0, void 0, void 0, funct
     });
     res.status(statusCode).send(body);
 }));
-router.post("users/create-user", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/users/create-user", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(req.body);
     const mongoGetUserAuthRepository = new mongo_get_user_auth_1.MongoGetUserAuthRepository();
     const mongoCreateUserRepository = new mongo_create_user_1.MongoCreateUserReporitory();
@@ -221,17 +222,18 @@ router.patch("/deposti/update/:id", checkToken_1.chectToken, (req, res) => __awa
 }));
 router.get("/wallet/get-wallet/:id", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const getTotalSpendingsRepository = new mongo_get_total_spendings_1.MongoGetTotalSpendindsRepository();
+    const getTotalTranferredSpendings = new mongo_get_total_transferred_spendings_1.MongoGetTotalTransferredSpendindsRepository();
     const getTotalDepositsRepository = new mongo_get_total_deposits_1.MongoGetTotalDepositsRepository();
     const getTotalSavingsRepository = new mongo_get_total_savings_1.MongoGetTotalSavingsRepository();
     const getTotalMonthlySpendingdsRepository = new mongo_get_total_spendings_month_1.MongoGetTotalMonthlySpendindsRepository();
     const getTotalTransferredSavingsRepository = new mongo_get_transferred_savings_1.MongoGetTotalTransferredSavingsRepository();
-    const getWalletController = new get_wallet_1.GetWalletController(getTotalSpendingsRepository, getTotalDepositsRepository, getTotalMonthlySpendingdsRepository, getTotalSavingsRepository, getTotalTransferredSavingsRepository);
+    const getWalletController = new get_wallet_1.GetWalletController(getTotalSpendingsRepository, getTotalDepositsRepository, getTotalMonthlySpendingdsRepository, getTotalSavingsRepository, getTotalTransferredSavingsRepository, getTotalTranferredSpendings);
     const { body, statusCode } = yield getWalletController.handle({
         params: req.params
     });
     res.status(statusCode).send(body);
 }));
-router.post("/user-pet/create", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/user-pet/create", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const getSumDepositsRepository = new mongo_get_sum_deposits_1.MongoGetSumDepositsRepository();
     const getSumSpendingRepository = new mong_get_sum_spending_1.MongoGetSumSpendingsRepository();
     const getTotalDepositsRepository = new mongo_get_total_deposits_1.MongoGetTotalDepositsRepository();
@@ -287,7 +289,7 @@ router.delete("/saving/delete/:id", checkToken_1.chectToken, (req, res) => __awa
     const deleteSavingRepository = new mongo_delete_saving_1.MongoDeleteSavingRepository();
     const deleteSavingController = new delete_saving_1.DeleteSavingController(deleteSavingRepository);
     const { body, statusCode } = yield deleteSavingController.handle({
-        params: req.params,
+        params: req.params
     });
     res.status(statusCode).send(body);
 }));
@@ -296,7 +298,7 @@ router.patch("/saving/update/:id", checkToken_1.chectToken, (req, res) => __awai
     const updateSavingController = new update_saving_1.UpdateSavingController(updateSavingRepository);
     const { body, statusCode } = yield updateSavingController.handle({
         params: req.params,
-        body: req.body,
+        body: req.body
     });
     res.status(statusCode).send(body);
 }));
@@ -304,7 +306,7 @@ router.get("/graphics/user-month-graphic", checkToken_1.chectToken, (req, res) =
     const getSpendingDepositGraphicRepository = new mongo_get_spendings_graphic_1.MongoGetSpendingDepositGraphicRepository();
     const getDepositSpendingGraphicController = new get_depoist_spending_graphics_1.GetDepositSpendingGraphicController(getSpendingDepositGraphicRepository);
     const { body, statusCode } = yield getDepositSpendingGraphicController.handle({
-        body: req.body,
+        body: req.body
     });
     res.status(statusCode).send(body);
 }));
@@ -312,7 +314,7 @@ router.get("/graphics/how-did-Spend-graphic", checkToken_1.chectToken, (req, res
     const getSpendingGraphicsRepository = new mongo_get_spending_graphics_1.MongoGetSpendingGraphicsRepository();
     const getSpendingGraphicsController = new get_spendingd_graphics_1.GetSpendigsGraphicsController(getSpendingGraphicsRepository);
     const { body, statusCode } = yield getSpendingGraphicsController.handle({
-        body: req.body,
+        body: req.body
     });
     res.status(statusCode).send(body);
 }));
