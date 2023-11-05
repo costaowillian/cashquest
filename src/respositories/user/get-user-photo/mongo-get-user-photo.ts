@@ -8,7 +8,7 @@ export class MongoGetUserPhotoRepository implements IGetUserPhotoRepository {
   async getUserPhoto(userId: string): Promise<IUserPhoto |null> {
     const userPhoto = await MongoClient.db
       .collection<MongoPhoto>("user-photo")
-      .findOne({ _id: new ObjectId(userId) });
+      .findOne({ _userId: new ObjectId(userId) });
 
     if (!userPhoto) {
       return null;

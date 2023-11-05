@@ -46,7 +46,7 @@ export class CreateUserPhotoController implements Icontroller {
 
     private prepareDepositData(body: UploadPhotoParams): UploadPhotoParams {
         const data = { ...body };
-        data.userId = new ObjectId(body.userId);
+        data._userId = new ObjectId(body._userId);
         return data;
     }
 }

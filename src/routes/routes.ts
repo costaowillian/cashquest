@@ -71,6 +71,8 @@ import { MongoUploadPhotoRepository } from "../respositories/user/upload-photo/m
 import { CreateUserPhotoController } from "../controllers/user-photo/create-user-photo/create-user-photo";
 import { MongoUpdatePhotoRepository } from "../respositories/user/update-user-photo/mongo-update-user-photo";
 import { UpdateuserPhotoController } from "../controllers/user-photo/update-user-photo/update-user-photo";
+import { MongoGetUserPhotoRepository } from "../respositories/user/get-user-photo/mongo-get-user-photo";
+import { GetUserPhotoController } from "../controllers/user-photo/get-user-photo/get-user-photo";
 
 const router = express.Router();
 
@@ -115,11 +117,11 @@ router.post("/users/upload-photo", async (req, res) => {
  res.status(statusCode).send(body);
 });
 
-router.get("/users/get-user-photo", chectToken, async (req, res) => {
-  const updaatePhotoRepository = new MongoUpdatePhotoRepository();
-  const updateUserPhotoController = new UpdateuserPhotoController(updaatePhotoRepository);
-  const {body, statusCode } = await updateUserPhotoController.handle({
-    body: req. body
+router.get("/users/get-user-photo/:id", chectToken, async (req, res) => {
+  const getUserPhotoRepository = new MongoGetUserPhotoRepository();
+  const getUserPhotoController = new GetUserPhotoController(getUserPhotoRepository);
+  const {body, statusCode } = await getUserPhotoController.handle({
+    params: req.params
   })
   res.status(statusCode).send(body);
  });
@@ -131,7 +133,6 @@ router.get("/users/get-user-photo", chectToken, async (req, res) => {
   );
   const { body, statusCode } = await updateUserController.handle({
     body: req.body,
-    params: req.params
   });
   res.status(statusCode).send(body);
 });
