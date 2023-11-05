@@ -3,7 +3,7 @@ import { MongoClient } from "../../../database/mongo";
 import { IUserPhoto } from "../../../models/user-photo";
 import { MongoPhoto } from "../../mongo-protocols";
 
-export class MongoUploadPhotoRepositoy implements IUploadPhotoRepository {
+export class MongoUploadPhotoRepository implements IUploadPhotoRepository {
     async uploadPhoto(params: UploadPhotoParams): Promise<IUserPhoto> {
         const { insertedId } = await MongoClient.db
         .collection("user-photo")
