@@ -3,7 +3,7 @@ import { badRequest, ok, serverError } from '../../helpers';
 import { IUpdateUserPhotoRepository, UpdatePhotoParams } from "./protocols";
 import { IUserPhoto } from "../../../models/user-photo";
 
-export class UpdateuserPhotoController implements Icontroller {
+export class UpdateUserPhotoController implements Icontroller {
     constructor(private readonly updateUserPhotoRepository: IUpdateUserPhotoRepository){}
     
     async handle(httpRequest: HttpRequest<UpdatePhotoParams>): Promise<HttpResponse<IUserPhoto | string>> {

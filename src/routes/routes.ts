@@ -70,7 +70,7 @@ import { MongoGetTotalTransferredSpendindsRepository } from "../respositories/sp
 import { MongoUploadPhotoRepository } from "../respositories/user/upload-photo/mongo-upload-photo";
 import { CreateUserPhotoController } from "../controllers/user-photo/create-user-photo/create-user-photo";
 import { MongoUpdatePhotoRepository } from "../respositories/user/update-user-photo/mongo-update-user-photo";
-import { UpdateuserPhotoController } from "../controllers/user-photo/update-user-photo/update-user-photo";
+import { UpdateUserPhotoController } from "../controllers/user-photo/update-user-photo/update-user-photo";
 import { MongoGetUserPhotoRepository } from "../respositories/user/get-user-photo/mongo-get-user-photo";
 import { GetUserPhotoController } from "../controllers/user-photo/get-user-photo/get-user-photo";
 
@@ -127,11 +127,9 @@ router.get("/users/get-user-photo/:id", chectToken, async (req, res) => {
  });
 
  router.patch("/users/update-photo", chectToken, async (req, res) => {
-  const mongoUpdateUserRepository = new MongoUpdateUserRepository();
-  const updateUserController = new UpdateUserController(
-    mongoUpdateUserRepository
-  );
-  const { body, statusCode } = await updateUserController.handle({
+  const upaddateuserPhotoRepository = new MongoUpdatePhotoRepository();
+  const updateUserPhotoController = new UpdateUserPhotoController(upaddateuserPhotoRepository);
+  const { body, statusCode } = await updateUserPhotoController.handle({
     body: req.body,
   });
   res.status(statusCode).send(body);
