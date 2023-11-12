@@ -34,7 +34,7 @@ export class CreateUserPhotoController implements Icontroller {
     }
 
     private validateRequiredFields(body: UploadPhotoParams): HttpResponse<IUserPhoto | string> | undefined {
-        const requiredFields = ["userId", "userPhoto"];
+        const requiredFields = ["_userId", "userPhoto"];
         for (const field of requiredFields) {
           const fieldValue = body?.[field as keyof UploadPhotoParams];
           if (fieldValue === undefined || (typeof fieldValue === "string" && !fieldValue.trim())) {

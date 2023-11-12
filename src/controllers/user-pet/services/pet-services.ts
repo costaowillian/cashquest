@@ -20,14 +20,13 @@ export class PetDetailsService {
         const sumSpendings: any = await this.getSumSpendingRepository.getSumSpendings(id);
         const sumSavings: any = await this.getSumSavingsRepository.getSumSavings(id);
 
-
         let spendingsXps = 0;
         let depositsXps = 0;
         let savingsXps = 0;
         if(sumDeposits != 0 || sumSpendings != 0 || sumSavings != 0) {
             depositsXps = this.sumXps(amountXps.DEPOSITS, sumDeposits.total);
             spendingsXps = this.sumXps(amountXps.SPENDINGS, sumSpendings.total);
-            savingsXps = this.sumXps(amountXps.SAVINGS, sumSavings);
+            savingsXps = this.sumXps(amountXps.SAVINGS, sumSavings.total);
         }
   
         const totalXps = depositsXps + spendingsXps + savingsXps
@@ -35,6 +34,7 @@ export class PetDetailsService {
         if(totalXps === null) {
             return 0;
         }
+        console.log(totalXps);
         return totalXps;
     }
 

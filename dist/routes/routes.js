@@ -81,6 +81,12 @@ const get_deposit_spending_report_1 = require("../controllers/reports/get-deposi
 const mongo_get_depoist_spending_report_1 = require("../respositories/reports/get-deposit-spending-report/mongo-get-depoist-spending-report");
 const get_spending_report_1 = require("../controllers/reports/get-spendings-report/get-spending-report");
 const mongo_get_total_transferred_spendings_1 = require("../respositories/spendings/get-total-spending/mongo-get-total-transferred-spendings");
+const mongo_upload_photo_1 = require("../respositories/user/upload-photo/mongo-upload-photo");
+const create_user_photo_1 = require("../controllers/user-photo/create-user-photo/create-user-photo");
+const mongo_update_user_photo_1 = require("../respositories/user/update-user-photo/mongo-update-user-photo");
+const update_user_photo_1 = require("../controllers/user-photo/update-user-photo/update-user-photo");
+const mongo_get_user_photo_1 = require("../respositories/user/get-user-photo/mongo-get-user-photo");
+const get_user_photo_1 = require("../controllers/user-photo/get-user-photo/get-user-photo");
 const router = express_1.default.Router();
 router.get("/users", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const mongoGetUserRepository = new mongo_get_users_1.MongoGetUserRepository();
@@ -97,12 +103,35 @@ router.post("/auth/login", (req, res) => __awaiter(void 0, void 0, void 0, funct
     res.status(statusCode).send(body);
 }));
 router.post("/users/create-user", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
     const mongoGetUserAuthRepository = new mongo_get_user_auth_1.MongoGetUserAuthRepository();
     const mongoCreateUserRepository = new mongo_create_user_1.MongoCreateUserReporitory();
     const createUserController = new create_user_1.CreateUserController(mongoCreateUserRepository, mongoGetUserAuthRepository);
     const { body, statusCode } = yield createUserController.handle({
         body: req.body
+    });
+    res.status(statusCode).send(body);
+}));
+router.post("/users/upload-photo", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const uploadPhotoRepository = new mongo_upload_photo_1.MongoUploadPhotoRepository();
+    const createUserPhotoController = new create_user_photo_1.CreateUserPhotoController(uploadPhotoRepository);
+    const { body, statusCode } = yield createUserPhotoController.handle({
+        body: req.body
+    });
+    res.status(statusCode).send(body);
+}));
+router.get("/users/get-user-photo/:id", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const getUserPhotoRepository = new mongo_get_user_photo_1.MongoGetUserPhotoRepository();
+    const getUserPhotoController = new get_user_photo_1.GetUserPhotoController(getUserPhotoRepository);
+    const { body, statusCode } = yield getUserPhotoController.handle({
+        params: req.params
+    });
+    res.status(statusCode).send(body);
+}));
+router.patch("/users/update-photo", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const upaddateuserPhotoRepository = new mongo_update_user_photo_1.MongoUpdatePhotoRepository();
+    const updateUserPhotoController = new update_user_photo_1.UpdateUserPhotoController(upaddateuserPhotoRepository);
+    const { body, statusCode } = yield updateUserPhotoController.handle({
+        body: req.body,
     });
     res.status(statusCode).send(body);
 }));
