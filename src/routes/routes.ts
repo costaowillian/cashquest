@@ -417,7 +417,7 @@ router.patch("/saving/update/:id", chectToken, async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-router.get("/graphics/user-month-graphic", chectToken, async (req, res) => {
+router.post("/graphics/user-month-graphic", chectToken, async (req, res) => {
   const getSpendingDepositGraphicRepository =
     new MongoGetSpendingDepositGraphicRepository();
   const getDepositSpendingGraphicController =
@@ -432,7 +432,7 @@ router.get("/graphics/user-month-graphic", chectToken, async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-router.get("/graphics/how-did-Spend-graphic", chectToken, async (req, res) => {
+router.post("/graphics/how-did-Spend-graphic", chectToken, async (req, res) => {
   const getSpendingGraphicsRepository =
     new MongoGetSpendingGraphicsRepository();
   const getSpendingGraphicsController = new GetSpendigsGraphicsController(
@@ -444,7 +444,7 @@ router.get("/graphics/how-did-Spend-graphic", chectToken, async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-router.get("/reports/get-monthly-report-home", chectToken, async (req, res) => {
+router.post("/reports/get-monthly-report-home", chectToken, async (req, res) => {
   const getMonthlyReportHomeRepository = new MongoGetMopnthlyReportRepository();
   const getMonthlyReportHomeController = new GetMonthlyReportController(
     getMonthlyReportHomeRepository
@@ -455,7 +455,7 @@ router.get("/reports/get-monthly-report-home", chectToken, async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-router.get(
+router.post(
   "/reports/get-depoist-spending-report",
   chectToken,
   async (req, res) => {
@@ -470,7 +470,7 @@ router.get(
   }
 );
 
-router.get("/reports/get-spending-report", chectToken, async (req, res) => {
+router.post("/reports/get-spending-report", chectToken, async (req, res) => {
   const getReportHomeRepository = new MongoGetReportRepository();
   const getSpendingReportController = new GetSpendingReportController(
     getReportHomeRepository
@@ -481,7 +481,7 @@ router.get("/reports/get-spending-report", chectToken, async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-router.get("/reports/get-savings-report", chectToken, async (req, res) => {
+router.post("/reports/get-savings-report", chectToken, async (req, res) => {
   const getReportHomeRepository = new MongoGetReportRepository();
   const getSpendingReportController = new GetSpendingReportController(
     getReportHomeRepository
