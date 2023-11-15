@@ -36,6 +36,8 @@ class GetWalletController {
                 const transferredSpendings = yield this.getTotalTranferredSpendingsRepository.getTotalSpendings(id);
                 const walletTotalDeposits = this.sumWalletDeposits(depsosits === null || depsosits === void 0 ? void 0 : depsosits.total, spendings === null || spendings === void 0 ? void 0 : spendings.total, transferredSavings === null || transferredSavings === void 0 ? void 0 : transferredSavings.total);
                 const walletTotalSavings = this.sumWalletSavings(savings === null || savings === void 0 ? void 0 : savings.total, transferredSpendings === null || transferredSpendings === void 0 ? void 0 : transferredSpendings.total);
+                console.log({ spendings });
+                console.log({ monthlySpendings });
                 const wallet = {
                     totalDeposits: walletTotalDeposits,
                     monthlySpendings: monthlySpendings === null || monthlySpendings === void 0 ? void 0 : monthlySpendings.total,

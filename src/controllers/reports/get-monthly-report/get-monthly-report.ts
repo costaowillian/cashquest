@@ -21,10 +21,10 @@ export class GetMonthlyReportController implements Icontroller {
             const spendings = await this.getMonthlyReportRepository.getMonthlyReport(body,"spending");
 
             const data = {
-                depoists: deposits || [],
-                savings: savings || [],
-                spandings: spendings|| []
-            }
+                combinedArray: [...deposits, ...savings, ...spendings]
+            };
+
+            data.combinedArray.sort((a, b) => b.createdAt - a.createdAt);
 
             return ok<IMonthlyRepost>(data);
         } catch (error) {

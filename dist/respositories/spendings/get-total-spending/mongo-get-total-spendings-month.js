@@ -20,13 +20,16 @@ class MongoGetTotalMonthlySpendindsRepository {
             currentDate.setDate(1);
             currentDate.setHours(0, 0, 0, 0);
             const endDate = new Date();
+            endDate.setHours(23, 59, 59, 0);
+            console.log({ currentDate });
+            console.log({ endDate });
+            console.log({ userId });
             const spendings = yield spendingsColection
                 .aggregate([
                 {
                     $match: {
                         _userId: new mongodb_1.ObjectId(userId),
-                        createAt: { $gte: currentDate,
-                            $lte: endDate, }
+                        createAt: { $gte: currentDate, $lte: endDate }
                     }
                 },
                 {
@@ -37,6 +40,7 @@ class MongoGetTotalMonthlySpendindsRepository {
                 }
             ])
                 .toArray();
+            console.log({ spendings });
             if (spendings === null || spendings.length === 0) {
                 return 0;
             }

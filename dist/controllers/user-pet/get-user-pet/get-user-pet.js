@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GetUserPetController = void 0;
 const helpers_1 = require("../../helpers");
-const pet_services_1 = require("../servicves/pet-services");
+const pet_services_1 = require("../services/pet-services");
 class GetUserPetController {
     constructor(getSumDepositsRepository, getSumSpendingRepository, getTotalDepositsRepository, getTotalSpendingsRepository, getSumSavingsRepository, getBasePetsRepository, getUserPetRepository) {
         this.getSumDepositsRepository = getSumDepositsRepository;
@@ -35,7 +35,8 @@ class GetUserPetController {
                 const health = yield this.petDetailsService.getHealth(id);
                 const xps = yield this.petDetailsService.getXps(id);
                 const basePet = yield this.petDetailsService.getLevel(id);
-                const userPet = [{
+                const userPet = [
+                    {
                         name: baseUerPet.name,
                         id: baseUerPet.id,
                         pet: basePet,
@@ -43,7 +44,8 @@ class GetUserPetController {
                         xps: xps,
                         health: health,
                         createdAt: baseUerPet.createdAt
-                    }];
+                    }
+                ];
                 return (0, helpers_1.ok)(userPet);
             }
             catch (error) {

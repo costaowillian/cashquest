@@ -13,7 +13,7 @@ exports.CreateUserPetController = void 0;
 const helpers_1 = require("./../../helpers");
 const mongodb_1 = require("mongodb");
 const helpers_2 = require("../../helpers");
-const pet_services_1 = require("../servicves/pet-services");
+const pet_services_1 = require("../services/pet-services");
 class CreateUserPetController {
     constructor(getSumDepositsRepository, getSumSpendingRepository, getTotalDepositsRepository, getTotalSpendingsRepository, getSumSavingsRepository, getBasePetsRepository, createUserPetRepository) {
         this.getSumDepositsRepository = getSumDepositsRepository;
@@ -44,7 +44,8 @@ class CreateUserPetController {
                 const health = yield this.petDetailsService.getHealth(httpRequest.body._userId.toHexString());
                 const xps = yield this.petDetailsService.getXps(httpRequest.body._userId.toHexString());
                 const basePet = yield this.petDetailsService.getLevel(httpRequest.body._userId.toHexString());
-                const userPet = [{
+                const userPet = [
+                    {
                         name: createdPet.name,
                         id: createdPet.id,
                         pet: basePet,
@@ -52,7 +53,8 @@ class CreateUserPetController {
                         xps: xps,
                         health: health,
                         createdAt: createdPet.createdAt
-                    }];
+                    }
+                ];
                 return (0, helpers_1.created)(userPet);
             }
             catch (error) {
