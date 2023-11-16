@@ -25,7 +25,6 @@ class GetMonthlyReportController {
                 const deposits = yield this.getMonthlyReportRepository.getMonthlyReport(body, "deposit");
                 const savings = yield this.getMonthlyReportRepository.getMonthlyReport(body, "saving");
                 const spendings = yield this.getMonthlyReportRepository.getMonthlyReport(body, "spending");
-                console.log(spendings);
                 for (const spending of spendings) {
                     spending.value = -spending.value;
                 }

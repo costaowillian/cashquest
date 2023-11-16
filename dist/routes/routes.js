@@ -331,7 +331,7 @@ router.patch("/saving/update/:id", checkToken_1.chectToken, (req, res) => __awai
     });
     res.status(statusCode).send(body);
 }));
-router.get("/graphics/user-month-graphic", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/graphics/user-month-graphic", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const getSpendingDepositGraphicRepository = new mongo_get_spendings_graphic_1.MongoGetSpendingDepositGraphicRepository();
     const getDepositSpendingGraphicController = new get_depoist_spending_graphics_1.GetDepositSpendingGraphicController(getSpendingDepositGraphicRepository);
     const { body, statusCode } = yield getDepositSpendingGraphicController.handle({
@@ -339,7 +339,7 @@ router.get("/graphics/user-month-graphic", checkToken_1.chectToken, (req, res) =
     });
     res.status(statusCode).send(body);
 }));
-router.get("/graphics/how-did-Spend-graphic", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/graphics/how-did-Spend-graphic", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const getSpendingGraphicsRepository = new mongo_get_spending_graphics_1.MongoGetSpendingGraphicsRepository();
     const getSpendingGraphicsController = new get_spendingd_graphics_1.GetSpendigsGraphicsController(getSpendingGraphicsRepository);
     const { body, statusCode } = yield getSpendingGraphicsController.handle({
@@ -347,7 +347,7 @@ router.get("/graphics/how-did-Spend-graphic", checkToken_1.chectToken, (req, res
     });
     res.status(statusCode).send(body);
 }));
-router.get("/reports/get-monthly-report-home", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/reports/get-monthly-report-home", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const getMonthlyReportHomeRepository = new mongo_get_monthly_report_1.MongoGetMopnthlyReportRepository();
     const getMonthlyReportHomeController = new get_monthly_report_1.GetMonthlyReportController(getMonthlyReportHomeRepository);
     const { body, statusCode } = yield getMonthlyReportHomeController.handle({
@@ -355,7 +355,7 @@ router.get("/reports/get-monthly-report-home", checkToken_1.chectToken, (req, re
     });
     res.status(statusCode).send(body);
 }));
-router.get("/reports/get-depoist-spending-report", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/reports/get-depoist-spending-report", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const getReportHomeRepository = new mongo_get_depoist_spending_report_1.MongoGetReportRepository();
     const getReportHomeController = new get_deposit_spending_report_1.GetReportController(getReportHomeRepository);
     const { body, statusCode } = yield getReportHomeController.handle({
@@ -363,7 +363,7 @@ router.get("/reports/get-depoist-spending-report", checkToken_1.chectToken, (req
     });
     res.status(statusCode).send(body);
 }));
-router.get("/reports/get-spending-report", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/reports/get-spending-report", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const getReportHomeRepository = new mongo_get_depoist_spending_report_1.MongoGetReportRepository();
     const getSpendingReportController = new get_spending_report_1.GetSpendingReportController(getReportHomeRepository);
     const { body, statusCode } = yield getSpendingReportController.handle({
@@ -371,7 +371,7 @@ router.get("/reports/get-spending-report", checkToken_1.chectToken, (req, res) =
     });
     res.status(statusCode).send(body);
 }));
-router.get("/reports/get-savings-report", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/reports/get-savings-report", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const getReportHomeRepository = new mongo_get_depoist_spending_report_1.MongoGetReportRepository();
     const getSpendingReportController = new get_spending_report_1.GetSpendingReportController(getReportHomeRepository);
     const { body, statusCode } = yield getSpendingReportController.handle({

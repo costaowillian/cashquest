@@ -9,14 +9,13 @@ export class MongoGetMopnthlyReportRepository implements IGetMonthlyReportRepois
 
         const today = new Date(params.date);
         const firstDayMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-        const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
         const result = await collection.aggregate([
             {
               $match: { _userId: new ObjectId(params.userId),
                 createAt: {
                     $gte: firstDayMonth,
-                    $lte: todayDate
+                    $lte: today
                   }
               }
             },
