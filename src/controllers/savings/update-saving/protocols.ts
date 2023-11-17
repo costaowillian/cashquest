@@ -11,6 +11,7 @@ export interface UpdateSavingParams {
     userId?: string;
     installments?: number;
     isTransferred?: boolean; 
+    type?: string;   
 }
 
 export interface IUpdateSavingRepository {

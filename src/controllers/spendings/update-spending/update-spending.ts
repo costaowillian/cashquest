@@ -31,7 +31,8 @@ export class UpdateSpendingController implements Icontroller {
         "isFixed",
         "comments",
         "isTransferred",
-        "installments"
+        "installments",
+        "type"
       ];
 
       const someFieldsNotAllowedToUpdate = Object.keys(body).some(

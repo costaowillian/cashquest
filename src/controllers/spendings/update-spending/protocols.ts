@@ -10,7 +10,8 @@ export interface UpdateSpendingParams {
   comments?: string;
   userId?: string;
   installments?: number;
-  isTransferred?: boolean; 
+  isTransferred?: boolean;
+  type?: string;    
 }
 
 export interface IUpdateSpendingRepository {

@@ -10,4 +10,5 @@ export interface IDeposit {
     comments?: string;
     createdAt: Date;
     installments?: number;
+    type: string;
 }

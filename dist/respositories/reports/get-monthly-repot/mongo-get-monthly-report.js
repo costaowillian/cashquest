@@ -29,13 +29,12 @@ class MongoGetMopnthlyReportRepository {
             const collection = mongo_1.MongoClient.db.collection(collectionName);
             const today = new Date(params.date);
             const firstDayMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-            const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
             const result = yield collection.aggregate([
                 {
                     $match: { _userId: new mongodb_1.ObjectId(params.userId),
                         createAt: {
                             $gte: firstDayMonth,
-                            $lte: todayDate
+                            $lte: today
                         }
                     }
                 },

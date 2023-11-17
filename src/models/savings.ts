@@ -10,4 +10,5 @@ export interface ISaving {
   comments?: string;
   createdAt: Date;
   isTransferred: boolean;
+  type: string;
 }

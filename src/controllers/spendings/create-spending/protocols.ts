@@ -13,6 +13,7 @@ export interface CreateSpendingParams {
   createAt: Date;
   installments?: number;
   isTransfer: boolean;
+  type: string;   
 }
 
 export interface ICreateSpendingRepository {

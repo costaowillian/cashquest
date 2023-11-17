@@ -9,6 +9,7 @@ export interface UpdateDepositParams {
     comments?: string;
     userId?: string;
     installments?: number;
+    type?: string;
 }
 
 export interface IUpdateDepositRepository {

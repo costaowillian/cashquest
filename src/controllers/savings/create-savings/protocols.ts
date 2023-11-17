@@ -12,7 +12,8 @@ export interface CreateSavingParams {
     comments?: string;
     createAt: Date;
     installments?: number;
-    isTransferred: boolean;   
+    isTransferred: boolean;
+    type: string;   
 }
 
 export interface ICreateSavingRepository {
