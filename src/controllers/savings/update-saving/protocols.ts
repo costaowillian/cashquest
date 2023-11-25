@@ -10,7 +10,9 @@ export interface UpdateSavingParams {
     comments?: string;
     userId?: string;
     installments?: number;
-    isTransferred?: boolean; 
+    createdAt?: Date;
+    isTransferred?: boolean;
+    type?: string
 }
 
 export interface IUpdateSavingRepository {
