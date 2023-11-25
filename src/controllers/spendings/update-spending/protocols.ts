@@ -12,8 +12,7 @@ export interface UpdateSpendingParams {
   installments?: number;
   isTransferred?: boolean;
   createdAt?: Date;
-  type?: string 
-  
+  type?: string;
 }
 
 export interface IUpdateSpendingRepository {

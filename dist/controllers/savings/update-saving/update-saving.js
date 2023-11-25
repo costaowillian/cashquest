@@ -34,7 +34,8 @@ class UpdateSavingController {
                     'attachment',
                     'isFixed',
                     'comments',
-                    "installments"
+                    "installments",
+                    "type"
                 ];
                 const someFieldsNotAllowedToUpdate = Object.keys(body).some((key) => !AllowedToUpdate.includes(key));
                 if (someFieldsNotAllowedToUpdate) {

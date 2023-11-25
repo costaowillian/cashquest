@@ -11,4 +11,5 @@ export interface ISpending {
     createAt: Date;
     installments?: number;
     isTransferred: boolean;
+    type: string;
 }

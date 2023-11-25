@@ -12,6 +12,7 @@ export interface CreateDepositParams {
     comments?: string;
     createAt: Date;
     installments?: number;
+    type: string;
 }
 
 export interface ICreateDepositRepository {
