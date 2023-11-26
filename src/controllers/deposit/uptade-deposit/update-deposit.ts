@@ -29,7 +29,6 @@ export class UpdateDepositController implements Icontroller {
         "value",
         "isFixed",
         "comments",
-        "isTransferred",
         "installments",
         "createAt",
         "type",

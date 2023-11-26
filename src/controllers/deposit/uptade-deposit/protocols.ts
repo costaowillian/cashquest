@@ -8,7 +8,6 @@ export interface UpdateDepositParams {
   isFixed?: boolean;
   comments?: string;
   installments?: number;
-  isTransferred?: boolean;
   createAt?: Date;
   type?: string;
 }

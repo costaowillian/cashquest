@@ -44,8 +44,6 @@ class UpdateDepositController {
                     return (0, helpers_1.badRequest)("Some received fields is not allowed");
                 }
                 const updatedbody = Object.assign({}, body);
-                const paramToRemove = "userId";
-                delete updatedbody[paramToRemove];
                 const deposit = yield this.updateDepositRepository.update(id, updatedbody);
                 return (0, helpers_1.ok)(deposit);
             }
