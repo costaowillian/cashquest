@@ -1,55 +1,61 @@
 import { IDeposit } from "../../../models/deposit";
 import { HttpRequest, HttpResponse, Icontroller } from "../../protocols";
 import { IUpdateDepositRepository, UpdateDepositParams } from "./protocols";
-import { badRequest, ok, serverError } from '../../helpers';
+import { badRequest, ok, serverError } from "../../helpers";
 
 export class UpdateDepositController implements Icontroller {
-    constructor(private readonly updateDepositRepository: IUpdateDepositRepository){}
-    
-    async handle(httpRequest: HttpRequest<UpdateDepositParams>): Promise<HttpResponse<IDeposit | string>> {
-        try {
-            const id = httpRequest?.params?.id;
-            const body = httpRequest?.body;
+  constructor(
+    private readonly updateDepositRepository: IUpdateDepositRepository
+  ) {}
 
-            if(!body) {
-                return badRequest('Missing body');
-            }
+  async handle(
+    httpRequest: HttpRequest<UpdateDepositParams>
+  ): Promise<HttpResponse<IDeposit | string>> {
+    try {
+      const id = httpRequest?.params?.id;
+      const body = httpRequest?.body;
 
-            if(!id) {
-                return badRequest('Missing deposit id');
-            }
+      if (!body) {
+        return badRequest("Missing body");
+      }
 
-            const AllowedToUpdate: (keyof UpdateDepositParams)[] = [
-                'category',
-                'description',
-                'value',
-                'attachment',
-                'isFixed',
-                'comments',
-                'installments',
-                "createdAt",
-                "type",
-                "userId",
-                "isTransferred"
-            ];
+      if (!id) {
+        return badRequest("Missing deposit id");
+      }
 
-            const someFieldsNotAllowedToUpdate = Object.keys(body).some((key) => !AllowedToUpdate.includes(key as keyof UpdateDepositParams));
+      const AllowedToUpdate: (keyof UpdateDepositParams)[] = [
+        "category",
+        "description",
+        "value",
+        "isFixed",
+        "comments",
+        "isTransferred",
+        "installments",
+        "createAt",
+        "type",
+        "total"
+      ];
 
-            if(someFieldsNotAllowedToUpdate) {
-                return badRequest("Some received fields is not allowed");
-            }
+      const someFieldsNotAllowedToUpdate = Object.keys(body).some(
+        (key) => !AllowedToUpdate.includes(key as keyof UpdateDepositParams)
+      );
 
-            const updatedbody =  {...body};
-            const paramToRemove = "userId";
-            delete updatedbody[paramToRemove];
+      if (someFieldsNotAllowedToUpdate) {
+        return badRequest("Some received fields is not allowed");
+      }
 
-            const deposit = await this.updateDepositRepository.update(id, updatedbody);
+      const updatedbody = { ...body };
+      const paramToRemove = "userId";
+      delete updatedbody[paramToRemove];
 
-            return ok<IDeposit>(deposit);
+      const deposit = await this.updateDepositRepository.update(
+        id,
+        updatedbody
+      );
 
-        } catch (error) {
-            return serverError("15");
-        }
+      return ok<IDeposit>(deposit);
+    } catch (error) {
+      return serverError("15");
     }
-
+  }
 }
