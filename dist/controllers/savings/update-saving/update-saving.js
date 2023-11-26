@@ -28,14 +28,17 @@ class UpdateSavingController {
                     return (0, helpers_1.badRequest)("Missing saving id");
                 }
                 const AllowedToUpdate = [
-                    'category',
-                    'description',
-                    'value',
-                    'attachment',
-                    'isFixed',
-                    'comments',
+                    "category",
+                    "description",
+                    "value",
+                    "attachment",
+                    "isFixed",
+                    "comments",
                     "installments",
-                    "type"
+                    "createdAt",
+                    "type",
+                    "userId",
+                    "isTransferred"
                 ];
                 const someFieldsNotAllowedToUpdate = Object.keys(body).some((key) => !AllowedToUpdate.includes(key));
                 if (someFieldsNotAllowedToUpdate) {

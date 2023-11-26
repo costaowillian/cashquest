@@ -5,13 +5,11 @@ export interface UpdateSpendingParams {
   description?: string;
   value?: number;
   total?: number;
-  attachment?: string;
   isFixed?: boolean;
   comments?: string;
-  userId?: string;
   installments?: number;
   isTransferred?: boolean;
-  createdAt?: Date;
+  createAt?: Date;
   type?: string;
 }
 

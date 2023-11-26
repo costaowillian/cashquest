@@ -109,33 +109,37 @@ router.post("/users/create-user", async (req, res) => {
 });
 
 router.post("/users/upload-photo", async (req, res) => {
- const uploadPhotoRepository = new MongoUploadPhotoRepository();
- const createUserPhotoController = new CreateUserPhotoController(uploadPhotoRepository);
- const { body, statusCode} = await createUserPhotoController.handle({
-  body: req.body
-})
- res.status(statusCode).send(body);
-});
-
-router.get("/users/get-user-photo/:id", chectToken, async (req, res) => {
-  const getUserPhotoRepository = new MongoGetUserPhotoRepository();
-  const getUserPhotoController = new GetUserPhotoController(getUserPhotoRepository);
-  const {body, statusCode } = await getUserPhotoController.handle({
-    params: req.params
-  })
-  res.status(statusCode).send(body);
- });
-
- router.patch("/users/update-photo", chectToken, async (req, res) => {
-  const upaddateuserPhotoRepository = new MongoUpdatePhotoRepository();
-  const updateUserPhotoController = new UpdateUserPhotoController(upaddateuserPhotoRepository);
-  const { body, statusCode } = await updateUserPhotoController.handle({
-    body: req.body,
+  const uploadPhotoRepository = new MongoUploadPhotoRepository();
+  const createUserPhotoController = new CreateUserPhotoController(
+    uploadPhotoRepository
+  );
+  const { body, statusCode } = await createUserPhotoController.handle({
+    body: req.body
   });
   res.status(statusCode).send(body);
 });
 
- 
+router.get("/users/get-user-photo/:id", chectToken, async (req, res) => {
+  const getUserPhotoRepository = new MongoGetUserPhotoRepository();
+  const getUserPhotoController = new GetUserPhotoController(
+    getUserPhotoRepository
+  );
+  const { body, statusCode } = await getUserPhotoController.handle({
+    params: req.params
+  });
+  res.status(statusCode).send(body);
+});
+
+router.patch("/users/update-photo", chectToken, async (req, res) => {
+  const upaddateuserPhotoRepository = new MongoUpdatePhotoRepository();
+  const updateUserPhotoController = new UpdateUserPhotoController(
+    upaddateuserPhotoRepository
+  );
+  const { body, statusCode } = await updateUserPhotoController.handle({
+    body: req.body
+  });
+  res.status(statusCode).send(body);
+});
 
 router.patch("/users/update/:id", chectToken, async (req, res) => {
   const mongoUpdateUserRepository = new MongoUpdateUserRepository();
@@ -283,7 +287,7 @@ router.delete("/deposit/delete/:id", chectToken, async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-router.patch("/deposti/update/:id", chectToken, async (req, res) => {
+router.patch("/deposit/update/:id", chectToken, async (req, res) => {
   const updateDepositRepository = new MongoUpdateDepositRepository();
   const updateDepositController = new UpdateDepositController(
     updateDepositRepository
@@ -444,16 +448,21 @@ router.post("/graphics/how-did-Spend-graphic", chectToken, async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-router.post("/reports/get-monthly-report-home", chectToken, async (req, res) => {
-  const getMonthlyReportHomeRepository = new MongoGetMopnthlyReportRepository();
-  const getMonthlyReportHomeController = new GetMonthlyReportController(
-    getMonthlyReportHomeRepository
-  );
-  const { body, statusCode } = await getMonthlyReportHomeController.handle({
-    body: req.body
-  });
-  res.status(statusCode).send(body);
-});
+router.post(
+  "/reports/get-monthly-report-home",
+  chectToken,
+  async (req, res) => {
+    const getMonthlyReportHomeRepository =
+      new MongoGetMopnthlyReportRepository();
+    const getMonthlyReportHomeController = new GetMonthlyReportController(
+      getMonthlyReportHomeRepository
+    );
+    const { body, statusCode } = await getMonthlyReportHomeController.handle({
+      body: req.body
+    });
+    res.status(statusCode).send(body);
+  }
+);
 
 router.post(
   "/reports/get-depoist-spending-report",

@@ -35,7 +35,10 @@ class UpdateDepositController {
                     'isFixed',
                     'comments',
                     'installments',
-                    "type"
+                    "createdAt",
+                    "type",
+                    "userId",
+                    "isTransferred"
                 ];
                 const someFieldsNotAllowedToUpdate = Object.keys(body).some((key) => !AllowedToUpdate.includes(key));
                 if (someFieldsNotAllowedToUpdate) {

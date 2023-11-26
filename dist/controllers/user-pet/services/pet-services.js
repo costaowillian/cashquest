@@ -42,7 +42,7 @@ class PetDetailsService {
         });
     }
     sumXps(xps, sumItems) {
-        return xps + sumItems;
+        return xps * sumItems;
     }
     getHealth(id) {
         return __awaiter(this, void 0, void 0, function* () {

@@ -27,14 +27,13 @@ export class UpdateSpendingController implements Icontroller {
         "category",
         "description",
         "value",
-        "attachment",
         "isFixed",
         "comments",
         "isTransferred",
         "installments",
-        "createdAt",
+        "createAt",
         "type",
-        "userId"
+        "total"
       ];
 
       const someFieldsNotAllowedToUpdate = Object.keys(body).some(
@@ -46,8 +45,6 @@ export class UpdateSpendingController implements Icontroller {
       }
 
       const updatedbody = { ...body };
-      const paramToRemove = "userId";
-      delete updatedbody[paramToRemove];
 
       const spending = await this.updateSpendingRepository.updateSpending(
         id,
