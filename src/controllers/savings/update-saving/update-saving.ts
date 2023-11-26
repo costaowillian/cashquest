@@ -26,14 +26,13 @@ export class UpdateSavingController implements Icontroller {
         "category",
         "description",
         "value",
-        "attachment",
         "isFixed",
         "comments",
+        "isTransferred",
         "installments",
-        "createdAt",
+        "createAt",
         "type",
-        "userId",
-        "isTransferred"
+        "total"
       ];
       const someFieldsNotAllowedToUpdate = Object.keys(body).some(
         (key) => !AllowedToUpdate.includes(key as keyof UpdateSavingParams)
@@ -44,8 +43,6 @@ export class UpdateSavingController implements Icontroller {
       }
 
       const updatedbody = { ...body };
-      const paramToRemove = "userId";
-      delete updatedbody[paramToRemove];
 
       const saving = await this.updateSavingRepository.update(id, updatedbody);
 
