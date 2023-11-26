@@ -31,22 +31,19 @@ class UpdateSavingController {
                     "category",
                     "description",
                     "value",
-                    "attachment",
                     "isFixed",
                     "comments",
+                    "isTransferred",
                     "installments",
-                    "createdAt",
+                    "createAt",
                     "type",
-                    "userId",
-                    "isTransferred"
+                    "total"
                 ];
                 const someFieldsNotAllowedToUpdate = Object.keys(body).some((key) => !AllowedToUpdate.includes(key));
                 if (someFieldsNotAllowedToUpdate) {
                     return (0, helpers_1.badRequest)("Some received fields is not allowed");
                 }
                 const updatedbody = Object.assign({}, body);
-                const paramToRemove = "userId";
-                delete updatedbody[paramToRemove];
                 const saving = yield this.updateSavingRepository.update(id, updatedbody);
                 return (0, helpers_1.ok)(saving);
             }

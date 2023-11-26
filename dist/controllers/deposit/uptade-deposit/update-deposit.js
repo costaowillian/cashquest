@@ -22,23 +22,22 @@ class UpdateDepositController {
                 const id = (_a = httpRequest === null || httpRequest === void 0 ? void 0 : httpRequest.params) === null || _a === void 0 ? void 0 : _a.id;
                 const body = httpRequest === null || httpRequest === void 0 ? void 0 : httpRequest.body;
                 if (!body) {
-                    return (0, helpers_1.badRequest)('Missing body');
+                    return (0, helpers_1.badRequest)("Missing body");
                 }
                 if (!id) {
-                    return (0, helpers_1.badRequest)('Missing deposit id');
+                    return (0, helpers_1.badRequest)("Missing deposit id");
                 }
                 const AllowedToUpdate = [
-                    'category',
-                    'description',
-                    'value',
-                    'attachment',
-                    'isFixed',
-                    'comments',
-                    'installments',
-                    "createdAt",
+                    "category",
+                    "description",
+                    "value",
+                    "isFixed",
+                    "comments",
+                    "isTransferred",
+                    "installments",
+                    "createAt",
                     "type",
-                    "userId",
-                    "isTransferred"
+                    "total"
                 ];
                 const someFieldsNotAllowedToUpdate = Object.keys(body).some((key) => !AllowedToUpdate.includes(key));
                 if (someFieldsNotAllowedToUpdate) {

@@ -31,22 +31,19 @@ class UpdateSpendingController {
                     "category",
                     "description",
                     "value",
-                    "attachment",
                     "isFixed",
                     "comments",
                     "isTransferred",
                     "installments",
-                    "createdAt",
+                    "createAt",
                     "type",
-                    "userId"
+                    "total"
                 ];
                 const someFieldsNotAllowedToUpdate = Object.keys(body).some((key) => !AllowedToUpdate.includes(key));
                 if (someFieldsNotAllowedToUpdate) {
                     return (0, helpers_1.badRequest)("Some received fields is not allowed");
                 }
                 const updatedbody = Object.assign({}, body);
-                const paramToRemove = "userId";
-                delete updatedbody[paramToRemove];
                 const spending = yield this.updateSpendingRepository.updateSpending(id, updatedbody);
                 return (0, helpers_1.ok)(spending);
             }

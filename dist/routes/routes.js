@@ -131,7 +131,7 @@ router.patch("/users/update-photo", checkToken_1.chectToken, (req, res) => __awa
     const upaddateuserPhotoRepository = new mongo_update_user_photo_1.MongoUpdatePhotoRepository();
     const updateUserPhotoController = new update_user_photo_1.UpdateUserPhotoController(upaddateuserPhotoRepository);
     const { body, statusCode } = yield updateUserPhotoController.handle({
-        body: req.body,
+        body: req.body
     });
     res.status(statusCode).send(body);
 }));
@@ -240,7 +240,7 @@ router.delete("/deposit/delete/:id", checkToken_1.chectToken, (req, res) => __aw
     });
     res.status(statusCode).send(body);
 }));
-router.patch("/deposti/update/:id", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.patch("/deposit/update/:id", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const updateDepositRepository = new mongo_update_deposit_1.MongoUpdateDepositRepository();
     const updateDepositController = new update_deposit_1.UpdateDepositController(updateDepositRepository);
     const { body, statusCode } = yield updateDepositController.handle({

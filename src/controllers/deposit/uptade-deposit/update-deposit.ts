@@ -45,8 +45,6 @@ export class UpdateDepositController implements Icontroller {
       }
 
       const updatedbody = { ...body };
-      const paramToRemove = "userId";
-      delete updatedbody[paramToRemove];
 
       const deposit = await this.updateDepositRepository.update(
         id,
