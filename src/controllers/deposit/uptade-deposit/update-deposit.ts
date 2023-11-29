@@ -45,6 +45,8 @@ export class UpdateDepositController implements Icontroller {
 
       const updatedbody = { ...body };
 
+      updatedbody.createAt = new Date(body.createAt!);
+
       const deposit = await this.updateDepositRepository.update(
         id,
         updatedbody
@@ -54,5 +56,11 @@ export class UpdateDepositController implements Icontroller {
     } catch (error) {
       return serverError("15");
     }
+  }
+
+  private prepareDepositData(body: UpdateDepositParams): UpdateDepositParams {
+    const depositData = { ...body };
+    depositData.createAt = new Date(body.createAt);
+    return depositData;
   }
 }

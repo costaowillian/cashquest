@@ -87,11 +87,21 @@ const mongo_update_user_photo_1 = require("../respositories/user/update-user-pho
 const update_user_photo_1 = require("../controllers/user-photo/update-user-photo/update-user-photo");
 const mongo_get_user_photo_1 = require("../respositories/user/get-user-photo/mongo-get-user-photo");
 const get_user_photo_1 = require("../controllers/user-photo/get-user-photo/get-user-photo");
+const mongo_get_user_1 = require("../respositories/user/get-one-user/mongo-get-user");
+const get_user_1 = require("../controllers/user/get-one-user/get-user");
 const router = express_1.default.Router();
 router.get("/users", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const mongoGetUserRepository = new mongo_get_users_1.MongoGetUserRepository();
     const getUserController = new get_users_1.GetUserController(mongoGetUserRepository);
     const { body, statusCode } = yield getUserController.handle();
+    res.status(statusCode).send(body);
+}));
+router.get("/users/get-user/:id", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const mongoGetOneUserRepository = new mongo_get_user_1.MongoGetOneUserRepository();
+    const getOneUserController = new get_user_1.GetOneUserController(mongoGetOneUserRepository);
+    const { body, statusCode } = yield getOneUserController.handle({
+        params: req.params
+    });
     res.status(statusCode).send(body);
 }));
 router.post("/auth/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {

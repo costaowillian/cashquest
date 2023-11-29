@@ -43,6 +43,7 @@ export class UpdateSavingController implements Icontroller {
       }
 
       const updatedbody = { ...body };
+      updatedbody.createAt = new Date(body.createAt!);
 
       const saving = await this.updateSavingRepository.update(id, updatedbody);
 
