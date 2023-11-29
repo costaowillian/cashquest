@@ -44,7 +44,6 @@ class UpdateSpendingController {
                     return (0, helpers_1.badRequest)("Some received fields is not allowed");
                 }
                 const updatedbody = Object.assign({}, body);
-                updatedbody.createAt = new Date(body.createAt);
                 const spending = yield this.updateSpendingRepository.updateSpending(id, updatedbody);
                 return (0, helpers_1.ok)(spending);
             }

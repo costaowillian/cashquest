@@ -16,7 +16,7 @@ class MongoGetTotalSpendindsRepository {
     getTotalSpendings(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             const spendingsColection = mongo_1.MongoClient.db.collection("spending");
-            const endDate = new Date();
+            const endDate = new Date().toString();
             const spendings = yield spendingsColection
                 .aggregate([
                 {

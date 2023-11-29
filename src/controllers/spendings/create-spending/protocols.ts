@@ -10,7 +10,7 @@ export interface CreateSpendingParams {
   attachment?: string;
   isFixed: boolean;
   comments?: string;
-  createAt: Date;
+  createAt: string;
   installments?: number;
   isTransfer: boolean;
   type: string;   

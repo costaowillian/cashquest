@@ -44,7 +44,6 @@ class UpdateSavingController {
                     return (0, helpers_1.badRequest)("Some received fields is not allowed");
                 }
                 const updatedbody = Object.assign({}, body);
-                updatedbody.createAt = new Date(body.createAt);
                 const saving = yield this.updateSavingRepository.update(id, updatedbody);
                 return (0, helpers_1.ok)(saving);
             }

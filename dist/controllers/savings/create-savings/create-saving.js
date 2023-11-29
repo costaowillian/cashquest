@@ -68,7 +68,6 @@ class CreateSavingController {
     prepareSavingsData(body) {
         const savingData = Object.assign({}, body);
         savingData._userId = new mongodb_1.ObjectId(body._userId);
-        savingData.createAt = new Date(body.createAt);
         return savingData;
     }
 }

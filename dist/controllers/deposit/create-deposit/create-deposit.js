@@ -68,7 +68,6 @@ class CreateDepositController {
     prepareDepositData(body) {
         const depositData = Object.assign({}, body);
         depositData._userId = new mongodb_1.ObjectId(body._userId);
-        depositData.createAt = new Date(body.createAt);
         return depositData;
     }
 }

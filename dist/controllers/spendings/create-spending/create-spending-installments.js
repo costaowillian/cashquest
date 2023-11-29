@@ -22,8 +22,9 @@ class CreateInstallmentsSpendingController {
                 const spendings = [];
                 const installmentsValue = Math.floor(params.value / params.installments * 100) / 100;
                 for (let i = 0; i < numMonths; i++) {
-                    const newDate = (0, date_fns_1.addMonths)(params.createAt, i);
-                    const depositData = Object.assign(Object.assign({}, params), { total: params.value, _userId: params._userId, createAt: newDate, value: installmentsValue });
+                    const newDate = new Date(params.createAt);
+                    const date = (0, date_fns_1.addMonths)(newDate, i);
+                    const depositData = Object.assign(Object.assign({}, params), { total: params.value, _userId: params._userId, createAt: date.toString(), value: installmentsValue });
                     const spending = yield this.creatSpendingRepository.createSpending(depositData);
                     if (spending) {
                         spendings.push(spending);

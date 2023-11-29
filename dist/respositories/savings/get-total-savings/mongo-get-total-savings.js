@@ -16,7 +16,7 @@ class MongoGetTotalSavingsRepository {
     getTotalSavings(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             const savingsCollection = mongo_1.MongoClient.db.collection("saving");
-            const endDate = new Date();
+            const endDate = new Date().toString();
             const savings = yield savingsCollection
                 .aggregate([
                 {

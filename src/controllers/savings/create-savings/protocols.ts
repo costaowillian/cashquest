@@ -10,7 +10,7 @@ export interface CreateSavingParams {
     attachment?: string;
     isFixed: boolean;
     comments?: string;
-    createAt: Date;
+    createAt: string;
     installments?: number;
     isTransferred: boolean;
     type: string;   

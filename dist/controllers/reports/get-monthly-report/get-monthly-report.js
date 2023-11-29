@@ -31,6 +31,7 @@ class GetMonthlyReportController {
                 const data = {
                     combinedArray: [...deposits, ...savings, ...spendings]
                 };
+                console.log(data);
                 data.combinedArray.sort((a, b) => b.createdAt - a.createdAt);
                 return (0, helpers_1.ok)(data);
             }

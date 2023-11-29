@@ -16,8 +16,9 @@ export class CreateInstallmentsDepositsController {
             const installmentsValue = Math.floor( params.value / params.installments! * 100) / 100
 
             for (let i = 0; i < numMonths!; i++) {
-                const newDate = addMonths(params.createAt, i);
-                const depositData = { ...params, total: params.value, _userId: params._userId, createAt: newDate, value: installmentsValue};
+                const newDate = new Date(params.createAt)
+                const date = addMonths(newDate, i);
+                const depositData = { ...params, total: params.value, _userId: params._userId, createAt: date.toString(), value: installmentsValue};
 
                 const deposit = await this.createDepositRepository.createDeposit(depositData);
 

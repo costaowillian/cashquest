@@ -69,7 +69,6 @@ class CreateSpendingController {
     preparespendingData(body) {
         const spendingData = Object.assign({}, body);
         spendingData._userId = new mongodb_1.ObjectId(body._userId);
-        spendingData.createAt = new Date(body.createAt);
         return spendingData;
     }
 }
