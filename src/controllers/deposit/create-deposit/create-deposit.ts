@@ -72,7 +72,6 @@ export class CreateDepositController implements Icontroller {
   private prepareDepositData(body: CreateDepositParams): CreateDepositParams {
     const depositData = { ...body };
     depositData._userId = new ObjectId(body._userId);
-    depositData.createAt = new Date(body.createAt);
     return depositData;
   }
 }

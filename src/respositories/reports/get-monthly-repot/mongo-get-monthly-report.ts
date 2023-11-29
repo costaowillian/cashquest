@@ -23,8 +23,8 @@ export class MongoGetMopnthlyReportRepository
           $match: {
             _userId: new ObjectId(params.userId),
             createAt: {
-              $gte: firstDayMonth,
-              $lte: today
+              $gte: firstDayMonth.toString(),
+              $lte: today.toString()
             }
           }
         },

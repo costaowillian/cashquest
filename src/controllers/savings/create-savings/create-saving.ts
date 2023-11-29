@@ -73,7 +73,6 @@ export class CreateSavingController implements Icontroller {
   private prepareSavingsData(body: CreateSavingParams): CreateSavingParams {
     const savingData = { ...body };
     savingData._userId = new ObjectId(body._userId);
-    savingData.createAt = new Date(body.createAt);
     return savingData;
   }
 
