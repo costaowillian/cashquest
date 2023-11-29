@@ -13,7 +13,7 @@ export class MongoGetTotalTransferredSpendindsRepository
     const spendingsColection =
       MongoClient.db.collection<MongoSpending>("spending");
 
-    const endDate = new Date();
+    const endDate = new Date().toString;
 
     const spendings = await spendingsColection
       .aggregate([

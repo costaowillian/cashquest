@@ -10,7 +10,7 @@ export interface CreateDepositParams {
     attachment?: string;
     isFixed: boolean;
     comments?: string;
-    createAt: Date;
+    createAt:;
     installments?: number;
     type: string;
 }

@@ -32,6 +32,7 @@ export class GetWalletController implements Icontroller {
             const transferredSpendings: any = await this.getTotalTranferredSpendingsRepository.getTotalSpendings(id);         
 
             const walletTotalDeposits = this.sumWalletDeposits(depsosits?.total, spendings?.total, transferredSavings?.total);
+            console.log({walletTotalDeposits});
 
             const walletTotalSavings = this.sumWalletSavings(savings?.total, transferredSpendings?.total);
 
@@ -43,6 +44,8 @@ export class GetWalletController implements Icontroller {
                 monthlySpendings: monthlySpendings?.total,
                 savings: walletTotalSavings
             }
+
+            console.log({wallet});
 
             return ok<IWallet[]>(wallet);
         } catch (error) {

@@ -27,7 +27,12 @@ class GetOneUserController {
                 if (!user) {
                     return (0, helpers_1.notFound)('User not found');
                 }
-                return (0, helpers_1.ok)(user);
+                const sanitizedUser = {
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                };
+                return (0, helpers_1.ok)(sanitizedUser);
             }
             catch (error) {
                 return (0, helpers_1.serverError)("31");

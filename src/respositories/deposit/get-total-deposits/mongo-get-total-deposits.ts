@@ -13,8 +13,8 @@ export class MongoGetTotalDepositsRepository
     const spendingsCollection =
       MongoClient.db.collection<MongoSpending>("deposit");
   
-      const endDate = new Date();
-
+    const endDate = new Date().toString();
+    
     const deposits = await spendingsCollection
       .aggregate([
         {
