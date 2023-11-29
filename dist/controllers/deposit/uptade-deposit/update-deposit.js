@@ -52,10 +52,5 @@ class UpdateDepositController {
             }
         });
     }
-    prepareDepositData(body) {
-        const depositData = Object.assign({}, body);
-        depositData.createAt = new Date(body.createAt);
-        return depositData;
-    }
 }
 exports.UpdateDepositController = UpdateDepositController;

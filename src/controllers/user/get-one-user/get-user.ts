@@ -20,7 +20,13 @@ export class GetOneUserController implements Icontroller {
                 return notFound('User not found');
             }
 
-            return ok<User>(user);
+            const sanitizedUser = {
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+            };
+
+            return ok<User>(sanitizedUser);
 
        } catch(error) {
         return serverError("31");
