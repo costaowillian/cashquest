@@ -73,6 +73,8 @@ import { MongoUpdatePhotoRepository } from "../respositories/user/update-user-ph
 import { UpdateUserPhotoController } from "../controllers/user-photo/update-user-photo/update-user-photo";
 import { MongoGetUserPhotoRepository } from "../respositories/user/get-user-photo/mongo-get-user-photo";
 import { GetUserPhotoController } from "../controllers/user-photo/get-user-photo/get-user-photo";
+import { MongoGetOneUserRepository } from "../respositories/user/get-one-user/mongo-get-user";
+import { GetOneUserController } from "../controllers/user/get-one-user/get-user";
 
 const router = express.Router();
 
@@ -81,6 +83,15 @@ router.get("/users", chectToken, async (req, res) => {
   const getUserController = new GetUserController(mongoGetUserRepository);
 
   const { body, statusCode } = await getUserController.handle();
+  res.status(statusCode).send(body);
+});
+router.get("/users/get-user/:id", chectToken, async (req, res) => {
+  const mongoGetOneUserRepository = new MongoGetOneUserRepository();
+  const getOneUserController = new GetOneUserController(mongoGetOneUserRepository);
+
+  const { body, statusCode } = await getOneUserController.handle({
+    params: req.params
+  });
   res.status(statusCode).send(body);
 });
 

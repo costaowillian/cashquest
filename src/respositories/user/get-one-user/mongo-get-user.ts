@@ -2,6 +2,7 @@ import { ObjectId } from "mongodb";
 import { IGetUserRepository } from "../../../controllers/user/get-one-user/protocols";
 import { MongoClient } from "../../../database/mongo";
 import { User } from "../../../models/user";
+import { MongoUser } from "../../mongo-protocols";
 
 export class MongoGetOneUserRepository implements IGetUserRepository {
     async getUser(userId: string): Promise<User | null> {
