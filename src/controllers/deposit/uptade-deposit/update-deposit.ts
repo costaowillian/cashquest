@@ -57,10 +57,4 @@ export class UpdateDepositController implements Icontroller {
       return serverError("15");
     }
   }
-
-  private prepareDepositData(body: UpdateDepositParams): UpdateDepositParams {
-    const depositData = { ...body };
-    depositData.createAt = new Date(body.createAt);
-    return depositData;
-  }
 }

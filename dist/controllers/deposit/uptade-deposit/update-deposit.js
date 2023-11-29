@@ -43,6 +43,7 @@ class UpdateDepositController {
                     return (0, helpers_1.badRequest)("Some received fields is not allowed");
                 }
                 const updatedbody = Object.assign({}, body);
+                updatedbody.createAt = new Date(body.createAt);
                 const deposit = yield this.updateDepositRepository.update(id, updatedbody);
                 return (0, helpers_1.ok)(deposit);
             }
@@ -50,6 +51,11 @@ class UpdateDepositController {
                 return (0, helpers_1.serverError)("15");
             }
         });
+    }
+    prepareDepositData(body) {
+        const depositData = Object.assign({}, body);
+        depositData.createAt = new Date(body.createAt);
+        return depositData;
     }
 }
 exports.UpdateDepositController = UpdateDepositController;
