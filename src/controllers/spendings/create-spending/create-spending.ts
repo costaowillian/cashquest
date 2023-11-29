@@ -74,7 +74,6 @@ export class CreateSpendingController implements Icontroller {
   private preparespendingData(body: CreateSpendingParams): CreateSpendingParams {
     const spendingData = { ...body };
     spendingData._userId = new ObjectId(body._userId);
-    spendingData.createAt = new Date(body.createAt);
     return spendingData;
   }
 

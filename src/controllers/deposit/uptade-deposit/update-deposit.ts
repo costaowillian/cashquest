@@ -45,8 +45,6 @@ export class UpdateDepositController implements Icontroller {
 
       const updatedbody = { ...body };
 
-      updatedbody.createAt = new Date(body.createAt!);
-
       const deposit = await this.updateDepositRepository.update(
         id,
         updatedbody

@@ -45,7 +45,6 @@ export class UpdateSpendingController implements Icontroller {
       }
 
       const updatedbody = { ...body };
-      updatedbody.createAt = new Date(body.createAt!);
 
       const spending = await this.updateSpendingRepository.updateSpending(
         id,
