@@ -32,10 +32,15 @@ export class PetDetailsService {
     let spendingsXps = 0;
     let depositsXps = 0;
     let savingsXps = 0;
-    if (sumDeposits != 0 || sumSpendings != 0 || sumSavings != 0) {
-      depositsXps = this.sumXps(amountXps.DEPOSITS, sumDeposits.total);
-      spendingsXps = this.sumXps(amountXps.SPENDINGS, sumSpendings.total);
-      savingsXps = this.sumXps(amountXps.SAVINGS, sumSavings.total);
+    if (
+      sumDeposits != 0 ||
+      sumSpendings != 0  ||
+      sumSavings != 0
+    ) {
+      depositsXps = this.sumXps(amountXps.DEPOSITS, sumDeposits.total) || 0;
+      console.log("chamou")
+      spendingsXps = this.sumXps(amountXps.SPENDINGS, sumSpendings.total) || 0;
+      savingsXps = this.sumXps(amountXps.SAVINGS, sumSavings.total) || 0;
     }
 
     const totalXps = depositsXps + spendingsXps + savingsXps;
@@ -82,16 +87,16 @@ export class PetDetailsService {
         return pets[1];
       case 2:
         return pets[2];
-      case 4:
+      case 3:
         return pets[3];
-      case 5:
+      case 4:
         return pets[4];
-      case 6:
+      case 5:
         return pets[5];
-      case 7:
+      case 6:
         return pets[6];
       default:
-        return pets[0];
+        return pets[6];
     }
   }
 }

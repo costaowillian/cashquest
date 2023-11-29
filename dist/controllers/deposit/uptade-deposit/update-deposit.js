@@ -33,7 +33,6 @@ class UpdateDepositController {
                     "value",
                     "isFixed",
                     "comments",
-                    "isTransferred",
                     "installments",
                     "createAt",
                     "type",
