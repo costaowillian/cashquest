@@ -11,7 +11,10 @@ export class MongoGetTotalSavingsRepository
   async getTotalSavings(userId: string): Promise<number | ITotal> {
     const savingsCollection = MongoClient.db.collection("saving");
 
-    const endDate = new Date().toString();
+    const date = new Date();
+    const endDate = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${
+      date.getHours()
+    }:${date.getMinutes()}:${date.getSeconds()}`;
 
     const savings = await savingsCollection
       .aggregate([

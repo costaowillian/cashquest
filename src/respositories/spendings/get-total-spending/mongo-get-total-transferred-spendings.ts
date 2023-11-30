@@ -13,7 +13,10 @@ export class MongoGetTotalTransferredSpendindsRepository
     const spendingsColection =
       MongoClient.db.collection<MongoSpending>("spending");
 
-    const endDate = new Date().toString;
+    const date = new Date();
+    const endDate = `${date.getFullYear()}-${
+      date.getMonth() + 1
+    }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
     const spendings = await spendingsColection
       .aggregate([
@@ -21,9 +24,9 @@ export class MongoGetTotalTransferredSpendindsRepository
           $match: {
             _userId: new ObjectId(userId),
             createAt: {
-              $lte: endDate,
+              $lte: endDate
             },
-            isTransferred: true,
+            isTransferred: true
           }
         },
         {

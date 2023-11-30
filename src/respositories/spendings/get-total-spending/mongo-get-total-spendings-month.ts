@@ -40,7 +40,7 @@ export class MongoGetTotalMonthlySpendindsRepository
         }
       ])
       .toArray();
-    console.log({ mes: spendings });
+      
     if (spendings === null || spendings.length === 0) {
       return 0;
     }
