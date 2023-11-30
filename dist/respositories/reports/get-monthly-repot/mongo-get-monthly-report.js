@@ -47,7 +47,6 @@ class MongoGetMopnthlyReportRepository {
                 }
             ])
                 .toArray();
-            console.log(result);
             return result.map((_a) => {
                 var { _id } = _a, rest = __rest(_a, ["_id"]);
                 return (Object.assign(Object.assign({}, rest), { id: _id.toHexString() }));

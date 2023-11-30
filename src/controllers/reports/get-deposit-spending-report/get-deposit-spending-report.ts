@@ -26,7 +26,7 @@ export class GetReportController implements Icontroller {
 
             return ok<IReport>(data);
         } catch (error) {
-            console.log(error);
+
             return serverError("28");
         }
     }

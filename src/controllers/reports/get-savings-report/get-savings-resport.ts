@@ -21,7 +21,7 @@ export class GetSavingsReportController implements Icontroller {
 
             return ok<ISaving[]>(savings || []);
         } catch (error) {
-            console.log(error);
+
             return serverError("30");
         }
     }

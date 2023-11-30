@@ -15,16 +15,16 @@ export class MongoGetMopnthlyReportRepository
     const collection = MongoClient.db.collection(collectionName);
 
     const today = new Date(params.date);
-    const firstDayMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-
+    const firstDayMonth = `${today.getFullYear()}-${today.getMonth()}-01 00:00:00`;
+    
     const result = await collection
       .aggregate([
         {
           $match: {
             _userId: new ObjectId(params.userId),
             createAt: {
-              $gte: firstDayMonth.toString(),
-              $lte: today.toString()
+              $gte: firstDayMonth,
+              $lte: params.date
             }
           }
         },
@@ -35,7 +35,6 @@ export class MongoGetMopnthlyReportRepository
         }
       ])
       .toArray();
-      console.log(result);
 
     return result.map(({ _id, ...rest }) => ({
       ...rest,

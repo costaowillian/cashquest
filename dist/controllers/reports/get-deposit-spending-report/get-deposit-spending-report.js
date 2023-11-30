@@ -31,7 +31,6 @@ class GetReportController {
                 return (0, helpers_1.ok)(data);
             }
             catch (error) {
-                console.log(error);
                 return (0, helpers_1.serverError)("28");
             }
         });

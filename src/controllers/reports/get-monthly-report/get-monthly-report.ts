@@ -41,13 +41,10 @@ export class GetMonthlyReportController implements Icontroller {
         combinedArray: [...deposits, ...savings, ...spendings]
       };
 
-      console.log(data)
-
       data.combinedArray.sort((a, b) => b.createdAt - a.createdAt);
 
       return ok<IMonthlyReport>(data);
     } catch (error) {
-      console.log(error);
       return serverError("27");
     }
   }

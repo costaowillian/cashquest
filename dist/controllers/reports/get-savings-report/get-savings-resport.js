@@ -26,7 +26,6 @@ class GetSavingsReportController {
                 return (0, helpers_1.ok)(savings || []);
             }
             catch (error) {
-                console.log(error);
                 return (0, helpers_1.serverError)("30");
             }
         });
