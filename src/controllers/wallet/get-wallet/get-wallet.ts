@@ -1,62 +1,91 @@
 import { IWallet } from "../../../models/wallet";
 import { badRequest, ok, serverError } from "../../helpers";
 import { HttpRequest, HttpResponse, Icontroller } from "../../protocols";
-import { IGetWalletParams, IGetTotalSpendingsRepository, IGetTotalDepositsRepository, IGetTotalSavingsRepository, IGetTotalTransferredSavingsRepository } from "./protocols";
+import {
+  IGetWalletParams,
+  IGetTotalSpendingsRepository,
+  IGetTotalDepositsRepository,
+  IGetTotalSavingsRepository,
+  IGetTotalTransferredSavingsRepository
+} from "./protocols";
 
 export class GetWalletController implements Icontroller {
-    
-    constructor(private readonly getTotalSpendingsRepository: IGetTotalSpendingsRepository,
-        private readonly getTotalDepositsRepository: IGetTotalDepositsRepository,
-        private readonly getTotalMonthlySpendingdsRepository: IGetTotalSpendingsRepository,
-        private readonly getTotalSavingsRepositoyr: IGetTotalSavingsRepository,
-        private readonly getTotalTransferredSavingsRepository: IGetTotalTransferredSavingsRepository,
-        private readonly getTotalTranferredSpendingsRepository: IGetTotalSpendingsRepository,){}
-    async handle(httpRequest: HttpRequest<IGetWalletParams>): Promise<HttpResponse<IWallet[] | string>> {
-        try {
-            const id = httpRequest?.params?.id;
+  constructor(
+    private readonly getTotalSpendingsRepository: IGetTotalSpendingsRepository,
+    private readonly getTotalDepositsRepository: IGetTotalDepositsRepository,
+    private readonly getTotalMonthlySpendingdsRepository: IGetTotalSpendingsRepository,
+    private readonly getTotalSavingsRepositoyr: IGetTotalSavingsRepository,
+    private readonly getTotalTransferredSavingsRepository: IGetTotalTransferredSavingsRepository,
+    private readonly getTotalTranferredSpendingsRepository: IGetTotalSpendingsRepository
+  ) {}
+  async handle(
+    httpRequest: HttpRequest<IGetWalletParams>
+  ): Promise<HttpResponse<IWallet[] | string>> {
+    try {
+      const id = httpRequest?.params?.id;
 
-            if(!id) {
-                return badRequest("Missing Id");
-            }
-            
-            const spendings: any = await this.getTotalSpendingsRepository.getTotalSpendings(id);
+      if (!id) {
+        return badRequest("Missing Id");
+      }
 
-            const depsosits:any = await this.getTotalDepositsRepository.getTotalDeposits(id);
+      const spendings: any =
+        await this.getTotalSpendingsRepository.getTotalSpendings(id);
 
-            const savings: any = await this.getTotalSavingsRepositoyr.getTotalSavings(id);
+      const depsosits: any =
+        await this.getTotalDepositsRepository.getTotalDeposits(id);
 
-            const transferredSavings: any = await this.getTotalTransferredSavingsRepository.getTotalTransferredSavings(id);
+      const savings: any =
+        await this.getTotalSavingsRepositoyr.getTotalSavings(id);
 
-            const monthlySpendings:any = await this.getTotalMonthlySpendingdsRepository.getTotalSpendings(id);
-            
-            const transferredSpendings: any = await this.getTotalTranferredSpendingsRepository.getTotalSpendings(id);         
+      const transferredSavings: any =
+        await this.getTotalTransferredSavingsRepository.getTotalTransferredSavings(
+          id
+        );
 
-            const walletTotalDeposits = this.sumWalletDeposits(depsosits?.total, spendings?.total, transferredSavings?.total);
-            console.log({savings});
-            console.log({transferredSpendings});
+      const monthlySpendings: any =
+        await this.getTotalMonthlySpendingdsRepository.getTotalSpendings(id);
 
-            const walletTotalSavings = this.sumWalletSavings(savings?.total, transferredSpendings?.total);
-            console.log({walletTotalSavings});
+      const transferredSpendings: any =
+        await this.getTotalTranferredSpendingsRepository.getTotalSpendings(id);
 
-            const wallet = {
-                totalDeposits: walletTotalDeposits,
-                monthlySpendings: monthlySpendings!.total,
-                savings: walletTotalSavings
-            }
+      const walletTotalDeposits = this.sumWalletDeposits(
+        depsosits?.total,
+        spendings?.total,
+        transferredSavings?.total
+      );
 
-            return ok<IWallet[]>(wallet);
-        } catch (error) {
-            console.log(error);
-            return serverError("15");
-        }
+      const walletTotalSavings = this.sumWalletSavings(
+        savings?.total,
+        transferredSavings?.total,
+        transferredSpendings?.total
+      );
+
+      const wallet = {
+        totalDeposits: walletTotalDeposits,
+        monthlySpendings: monthlySpendings!.total,
+        savings: walletTotalSavings
+      };
+
+      return ok<IWallet[]>(wallet);
+    } catch (error) {
+      console.log(error);
+      return serverError("15");
     }
+  }
 
-    private sumWalletSavings(deposits: number = 0, spendings: number = 0, transferredSavings: number = 0) {
-        return deposits - (spendings + transferredSavings);
-    }
+  private sumWalletSavings(
+    savings: number = 0,
+    transferredSavings: number = 0,
+    transferredSpendings: number = 0
+  ) {
+    return (savings + transferredSavings) - transferredSpendings;
+  }
 
-    private sumWalletDeposits(deposits: number = 0, spendings: number = 0, transferredSavings: number = 0) {
-        return deposits - (spendings + transferredSavings);
-    }
-
+  private sumWalletDeposits(
+    deposits: number = 0,
+    spendings: number = 0,
+    transferredSavings: number = 0
+  ) {
+    return deposits - (spendings + transferredSavings);
+  }
 }

@@ -12,19 +12,20 @@ export class MongoGetTotalSavingsRepository
     const savingsCollection = MongoClient.db.collection("saving");
 
     const date = new Date();
-    const endDate = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${
-      date.getHours()
-    }:${date.getMinutes()}:${date.getSeconds()}`;
-
+    const endDate = `${date.getFullYear()}-${
+      date.getMonth() + 1
+    }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+   
     const savings = await savingsCollection
       .aggregate([
         {
-          $match: { _userId: new ObjectId(userId),
+          $match: {
+            _userId: new ObjectId(userId),
             createAt: {
-              $lte: endDate,
-          },
-          isTransferred: false,
-         }
+              $lte: endDate
+            },
+            isTransferred: false
+          }
         },
         {
           $group: {
