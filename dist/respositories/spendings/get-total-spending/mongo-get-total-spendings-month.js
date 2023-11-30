@@ -28,7 +28,10 @@ class MongoGetTotalMonthlySpendindsRepository {
                 {
                     $match: {
                         _userId: new mongodb_1.ObjectId(userId),
-                        createAt: { $gte: currentDate, $lte: finalDate }
+                        createAt: {
+                            $gte: currentDate.toString(),
+                            $lte: finalDate.toString()
+                        }
                     }
                 },
                 {

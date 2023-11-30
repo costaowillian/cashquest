@@ -28,7 +28,7 @@ class MongoGetMopnthlyReportRepository {
         return __awaiter(this, void 0, void 0, function* () {
             const collection = mongo_1.MongoClient.db.collection(collectionName);
             const today = new Date(params.date);
-            const firstDayMonth = `${today.getFullYear()}-${today.getMonth()}-01 00:00:00`;
+            const firstDayMonth = `${today.getFullYear()}-${today.getMonth() + 1}-01 00:00:00`;
             const result = yield collection
                 .aggregate([
                 {

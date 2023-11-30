@@ -33,15 +33,13 @@ export class GetWalletController implements Icontroller {
 
             const walletTotalDeposits = this.sumWalletDeposits(depsosits?.total, spendings?.total, transferredSavings?.total);
             console.log({walletTotalDeposits});
+            console.log({monthlySpendings});
 
             const walletTotalSavings = this.sumWalletSavings(savings?.total, transferredSpendings?.total);
 
-            console.log({spendings});
-            console.log({monthlySpendings});
-
             const wallet = {
                 totalDeposits: walletTotalDeposits,
-                monthlySpendings: monthlySpendings?.total,
+                monthlySpendings: monthlySpendings!.total,
                 savings: walletTotalSavings
             }
 
