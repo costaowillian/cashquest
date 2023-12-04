@@ -35,15 +35,12 @@ class GetWalletController {
                 const monthlySpendings = yield this.getTotalMonthlySpendingdsRepository.getTotalSpendings(id);
                 const transferredSpendings = yield this.getTotalTranferredSpendingsRepository.getTotalSpendings(id);
                 const walletTotalDeposits = this.sumWalletDeposits(depsosits === null || depsosits === void 0 ? void 0 : depsosits.total, spendings === null || spendings === void 0 ? void 0 : spendings.total, transferredSavings === null || transferredSavings === void 0 ? void 0 : transferredSavings.total);
-                console.log({ walletTotalDeposits });
-                console.log({ monthlySpendings });
-                const walletTotalSavings = this.sumWalletSavings(savings === null || savings === void 0 ? void 0 : savings.total, transferredSpendings === null || transferredSpendings === void 0 ? void 0 : transferredSpendings.total);
+                const walletTotalSavings = this.sumWalletSavings(savings === null || savings === void 0 ? void 0 : savings.total, transferredSavings === null || transferredSavings === void 0 ? void 0 : transferredSavings.total, transferredSpendings === null || transferredSpendings === void 0 ? void 0 : transferredSpendings.total);
                 const wallet = {
                     totalDeposits: walletTotalDeposits,
                     monthlySpendings: monthlySpendings.total,
                     savings: walletTotalSavings
                 };
-                console.log({ wallet });
                 return (0, helpers_1.ok)(wallet);
             }
             catch (error) {
@@ -52,8 +49,8 @@ class GetWalletController {
             }
         });
     }
-    sumWalletSavings(deposits = 0, spendings = 0, transferredSavings = 0) {
-        return deposits - (spendings + transferredSavings);
+    sumWalletSavings(savings = 0, transferredSavings = 0, transferredSpendings = 0) {
+        return (savings + transferredSavings) - transferredSpendings;
     }
     sumWalletDeposits(deposits = 0, spendings = 0, transferredSavings = 0) {
         return deposits - (spendings + transferredSavings);

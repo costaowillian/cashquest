@@ -16,16 +16,17 @@ class MongoGetTotalTransferredSpendindsRepository {
     getTotalSpendings(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             const spendingsColection = mongo_1.MongoClient.db.collection("spending");
-            const endDate = new Date().toString;
+            const date = new Date();
+            const endDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
             const spendings = yield spendingsColection
                 .aggregate([
                 {
                     $match: {
                         _userId: new mongodb_1.ObjectId(userId),
                         createAt: {
-                            $lte: endDate,
+                            $lte: endDate
                         },
-                        isTransferred: true,
+                        isTransferred: true
                     }
                 },
                 {
@@ -39,7 +40,6 @@ class MongoGetTotalTransferredSpendindsRepository {
             if (spendings === null || spendings.length === 0) {
                 return 0;
             }
-            console.log({ spendingsTotal: spendings });
             const { _id, total } = spendings[0];
             return { userId: _id.toHexString(), total };
         });

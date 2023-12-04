@@ -1,0 +1,35 @@
+{
+    "conquistasDespesas": {
+      "1": {
+        "id": 1,
+        "nome": "Aficionado por Finanças I",
+        "condicao": 10,
+        "img": ""
+      },
+      "2": {
+        "id": 2,
+        "nome": "Aficionado por Finanças II",
+        "condicao": 30,
+        "img": ""
+      },
+      "3": {
+        "id": 3,
+        "nome": "Aficionado por Finanças III",
+        "condicao": 60,
+        "img": ""
+      },
+      "4": {
+        "id": 4,
+        "nome": "Aficionado por Finanças IV",
+        "condicao": 100,
+        "img": ""
+      },
+      "5": {
+        "id": 5,
+        "nome": "Aficionado por Finanças V",
+        "condicao": 200,
+        "img": ""
+      }
+    }
+  }
+  
