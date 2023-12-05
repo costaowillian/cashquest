@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateInstallmentsSavingController = void 0;
 const date_fns_1 = require("date-fns");
+const helpers_1 = require("../../helpers");
 class CreateInstallmentsSavingController {
     constructor(creatSavingsRepository) {
         this.creatSavingsRepository = creatSavingsRepository;
@@ -20,11 +21,11 @@ class CreateInstallmentsSavingController {
             try {
                 const numMonths = params === null || params === void 0 ? void 0 : params.installments;
                 const savings = [];
-                const installmentsValue = Math.floor(params.value / params.installments * 100) / 100;
+                const installmentsValue = Math.floor((params.value / params.installments) * 100) / 100;
                 for (let i = 0; i < numMonths; i++) {
                     const newDate = new Date(params.createAt);
                     const date = (0, date_fns_1.addMonths)(newDate, i);
-                    const depositData = Object.assign(Object.assign({}, params), { total: params.value, _userId: params._userId, createAt: date.toString(), value: installmentsValue });
+                    const depositData = Object.assign(Object.assign({}, params), { total: params.value, _userId: params._userId, createAt: (0, helpers_1.formatDate)(date), value: installmentsValue });
                     const saving = yield this.creatSavingsRepository.createSaving(depositData);
                     if (saving) {
                         savings.push(saving);

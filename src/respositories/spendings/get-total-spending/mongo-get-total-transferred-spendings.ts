@@ -14,7 +14,8 @@ export class MongoGetTotalTransferredSpendindsRepository
       MongoClient.db.collection<MongoSpending>("spending");
 
     const date = new Date();
-    const endDate = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+    const endDate = `${date.getFullYear()}-${date.getMonth()+1}-${day} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
     const spendings = await spendingsColection
       .aggregate([

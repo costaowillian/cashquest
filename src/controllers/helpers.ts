@@ -8,9 +8,12 @@ export const ok = <T>(body: any): HttpResponse<T> => {
 };
 
 export const formatDate = (date: Date): string => {
-  const newDate = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+  const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+  const newDate = `${date.getFullYear()}-${
+    date.getMonth() + 1
+  }-${day} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
   return newDate;
-}
+};
 
 export const created = <T>(body: any): HttpResponse<T> => {
   return {
@@ -39,4 +42,3 @@ export const serverError = (code: string): HttpResponse<string> => {
     body: "something went wrong. internal code: " + code
   };
 };
-

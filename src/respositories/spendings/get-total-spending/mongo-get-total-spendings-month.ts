@@ -17,7 +17,8 @@ export class MongoGetTotalMonthlySpendindsRepository
     const inicialDate = `${date.getFullYear()}-${
       date.getMonth() + 1
     }-01 00:00:00`;
-    const endDate = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${
+    const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+    const endDate = `${date.getFullYear()}-${date.getMonth()+1}-${day} ${
       date.getHours()
     }:${date.getMinutes()}:${date.getSeconds()}`;
 

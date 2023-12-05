@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.serverError = exports.notFound = exports.badRequest = exports.created = exports.ok = void 0;
+exports.serverError = exports.notFound = exports.badRequest = exports.created = exports.formatDate = exports.ok = void 0;
 const protocols_1 = require("./protocols");
 const ok = (body) => {
     return {
@@ -9,6 +9,11 @@ const ok = (body) => {
     };
 };
 exports.ok = ok;
+const formatDate = (date) => {
+    const newDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDay()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    return newDate;
+};
+exports.formatDate = formatDate;
 const created = (body) => {
     return {
         statusCode: protocols_1.httpStatusCode.CREATED,

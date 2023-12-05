@@ -12,9 +12,10 @@ export class MongoGetTotalSavingsRepository
     const savingsCollection = MongoClient.db.collection("saving");
 
     const date = new Date();
+    const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
     const endDate = `${date.getFullYear()}-${
       date.getMonth() + 1
-    }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    }-${day} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
    
     const savings = await savingsCollection
       .aggregate([
