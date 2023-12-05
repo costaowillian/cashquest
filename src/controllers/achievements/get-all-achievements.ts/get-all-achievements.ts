@@ -30,8 +30,8 @@ export class GetAllAchievementsController implements Icontroller {
         await this.getSumSavingsRepository.getSumSavings(id);
 
       const achievement: IAchievements[] = [
-        ...this.getAchievement(sumSpendings, conquistasPoupanca),
-        ...this.getAchievement(sumSavings, conquistasDespesas)
+        ...this.getAchievement(sumSpendings.total, conquistasPoupanca),
+        ...this.getAchievement(sumSavings.total, conquistasDespesas)
       ];
 
       return ok<IAchievements[]>(achievement);
