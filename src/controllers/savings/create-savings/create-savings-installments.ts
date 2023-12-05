@@ -22,6 +22,10 @@ export class CreateInstallmentsSavingController {
       for (let i = 0; i < numMonths!; i++) {
         const newDate = new Date(params.createAt);
         const date = addMonths(newDate, i);
+        if (date.getMonth() === 11) {
+          date.setFullYear(date.getFullYear() + 1);
+        }
+
         const depositData = {
           ...params,
           total: params.value,

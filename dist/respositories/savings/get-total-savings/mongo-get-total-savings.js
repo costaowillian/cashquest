@@ -17,7 +17,8 @@ class MongoGetTotalSavingsRepository {
         return __awaiter(this, void 0, void 0, function* () {
             const savingsCollection = mongo_1.MongoClient.db.collection("saving");
             const date = new Date();
-            const endDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+            const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+            const endDate = `${date.getFullYear()}-${date.getMonth() + 1}-${day} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
             const savings = yield savingsCollection
                 .aggregate([
                 {

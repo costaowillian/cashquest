@@ -18,7 +18,8 @@ class MongoGetTotalMonthlySpendindsRepository {
             const spendingsColection = mongo_1.MongoClient.db.collection("spending");
             const date = new Date();
             const inicialDate = `${date.getFullYear()}-${date.getMonth() + 1}-01 00:00:00`;
-            const endDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+            const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+            const endDate = `${date.getFullYear()}-${date.getMonth() + 1}-${day} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
             const spendings = yield spendingsColection
                 .aggregate([
                 {
