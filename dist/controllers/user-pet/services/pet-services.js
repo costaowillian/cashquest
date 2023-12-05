@@ -28,11 +28,8 @@ class PetDetailsService {
             let spendingsXps = 0;
             let depositsXps = 0;
             let savingsXps = 0;
-            if (sumDeposits != 0 ||
-                sumSpendings != 0 ||
-                sumSavings != 0) {
+            if (sumDeposits != 0 || sumSpendings != 0 || sumSavings != 0) {
                 depositsXps = this.sumXps(protocols_1.amountXps.DEPOSITS, sumDeposits.total) || 0;
-                console.log("chamou");
                 spendingsXps = this.sumXps(protocols_1.amountXps.SPENDINGS, sumSpendings.total) || 0;
                 savingsXps = this.sumXps(protocols_1.amountXps.SAVINGS, sumSavings.total) || 0;
             }

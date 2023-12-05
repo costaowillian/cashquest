@@ -76,6 +76,7 @@ import { GetUserPhotoController } from "../controllers/user-photo/get-user-photo
 import { MongoGetOneUserRepository } from "../respositories/user/get-one-user/mongo-get-user";
 import { GetOneUserController } from "../controllers/user/get-one-user/get-user";
 import { GetAchievementsController } from "../controllers/achievements/get-achievements";
+import { GetAllAchievementsController } from "../controllers/achievements/get-all-achievements.ts/get-all-achievements";
 
 const router = express.Router();
 
@@ -515,7 +516,7 @@ router.post("/reports/get-savings-report", chectToken, async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-router.post("/achievements/get-achievements", chectToken, async (req, res) => {
+router.post("/achievements/get-achievement", chectToken, async (req, res) => {
   const getSumSpendingRepository = new MongoGetSumSpendingsRepository();
   const getSumSavingsRepository = new MongoGetSumSavingsRepository();
   const getAchievementsController = new GetAchievementsController(
@@ -527,5 +528,22 @@ router.post("/achievements/get-achievements", chectToken, async (req, res) => {
   });
   res.status(statusCode).send(body);
 });
+
+router.get(
+  "/achievements/get-all-achievements/:id",
+  chectToken,
+  async (req, res) => {
+    const getSumSpendingRepository = new MongoGetSumSpendingsRepository();
+    const getSumSavingsRepository = new MongoGetSumSavingsRepository();
+    const getAllAchievementsController = new GetAllAchievementsController(
+      getSumSpendingRepository,
+      getSumSavingsRepository
+    );
+    const { body, statusCode } = await getAllAchievementsController.handle({
+      params: req.params
+    });
+    res.status(statusCode).send(body);
+  }
+);
 
 export default router;

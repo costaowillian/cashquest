@@ -47,12 +47,12 @@ export class GetAchievementsController implements Icontroller {
 
   private getAchievement(total: number, achievementType: any): any {
     for (const achievementId in achievementType) {
-      const achievement = achievementType[achievementId];
-      for (const ac of achievement) {
-        if (ac.condicao == total) {
+      const achievements = achievementType[achievementId];
+      for (const achievement of achievements) {
+        if (achievement.condicao == total) {
           const result = {
-            name: ac.nome,
-            img: ac.img
+            name: achievement.nome,
+            img: achievement.img
           };
           return result;
         }

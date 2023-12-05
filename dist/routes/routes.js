@@ -89,6 +89,8 @@ const mongo_get_user_photo_1 = require("../respositories/user/get-user-photo/mon
 const get_user_photo_1 = require("../controllers/user-photo/get-user-photo/get-user-photo");
 const mongo_get_user_1 = require("../respositories/user/get-one-user/mongo-get-user");
 const get_user_1 = require("../controllers/user/get-one-user/get-user");
+const get_achievements_1 = require("../controllers/achievements/get-achievements");
+const get_all_achievements_1 = require("../controllers/achievements/get-all-achievements.ts/get-all-achievements");
 const router = express_1.default.Router();
 router.get("/users", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const mongoGetUserRepository = new mongo_get_users_1.MongoGetUserRepository();
@@ -386,6 +388,24 @@ router.post("/reports/get-savings-report", checkToken_1.chectToken, (req, res) =
     const getSpendingReportController = new get_spending_report_1.GetSpendingReportController(getReportHomeRepository);
     const { body, statusCode } = yield getSpendingReportController.handle({
         body: req.body
+    });
+    res.status(statusCode).send(body);
+}));
+router.post("/achievements/get-achievement", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const getSumSpendingRepository = new mong_get_sum_spending_1.MongoGetSumSpendingsRepository();
+    const getSumSavingsRepository = new mongo_get_sum_savings_1.MongoGetSumSavingsRepository();
+    const getAchievementsController = new get_achievements_1.GetAchievementsController(getSumSpendingRepository, getSumSavingsRepository);
+    const { body, statusCode } = yield getAchievementsController.handle({
+        body: req.body
+    });
+    res.status(statusCode).send(body);
+}));
+router.get("/achievements/get-all-achievements/:id", checkToken_1.chectToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const getSumSpendingRepository = new mong_get_sum_spending_1.MongoGetSumSpendingsRepository();
+    const getSumSavingsRepository = new mongo_get_sum_savings_1.MongoGetSumSavingsRepository();
+    const getAllAchievementsController = new get_all_achievements_1.GetAllAchievementsController(getSumSpendingRepository, getSumSavingsRepository);
+    const { body, statusCode } = yield getAllAchievementsController.handle({
+        params: req.params
     });
     res.status(statusCode).send(body);
 }));
