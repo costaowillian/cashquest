@@ -11,7 +11,12 @@ const ok = (body) => {
 exports.ok = ok;
 const formatDate = (date) => {
     const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
-    const newDate = `${date.getFullYear()}-${date.getMonth() + 1}-${day} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    const month = date.getMonth() + 1;
+    const paddedMonth = month < 10 ? `0${month}` : month;
+    const hours = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
+    const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
+    const seconds = date.getSeconds() < 10 ? `0${date.getSeconds()}` : date.getSeconds();
+    const newDate = `${date.getFullYear()}-${paddedMonth}-${day} ${hours}:${minutes}:${seconds}`;
     return newDate;
 };
 exports.formatDate = formatDate;

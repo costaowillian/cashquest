@@ -13,10 +13,12 @@ export class MongoGetMopnthlyReportRepository
     collectionName: string
   ): Promise<any[]> {
     const collection = MongoClient.db.collection(collectionName);
-
+    console.log({ repo: params.date });
     const today = new Date(params.date);
-    const firstDayMonth = `${today.getFullYear()}-${today.getMonth()+1}-01 00:00:00`;
-
+    const month = today.getMonth() + 1;
+    const paddedMonth = month < 10 ? `0${month}` : month;
+    const firstDayMonth = `${today.getFullYear()}-${paddedMonth}-01 00:00:00`;
+    console.log({ firstDayMonth: firstDayMonth });
     const result = await collection
       .aggregate([
         {

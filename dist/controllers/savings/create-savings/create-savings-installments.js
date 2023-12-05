@@ -25,6 +25,9 @@ class CreateInstallmentsSavingController {
                 for (let i = 0; i < numMonths; i++) {
                     const newDate = new Date(params.createAt);
                     const date = (0, date_fns_1.addMonths)(newDate, i);
+                    if (date.getMonth() === 11) {
+                        date.setFullYear(date.getFullYear() + 1);
+                    }
                     const depositData = Object.assign(Object.assign({}, params), { total: params.value, _userId: params._userId, createAt: (0, helpers_1.formatDate)(date), value: installmentsValue });
                     const saving = yield this.creatSavingsRepository.createSaving(depositData);
                     if (saving) {
