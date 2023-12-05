@@ -7,6 +7,11 @@ export const ok = <T>(body: any): HttpResponse<T> => {
   };
 };
 
+export const formatDate = (date: Date): string => {
+  const newDate = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+  return newDate;
+}
+
 export const created = <T>(body: any): HttpResponse<T> => {
   return {
     statusCode: httpStatusCode.CREATED,
