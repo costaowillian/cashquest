@@ -4,31 +4,31 @@
             "id": 1,
             "nome": "Aficionado por Finanças I",
             "condicao": 10,
-            "img": ""
+            "img": "https://firebasestorage.googleapis.com/v0/b/cashquest-a60d0.appspot.com/o/conquistas%2FGroup%202128.png?alt=media&token=df6c21a9-ee7b-4719-b5ef-b2acbc7114db"
         },
         {
             "id": 2,
             "nome": "Aficionado por Finanças II",
             "condicao": 30,
-            "img": ""
+            "img": "https://firebasestorage.googleapis.com/v0/b/cashquest-a60d0.appspot.com/o/conquistas%2FGroup%202129.png?alt=media&token=b1b036d0-bd33-4b33-85ce-7d8b8f9c35e8"
         },
         {
             "id": 3,
             "nome": "Aficionado por Finanças III",
             "condicao": 60,
-            "img": ""
+            "img": "https://firebasestorage.googleapis.com/v0/b/cashquest-a60d0.appspot.com/o/conquistas%2FGroup%202131.png?alt=media&token=ee5218d1-9484-444b-8fac-9ed8e257eb27"
         },
         {
             "id": 4,
             "nome": "Aficionado por Finanças IV",
             "condicao": 100,
-            "img": ""
+            "img": "https://firebasestorage.googleapis.com/v0/b/cashquest-a60d0.appspot.com/o/conquistas%2FGroup%202130.png?alt=media&token=17899f43-16fb-4de2-85db-4a5cd1438069"
         },
         {
             "id": 5,
             "nome": "Aficionado por Finanças V",
             "condicao": 200,
-            "img": ""
+            "img": "https://firebasestorage.googleapis.com/v0/b/cashquest-a60d0.appspot.com/o/conquistas%2FGroup%202133.png?alt=media&token=0db03a62-843c-498c-9245-4fb7eaf4c207"
         }
     ]
 }

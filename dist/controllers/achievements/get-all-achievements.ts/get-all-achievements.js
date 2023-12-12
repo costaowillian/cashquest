@@ -33,8 +33,8 @@ class GetAllAchievementsController {
                 const sumSpendings = yield this.getSumSpendingRepository.getSumSpendings(id);
                 const sumSavings = yield this.getSumSavingsRepository.getSumSavings(id);
                 const achievement = [
-                    ...this.getAchievement(sumSpendings, savings_achievements_json_1.default),
-                    ...this.getAchievement(sumSavings, spendings_achievements_json_1.default)
+                    ...this.getAchievement(sumSpendings.total, savings_achievements_json_1.default),
+                    ...this.getAchievement(sumSavings.total, spendings_achievements_json_1.default)
                 ];
                 return (0, helpers_1.ok)(achievement);
             }

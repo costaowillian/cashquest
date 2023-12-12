@@ -4,19 +4,19 @@
             "id": 1,
             "nome": "Poupador Iniciante",
             "condicao": 5,
-            "img": ""
+            "img": "https://firebasestorage.googleapis.com/v0/b/cashquest-a60d0.appspot.com/o/conquistas%2FGroup%202120.png?alt=media&token=7805b93a-50de-4c5c-8307-6eafaf9f0079"
         },
         {
             "id": 2,
             "nome": "Poupador",
             "condicao": 15,
-            "img": ""
+            "img": "https://firebasestorage.googleapis.com/v0/b/cashquest-a60d0.appspot.com/o/conquistas%2FGroup%202124.png?alt=media&token=10ac329e-c75f-419e-ac2e-58184a3b932f"
         },
         {
             "id": 3,
             "nome": "Poupador Nato",
             "condicao": 30,
-            "img": ""
+            "img": "https://firebasestorage.googleapis.com/v0/b/cashquest-a60d0.appspot.com/o/conquistas%2FGroup%202123.png?alt=media&token=e1675564-6a24-47ff-9a63-e341c407d060"
         }
     ]
 }
