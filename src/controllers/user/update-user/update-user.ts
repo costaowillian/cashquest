@@ -22,7 +22,8 @@ export class UpdateUserController implements Icontroller {
 
       const AllowedToUpdate: (keyof UpdateUserParams)[] = [
         "firstName",
-        "lastName"
+        "lastName",
+        "email"
       ];
 
       const someFieldIsNotAllowedToUpdate = Object.keys(body).some(
